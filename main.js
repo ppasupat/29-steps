@@ -17,21 +17,39 @@ $(function () {
   }
 
   // ################################
-  // Main game UI
+  // Map
 
   const MAP_ROW_HEIGHT = 320, MAP_COL_WIDTH = 200,
     MAP_TOP_MARGIN = 10, MAP_LEFT_MARGIN = 0;
 
-  function moveMap(row, col) {
+  let currentPid = null;
+
+  function moveMap(pid) {
+    currentPid = pid;
     $('#map').css({
-      top: -(MAP_TOP_MARGIN + MAP_ROW_HEIGHT * row) + 'px',
-      left: -(MAP_LEFT_MARGIN + MAP_COL_WIDTH * col) + 'px',
+      top: -(MAP_TOP_MARGIN + MAP_ROW_HEIGHT * MAP_DATA[currentPid].row) + 'px',
+      left: -(MAP_LEFT_MARGIN + MAP_COL_WIDTH * MAP_DATA[currentPid].col) + 'px',
     });
+    $('.arrow').hide();
   }
+
+  function showArrows() {
+    Object.keys(MAP_DATA[currentPid].arrows).forEach(
+      d => $('#arrow-' + d).show());
+  }
+
+  $('#map').on('transitionend', showArrows);
+
+  $('.arrow').click(
+    e => moveMap(MAP_DATA[currentPid].arrows[e.target.dataset.dir]));
+
+  // ################################
+  // Main UI
 
   function setupMain() {
     showScene('main');
-    moveMap(5, 0);
+    moveMap('a1');
+    showArrows();
   }
 
   // ################################

@@ -68,6 +68,12 @@ div.scene {
   text-align: center;
 }
 
+#pane-loading button {
+  font-size: 30px;
+  padding: 10px;
+  cursor: pointer;
+}
+
 /* ################################ */
 /* main scene */
 

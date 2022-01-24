@@ -16,13 +16,21 @@ $(function () {
     if (callback !== void 0) callback();
   }
 
+  function showEvent() {
+    $('#event').show();
+  }
+
+  function hideEvent() {
+    $('#event').hide();
+  }
+
   // ################################
   // Map
 
   const MAP_ROW_HEIGHT = 320, MAP_COL_WIDTH = 200,
     MAP_TOP_MARGIN = 10, MAP_LEFT_MARGIN = 0;
 
-  let currentPid = null;
+  let currentPid = null, flags = {};
 
   function moveMap(pid) {
     currentPid = pid;
@@ -36,6 +44,11 @@ $(function () {
   function showArrows() {
     Object.keys(MAP_DATA[currentPid].arrows).forEach(
       d => $('#arrow-' + d).show());
+    Object.keys(MAP_DATA[currentPid].hideArrows || {}).forEach(k => {
+      if (!flags[k]) {
+        $('#arrow-' + MAP_DATA[currentPid].hideArrows[k]).hide();
+      }
+    });
   }
 
   $('#map').on('transitionend', showArrows);
@@ -48,8 +61,8 @@ $(function () {
 
   function setupMain() {
     showScene('main');
-    moveMap('a1');
-    showArrows();
+    moveMap('f');
+    window.setTimeout(() => moveMap('a1'), 1);
   }
 
   // ################################
@@ -80,7 +93,9 @@ $(function () {
   function decrementPreload () {
     numResourcesLeft--;
     if (numResourcesLeft === 0) {
-      setupMain();
+      console.log('yay');
+      $('#pane-loading').empty()
+        .append($('<button type=button>').text('START').click(setupMain));
     } else {
       $('#pane-loading').text('Loading resources (' + numResourcesLeft + ' left)');
     }

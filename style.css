@@ -35,7 +35,7 @@ body {
   position: relative;
   background-color: black;
   width: 700px;
-  height: 500px;
+  height: 400px;
   overflow: hidden;
   transform-origin: top left;
 }
@@ -47,7 +47,7 @@ div.scene {
   display: none;
   position: absolute;
   width: 700px;
-  height: 500px;
+  height: 400px;
   left: 0; top: 0;
 }
 
@@ -73,4 +73,22 @@ div.scene {
 
 #scene-main {
   background: white;
+}
+
+#map-pane {
+  position: absolute;
+  left: 0; top: 0; width: 500px; height: 400px;
+  background: gray;
+}
+
+#map {
+  position: absolute;
+  width: 2500px; height: 2020px;
+  background: url('img/map-draft.png');
+}
+
+#hud-pane {
+  position: absolute;
+  left: 500px; top: 0; width: 200px; height: 400px;
+  background: #cca;
 }

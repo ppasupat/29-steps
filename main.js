@@ -4,8 +4,13 @@ $(function () {
   const SCREEN_WIDTH = 700, SCREEN_HEIGHT = 400;
   const FRAME_RATE = 8;
 
-  // ################################
-  // Utilities
+  const MAP_ROW_HEIGHT = 320, MAP_COL_WIDTH = 200,
+    MAP_TOP_MARGIN = 30, MAP_LEFT_MARGIN = 30,
+    MAP_PANE_HEIGHT = 400, MAP_PANE_WIDTH = 500;
+
+  const UTILS = {};
+
+  let currentPid = null, currentNid = null, flags = {};
 
   // ################################
   // Scenes
@@ -16,27 +21,23 @@ $(function () {
     if (callback !== void 0) callback();
   }
 
-  function showEvent() {
-    $('#event').show();
-  }
-
-  function hideEvent() {
-    $('#event').hide();
-  }
-
   // ################################
   // Map
 
-  const MAP_ROW_HEIGHT = 320, MAP_COL_WIDTH = 200,
-    MAP_TOP_MARGIN = 10, MAP_LEFT_MARGIN = 0;
-
-  let currentPid = null, flags = {};
+  // Return the top-left position for the map location.
+  function getMapCoords(pid) {
+    return {
+      top: MAP_TOP_MARGIN + MAP_ROW_HEIGHT * MAP_DATA[pid].row,
+      left: MAP_LEFT_MARGIN + MAP_COL_WIDTH * MAP_DATA[pid].col,
+    };
+  }
 
   function moveMap(pid) {
     currentPid = pid;
+    let coords = getMapCoords(pid);
     $('#map').css({
-      top: -(MAP_TOP_MARGIN + MAP_ROW_HEIGHT * MAP_DATA[currentPid].row) + 'px',
-      left: -(MAP_LEFT_MARGIN + MAP_COL_WIDTH * MAP_DATA[currentPid].col) + 'px',
+      top: -(coords.top) + 'px',
+      left: -(coords.left) + 'px',
     });
     $('.arrow').hide();
   }
@@ -57,12 +58,59 @@ $(function () {
     e => moveMap(MAP_DATA[currentPid].arrows[e.target.dataset.dir]));
 
   // ################################
+  // NPC Encounter
+
+  function setupNPCs() {
+    Object.values(NPC_DATA).forEach(npc => {
+      let corrds = getMapCoords(npc.loc);
+      $('<div class=map-npc>').attr({
+        'data-nid': npc.nid,
+      }).css({
+        top: (corrds.top + MAP_PANE_HEIGHT / 2) + 'px',
+        left: (corrds.left + MAP_PANE_WIDTH / 2) + 'px',
+      }).text(npc.name).appendTo('#map');
+    });
+  }
+
+  $('#map').on('click', '.map-npc', function (e) {
+    showEncounter(this.dataset.nid);
+  });
+
+  function displayEncounterContent(content) {
+    $('#npc-pic').removeClass();
+    if (content.picture) $('#npc-pic').addClass(content.picture);
+    $('#btn-action').toggleClass('enabled', content.enableAction);
+    $('#btn-item').toggleClass('enabled', content.enableItem);
+    $('#npc-dialog').html(content.dialog);
+  }
+
+  function setBtnItemText(iid) {
+    $('#btn-item').html(NPC_DATA[currentNid].itemText(iid));
+  }
+
+  function showEncounter(nid) {
+    if (NPC_DATA[nid].loc !== currentPid) return;
+    currentNid = nid;
+    $('#npc-name').html(NPC_DATA[nid].name);
+    $('#btn-action').html(NPC_DATA[nid].actionText);
+    setBtnItemText();
+    displayEncounterContent(NPC_DATA[nid].content('enter', flags, UTILS));
+    $('#encounter').removeClass('hidden');
+  }
+
+  function hideEncounter() {
+    currentNid = null;
+    $('#encounter').addClass('hidden');
+  }
+  $('#btn-leave-wrapper').click(hideEncounter);
+
+  // ################################
   // Main UI
 
   function setupMain() {
+    setupNPCs();
     showScene('main');
-    moveMap('f');
-    window.setTimeout(() => moveMap('a1'), 1);
+    setTimeout(() => moveMap('a1'), 1);
   }
 
   // ################################
@@ -93,7 +141,6 @@ $(function () {
   function decrementPreload () {
     numResourcesLeft--;
     if (numResourcesLeft === 0) {
-      console.log('yay');
       $('#pane-loading').empty()
         .append($('<button type=button>').text('START').click(setupMain));
     } else {

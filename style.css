@@ -17,6 +17,13 @@
   justify-content: center;
 }
 
+.bottomize {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 html {
   height: 100%;
   touch-action: manipulation;
@@ -98,13 +105,13 @@ div.scene {
 
 #map {
   position: absolute;
-  width: 2500px; height: 2020px;
+  width: 2560px; height: 2060px; left: 0; top: -1660px;
   background: url('img/map-draft.png');
   transition: left 400ms, top 400ms;
 }
 
 .arrow {
-  position: absolute;
+  position: absolute; display: none;
   width: 80px; height: 70px;
   background: url('img/arrow.png');
   cursor: pointer;
@@ -138,12 +145,74 @@ div.scene {
   transform: rotate(58deg);
 }
 
-/* ################################ */
-/* event */
+.map-npc {
+  position: absolute;
+  background: cyan; /* temp! */
+}
 
-#event {
+/* ################################ */
+/* encounter */
+
+#encounter {
   position: absolute;
   left: 0; top: 0; width: 500px; height: 400px;
   background: #555555bb;
-  display: none;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 400ms, opacity 400ms;
+}
+#encounter.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+#npc-pic-wrapper {
+  position: absolute;
+  left: 0; top: 0; width: 250px; height: 320px;
+  background: cyan;
+}
+
+#npc-name-wrapper {
+  position: absolute;
+  left: 0; bottom: 0; width: 250px; height: 80px;
+  background: yellow;
+}
+
+#npc-dialog-wrapper {
+  position: absolute;
+  right: 0; top: 0; width: 250px; height: 240px;
+  background: #eee;
+}
+
+#npc-dialog {
+  margin: 25px;
+  text-align: center;
+}
+#npc-dialog b {
+  font-weight: bold;
+  color: #b22;
+}
+
+#btn-action-wrapper {
+  position: absolute;
+  right: 0; bottom: 80px; width: 250px; height: 80px;
+  background: #ccf;
+}
+
+#btn-item-wrapper {
+  position: absolute;
+  right: 0; bottom: 0; width: 250px; height: 80px;
+  background: #cfc;
+}
+
+#btn-action, #btn-item {
+  color: #888;
+  text-align: center;
+}
+#btn-action.enabled, #btn-item.enabled { color: black; }
+
+#btn-leave-wrapper {
+  position: absolute;
+  left: 0; top: 0; width: 80px; height: 80px;
+  background: #fcc;
 }

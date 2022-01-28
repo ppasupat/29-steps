@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="style.css">
   <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
-  <script type="text/javascript" src="map.js"></script>
+  <script type="text/javascript" src="data.js"></script>
   <script type="text/javascript" src="main.js"></script>
 </head>
 </head>
@@ -24,7 +24,13 @@
           <div id=arrow-e class=arrow data-dir=e></div>
           <div id=arrow-sw class=arrow data-dir=sw></div>
           <div id=arrow-se class=arrow data-dir=se></div>
-          <div id=event>
+          <div id=encounter class=hidden>
+            <div id=npc-pic-wrapper class=bottomize><div id=npc-pic></div></div>
+            <div id=npc-name-wrapper class=centerize><div id=npc-name></div></div>
+            <div id=npc-dialog-wrapper class=centerize><div id=npc-dialog></div></div>
+            <div id=btn-action-wrapper class=centerize><div id=btn-action></div></div>
+            <div id=btn-item-wrapper class=centerize><div id=btn-item></div></div>
+            <div id=btn-leave-wrapper class=centerize><div id=btn-leave>X</div></div>
           </div>
         </div>
         <div id=hud-pane>

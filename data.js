@@ -1,12 +1,41 @@
 const [MAP_DATA, NPC_DATA] = function () {
   'use strict';
 
-  const map_data = {}, npc_data = {};
+  // ################################
+  // Macros
 
-  // a1: starting point
+  const GIVE = (x => 'ให้ <b>' + (item_names[x] || '???') + '</b>');
+  const USE = (x => 'ใช้ <b>' + (item_names[x] || '???') + '</b>');
+
+  function R(picture, enableAction, enableItem, dialog) {
+    return {
+      picture: picture,
+      enableAction, enableAction,
+      enableItem, enableItem,
+      dialog: dialog,
+    };
+  }
+
+  // ################################
+  // Data
+
+  const map_data = {}, npc_data = {}, item_names = {};
+
+  // a1: fairy [--> money]
   map_data.a1 = {
     pid: 'a1', row: 5, col: 0,
     arrows: {'ne': 'a4', 'e': 'a2'},
+    hideArrows: {'tutorialDone1': 'e', 'tutorialDone2': 'ne'},
+  };
+
+  npc_data.fairy = {
+    nid: 'fairy', loc: 'a1',
+    name: 'นางฟ้า',
+    actionText: 'ขอตังหน่อย',
+    itemText: GIVE,
+    content: function(op, flags, utils) {
+      return R(null, true, false, 'สวัสดีจ้ะ เธอคือผู้กล้าที่จะช่วยพวกเราจาก<b>จอมมาร</b>สินะ');
+    },
   };
 
   // a2
@@ -34,7 +63,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'se': 'a4'},
   };
 
-  // a6: money tree [--> money]
+  // a6:
   map_data.a6 = {
     pid: 'a6', row: 4, col: 3,
     arrows: {'w': 'a4', 'ne': 'a7'},
@@ -65,7 +94,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'sw': 'b1', 'ne': 'b3'},
   };
 
-  // b3: midboss [+ medical package --> access to c1]
+  // b3: midboss [+ queue slip --> access to c1]
   map_data.b3 = {
     pid: 'b3', row: 1, col: 4,
     arrows: {'nw': 'b4', 'sw': 'b2', 'e': 'c1', 'se': 's'},
@@ -87,7 +116,7 @@ const [MAP_DATA, NPC_DATA] = function () {
   // b6: sword in stone [+ oil flask --> sword]
   map_data.b6 = {
     pid: 'b6', row: 1, col: 0,
-    arrows: {'ne': 'b5', 'se': 'b8'},
+    arrows: {'ne': 'b5'},
   };
 
   // b7:
@@ -96,10 +125,10 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'sw': 'b8', 'ne': 'b4'},
   };
 
-  // b8: clinic [+ money --> medical package][(enter from b6) --> money]
+  // b8: nurse [+ money --> queue slip][(nurse gone) --> money]
   map_data.b8 = {
     pid: 'b8', row: 2, col: 1,
-    arrows: {'nw': 'b6', 'ne': 'b7'},
+    arrows: {'ne': 'b7'},
   };
 
   // c1:
@@ -144,7 +173,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'w': 's', 'ne': 'c3', 'sw': 'c8'},
   };
 
-  // c8: boss [+ super sword --> access to f]
+  // c8: boss [+ power sword --> access to f]
   map_data.c8 = {
     pid: 'c8', row: 4, col: 7,
     arrows: {'ne': 'c7', 'sw': 'f'},
@@ -169,13 +198,13 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'ne': 'd2', 'e': 'd4'},
   };
 
-  // d4:
+  // d4: blacksmith [+ sword + gem --> power sword]
   map_data.d4 = {
     pid: 'd4', row: 5, col: 10,
     arrows: {'w': 'd3'},
   };
 
-  // f: final screen (congrats)
+  // f: cake
   map_data.f = {
     pid: 'f', row: 5, col: 6,
     arrows: {'ne': 'c8'},

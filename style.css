@@ -187,10 +187,19 @@ div.scene {
 #npc-dialog {
   margin: 25px;
   text-align: center;
+  line-height: 1.4;
+}
+#npc-dialog p {
+  margin: .8em 0;
 }
 #npc-dialog b {
   font-weight: bold;
   color: #b22;
+}
+#npc-dialog i {
+  font-style: italic;
+  color: #666;
+  font-size: 80%;
 }
 
 #btn-action-wrapper {

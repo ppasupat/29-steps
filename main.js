@@ -42,7 +42,7 @@ $(function () {
     $('.arrow').hide();
   }
 
-  function showArrows() {
+  UTILS.showArrows = function () {
     Object.keys(MAP_DATA[currentPid].arrows).forEach(
       d => $('#arrow-' + d).show());
     Object.keys(MAP_DATA[currentPid].hideArrows || {}).forEach(k => {
@@ -52,7 +52,7 @@ $(function () {
     });
   }
 
-  $('#map').on('transitionend', showArrows);
+  $('#map').on('transitionend', UTILS.showArrows);
 
   $('.arrow').click(
     e => moveMap(MAP_DATA[currentPid].arrows[e.target.dataset.dir]));
@@ -72,16 +72,25 @@ $(function () {
     });
   }
 
+  UTILS.hideNpc = function (nid) {
+    $('.map-npc[data-nid=' + nid + ']').hide();
+  };
+
   $('#map').on('click', '.map-npc', function (e) {
     showEncounter(this.dataset.nid);
   });
 
   function displayEncounterContent(content) {
+    if (!content) {
+      $('#npc-dialog').text('ERROR: flags=' + JSON.stringify(flags));
+      return;
+    }
     $('#npc-pic').removeClass();
     if (content.picture) $('#npc-pic').addClass(content.picture);
     $('#btn-action').toggleClass('enabled', content.enableAction);
     $('#btn-item').toggleClass('enabled', content.enableItem);
-    $('#npc-dialog').html(content.dialog);
+    $('#npc-dialog').empty();
+    content.dialog.forEach(x => $('<p>').html(x).appendTo('#npc-dialog'));
   }
 
   function setBtnItemText(iid) {
@@ -98,11 +107,37 @@ $(function () {
     $('#encounter').removeClass('hidden');
   }
 
+  $('#btn-action-wrapper').click(function () {
+    if (! $('#btn-action').hasClass('enabled')) return;
+    displayEncounterContent(NPC_DATA[currentNid].content('action', flags, UTILS));
+  });
+  $('#btn-item-wrapper').click(function () {
+    if (! $('#btn-item').hasClass('enabled')) return;
+    let iid = getCurrentIid();
+    if (!iid) return;
+    displayEncounterContent(NPC_DATA[currentNid].content(iid, flags, UTILS));
+  });
+
   function hideEncounter() {
     currentNid = null;
     $('#encounter').addClass('hidden');
   }
   $('#btn-leave-wrapper').click(hideEncounter);
+
+  // ################################
+  // Inventory
+
+  UTILS.getItem = function (iid) {
+
+  };
+
+  UTILS.dropItem = function (iid) {
+
+  };
+
+  function getCurrentIid() {
+    return 'money';
+  }
 
   // ################################
   // Main UI

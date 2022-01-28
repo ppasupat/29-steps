@@ -7,11 +7,15 @@ const [MAP_DATA, NPC_DATA] = function () {
   const GIVE = (x => 'ให้ <b>' + (item_names[x] || '???') + '</b>');
   const USE = (x => 'ใช้ <b>' + (item_names[x] || '???') + '</b>');
 
+  function escapeHtml(x) {
+    return x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
   function R(picture, enableAction, enableItem, dialog) {
     return {
       picture: picture,
-      enableAction, enableAction,
-      enableItem, enableItem,
+      enableAction: enableAction,
+      enableItem: enableItem,
       dialog: dialog,
     };
   }
@@ -34,7 +38,32 @@ const [MAP_DATA, NPC_DATA] = function () {
     actionText: 'ขอตังหน่อย',
     itemText: GIVE,
     content: function(op, flags, utils) {
-      return R(null, true, false, 'สวัสดีจ้ะ เธอคือผู้กล้าที่จะช่วยพวกเราจาก<b>จอมมาร</b>สินะ');
+      if (op === 'enter') {
+        if (!flags.gotMoneyFromFairy) 
+          return R(null, true, false, [
+            'สวัสดีจ้ะ เธอคือผู้กล้าที่จะช่วยพวกเราจาก<b>จอมมาร</b>สินะ',
+            'มีอะไรให้ฉันช่วยไหม?']);
+        else
+          return R(null, false, true, [
+            'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ',
+            '<i>(เลือก<b>เงิน</b>ที่ได้มา แล้วกด "ให้เงิน")</i>']);
+      }
+      if (op === 'action') {
+        flags.gotMoneyFromFairy = true;
+        utils.getItem('money');
+        return R(null, false, true, [
+          'งกจริง!<br>เอาไป <b>30 บาท</b>',
+          'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ',
+          '<i>(เลือก<b>เงิน</b>ที่ได้มา แล้วกด "ให้เงิน")</i>']);
+      }
+      if (op === 'money') {
+        flags.tutorialDone1 = flags.tutorialDone2 = true;
+        utils.showArrows();
+        utils.hideNpc('fairy');
+        return R(null, false, false, [
+          '555+ ล้อเล่นๆ ไม่ต้องคืนเงินฉันหรอก',
+          '<b>ขอให้โชคดี!</b>']);
+      }
     },
   };
 

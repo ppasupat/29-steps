@@ -310,18 +310,8 @@ const [MAP_DATA, NPC_DATA] = function () {
         case 'action':
           return R('angry', true, true, [
             'ลุงมีรูที่แขน',
-            'ชาวป่าแล้งน้ำใจ ไม่ยอมฟิลม์ให้ลุง!',
+            'ชาวป่าแล้งน้ำใจ ไม่ยอมฟิล์มให้ลุง!',
             'ลุงก็จะแล้งน้ำใจ <b>ไม่ยอมให้ทางใคร!</b>']);
-        case 'queue':
-          utils.removeItem('queue');
-          flags.midbossDefeated = true;
-          utils.refreshNpcOnMap('midboss');
-          utils.refreshNpcOnMap('nurse');
-          utils.showArrows();
-          return R('happy', false, false, [
-            'รักษาทุกโรคงั้นรึ?',
-            'งั้นลุงขอ<b>จิ๊ก</b>ไปใช้ละกัน',
-            '<b>555!</b>']);
         default:
           return R(null, true, true, [
             '...',
@@ -354,50 +344,10 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'sw': 'b8', 'ne': 'b4'},
   };
 
-  // b8: nurse [+ money --> queue slip][(nurse gone) --> money]
+  // b8: radiologist [+ money --> queue slip][(radiologist gone) --> money]
   map_data.b8 = {
     pid: 'b8', row: 2, col: 1,
     arrows: {'ne': 'b7'},
-  };
-
-  npc_data.midboss = {
-    nid: 'nurse', loc: 'b8',
-    name: 'พยาบาล',
-    actionText: '"ยืม" ตัง',
-    itemText: GIVE,
-    mapStates: {'midbossDefeated': 'away', 'moneyStolen': 'stolen'},
-    content: function (op, flags, utils) {
-      switch (op) {
-        case 'enter':
-          if (!flags.midbossDefeated) {
-            return R(null, false, true, [
-              'สวัสดีครับ',
-              '']);
-          }
-          return R(null, true, true, [
-            '...',
-            '<i>(ลุงยักษ์ใหญ่ขวางทางอยู่)</i>']);
-        case 'action':
-          return R('angry', true, true, [
-            'ลุงมีรูที่แขน',
-            'ชาวป่าแล้งน้ำใจ ไม่ยอมฟิลม์ให้ลุง!',
-            'ลุงก็จะแล้งน้ำใจ <b>ไม่ยอมให้ทางใคร!</b>']);
-        case 'queue':
-          utils.removeItem('queue');
-          flags.midbossDefeated = true;
-          utils.refreshNpcOnMap('midboss');
-          utils.refreshNpcOnMap('nurse');
-          utils.showArrows();
-          return R('happy', false, false, [
-            'รักษาทุกโรคงั้นรึ?',
-            'งั้นลุงขอ<b>จิ๊ก</b>ไปใช้ละกัน',
-            '<b>555!</b>']);
-        default:
-          return R(null, true, true, [
-            '...',
-            '<i>(ลุงยักษ์ไม่สนใจ)</i>']);
-      }
-    },
   };
 
   // ################################################

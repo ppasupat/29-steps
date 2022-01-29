@@ -13,15 +13,6 @@ $(function () {
   let currentPid = null, currentNid = null, flags = {};
 
   // ################################
-  // Scenes
-
-  function showScene(name, callback) {
-    $('.scene').hide();
-    $('#scene-' + name).show();
-    if (callback !== void 0) callback();
-  }
-
-  // ################################
   // Map
 
   // Return the top-left position for the map location.
@@ -33,6 +24,10 @@ $(function () {
   }
 
   function moveMap(pid) {
+    if (currentPid === pid) {
+      UTILS.showArrows();
+      return;
+    }
     currentPid = pid;
     let coords = getMapCoords(pid);
     $('#map').css({
@@ -130,6 +125,7 @@ $(function () {
     currentNid = null;
     UTILS.deselectItems();
     $('#encounter').addClass('hidden');
+    saveGame();
   }
   $('#btn-leave-wrapper').click(hideEncounter);
 
@@ -179,14 +175,43 @@ $(function () {
     return selected.length ? selected[0].dataset.iid : null;
   }
 
+  function getAllItems() {
+    return $('.item').get().map(x => x.dataset.iid);
+  }
+
   // ################################
   // Main UI
 
   function setupMain() {
     setupNPCs();
-    showScene('main');
+    $('.scene').hide();
+    $('#scene-main').show();
     setTimeout(() => moveMap('a1'), 1);
   }
+
+  function saveGame() {
+    let data = {flags: flags, items: getAllItems(), pid: currentPid};
+    console.log(data);
+  }
+
+  function loadGame(data) {
+    flags = data.flags;
+    Object.keys(NPC_DATA).forEach(UTILS.refreshNpcOnMap);
+    data.items.forEach(UTILS.addItem);
+    moveMap(data.pid);
+  }
+
+  $('#skipA').click(() => loadGame({
+    flags: {
+      "gotMoneyFromFairy": true,
+      "tutorialDone2": true,
+      "tutorialDone1": true,
+      "lake1Fished": true,
+      "doorOpen": true
+    },
+    items: ['rod', '', '', '', 'oil', ''],
+    pid: 'a4',
+  }));
 
   // ################################
   // Preloading and screen resizing
@@ -231,6 +256,7 @@ $(function () {
     images.push(ximg);
   });
   $('#pane-loading').text('Loading resources (' + numResourcesLeft + ' left)');
-  showScene('preload');
+  $('.scene').hide();
+  $('#scene-preload').show();
 
 });

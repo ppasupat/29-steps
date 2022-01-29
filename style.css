@@ -1,14 +1,54 @@
 /* ################################ */
 /* reset */
 
-* {
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
+	font-size: 100%;
   box-sizing: border-box;
   font-family: 'Mali', sans-serif;
+	vertical-align: baseline;
   user-select: none;
 }
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* ################################ */
+/* common */
 
 .centerize {
   display: flex;
@@ -23,6 +63,9 @@
   align-items: center;
   justify-content: flex-end;
 }
+
+/* ################################ */
+/* page */
 
 html {
   height: 100%;
@@ -46,9 +89,6 @@ body {
   overflow: hidden;
   transform-origin: top left;
 }
-
-/* ################################ */
-/* scenes */
 
 div.scene {
   display: none;
@@ -224,4 +264,80 @@ div.scene {
   position: absolute;
   left: 0; top: 0; width: 80px; height: 80px;
   background: #fcc;
+}
+
+/* ################################ */
+/* minimap */
+
+#minimap {
+  position: absolute;
+  left: 10px; top: 10px; width: 180px; height: 125px;
+  background: green;
+}
+
+/* ################################ */
+/* inventory */
+
+#inventory {
+  position: absolute;
+  left: 10px; top: 145px; width: 180px; height: 245px;
+}
+
+.item {
+  position: absolute;
+  width: 85px; height: 75px;
+  border: 2px solid #666;
+  border-radius: 5px;
+  background-color: #ccc;
+}
+
+.item:nth-child(1) { left: 0; top: 0; }
+.item:nth-child(2) { left: 95px; top: 0; }
+.item:nth-child(3) { left: 0; top: 85px; }
+.item:nth-child(4) { left: 95px; top: 85px; }
+.item:nth-child(5) { left: 0; top: 170px; }
+.item:nth-child(6) { left: 95px; top: 170px; }
+
+.item.selected {
+  background-color: #ffc;
+}
+.item[data-iid=""] {
+  background-color: #aaa;
+}
+
+.item[data-iid="oil"]::before {
+  content: 'oil';
+}
+.item[data-iid="ice"]::before {
+  content: 'ice';
+}
+.item[data-iid="money"]::before {
+  content: 'money';
+}
+.item[data-iid="rod"]::before {
+  content: 'rod';
+}
+.item[data-iid="fish"]::before {
+  content: 'fish';
+}
+.item[data-iid="key"]::before {
+  content: 'key';
+}
+.item[data-iid="queue"]::before {
+  content: 'queue';
+}
+.item[data-iid="oilflask"]::before {
+  content: 'oilflask';
+}
+.item[data-iid="iceflask"]::before {
+  content: 'iceflask';
+}
+.item[data-iid="sword"]::before {
+  content: 'sword';
+}
+.item[data-iid="gem"]::before {
+  content: 'gem';
+}
+.item[data-iid="powersword"]::before {
+  content: 'powersword';
 }

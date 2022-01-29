@@ -82,7 +82,8 @@ $(function () {
 
   function displayEncounterContent(content) {
     if (!content) {
-      $('#npc-dialog').text('ERROR: flags=' + JSON.stringify(flags));
+      $('#npc-dialog').text('ERROR!');
+      console.log(currentPid, currentNid, flags);
       return;
     }
     $('#npc-pic').removeClass();
@@ -94,6 +95,7 @@ $(function () {
   }
 
   function setBtnItemText(iid) {
+    if (currentNid === null) return;
     $('#btn-item').html(NPC_DATA[currentNid].itemText(iid));
   }
 
@@ -111,15 +113,17 @@ $(function () {
     if (! $('#btn-action').hasClass('enabled')) return;
     displayEncounterContent(NPC_DATA[currentNid].content('action', flags, UTILS));
   });
+
   $('#btn-item-wrapper').click(function () {
     if (! $('#btn-item').hasClass('enabled')) return;
-    let iid = getCurrentIid();
+    let iid = getSelectedItem();
     if (!iid) return;
     displayEncounterContent(NPC_DATA[currentNid].content(iid, flags, UTILS));
   });
 
   function hideEncounter() {
     currentNid = null;
+    UTILS.deselectItems();
     $('#encounter').addClass('hidden');
   }
   $('#btn-leave-wrapper').click(hideEncounter);
@@ -127,16 +131,45 @@ $(function () {
   // ################################
   // Inventory
 
-  UTILS.getItem = function (iid) {
-
+  UTILS.addItem = function (iid, index) {
+    if (index === undefined) {
+      $('.item').each((i, e) => {
+        if (!e.dataset.iid) {
+          index = i;
+          return false;
+        }
+      });
+    }
+    $('.item')[index].dataset.iid = iid;
+    UTILS.deselectItems();
   };
 
-  UTILS.dropItem = function (iid) {
-
+  UTILS.removeItem = function (iid) {
+    $('.item[data-iid="' + iid + '"]')[0].dataset.iid = '';
+    UTILS.deselectItems();
   };
 
-  function getCurrentIid() {
-    return 'money';
+  UTILS.deselectItems = function () {
+    $('.item').removeClass('selected');
+    setBtnItemText('');
+  }
+
+  $('.item').click(function () {
+    // Only allow item select in NPC page
+    if (currentNid === null || ! $('#btn-item').hasClass('enabled')) return;
+    let iid = this.dataset.iid;
+    if (!iid || (NPC_DATA[currentNid].forbiddenIids || []).indexOf(iid) !== -1) {
+      UTILS.deselectItems();
+    } else {
+      $('.item').removeClass('selected');
+      $(this).addClass('selected');
+      setBtnItemText(iid);
+    }
+  });
+
+  function getSelectedItem() {
+    let selected = $('.item.selected');
+    return selected.length ? selected[0].dataset.iid : null;
   }
 
   // ################################

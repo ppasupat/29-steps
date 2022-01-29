@@ -1,9 +1,25 @@
 const [MAP_DATA, NPC_DATA] = function () {
   'use strict';
 
+  const map_data = {}, npc_data = {};
+
   // ################################
   // Macros
 
+  const item_names = {
+    oil: 'OIL',
+    ice: 'ICE',
+    money: 'เงิน',
+    rod: 'เบ็ด',
+    fish: 'ปลา',
+    key: 'กุญแจ',
+    queue: 'บัตรคิว',
+    oilflask: 'ขวดน้ำมัน',
+    iceflask: 'ขวดน้ำแข็ง',
+    sword: 'ดาบโง่ๆ',
+    gem: 'อัญมณี',
+    powersword: 'ดาบปราบมาร',
+  };
   const GIVE = (x => 'ให้ <b>' + (item_names[x] || '???') + '</b>');
   const USE = (x => 'ใช้ <b>' + (item_names[x] || '???') + '</b>');
 
@@ -23,8 +39,6 @@ const [MAP_DATA, NPC_DATA] = function () {
   // ################################
   // Data
 
-  const map_data = {}, npc_data = {}, item_names = {};
-
   // a1: fairy [--> money]
   map_data.a1 = {
     pid: 'a1', row: 5, col: 0,
@@ -41,30 +55,30 @@ const [MAP_DATA, NPC_DATA] = function () {
       if (op === 'enter') {
         if (!flags.gotMoneyFromFairy) 
           return R(null, true, false, [
-            'สวัสดีจ้ะ เธอคือผู้กล้าที่จะช่วยพวกเราจาก<b>จอมมาร</b>สินะ',
+            'สวัสดีจ้ะ เธอคือผู้กล้าที่จะมาช่วยพวกเราจาก<b>จอมมาร</b>สินะ',
             'มีอะไรให้ฉันช่วยไหม?']);
         else
           return R(null, false, true, [
-            'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ',
-            '<i>(เลือก<b>เงิน</b>ที่ได้มา แล้วกด "ให้เงิน")</i>']);
+            'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>ที่ได้มา แล้วกด "ให้เงิน")</i>']);
       }
       if (op === 'action') {
         flags.gotMoneyFromFairy = true;
-        utils.getItem('money');
+        utils.addItem('money');
         return R(null, false, true, [
           'งกจริง!<br>เอาไป <b>30 บาท</b>',
-          'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ',
-          '<i>(เลือก<b>เงิน</b>ที่ได้มา แล้วกด "ให้เงิน")</i>']);
+          'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>ที่ได้มา แล้วกด "ให้เงิน")</i>']);
       }
       if (op === 'money') {
         flags.tutorialDone1 = flags.tutorialDone2 = true;
+        utils.deselectItems();
         utils.showArrows();
         utils.hideNpc('fairy');
         return R(null, false, false, [
           '555+ ล้อเล่นๆ ไม่ต้องคืนเงินฉันหรอก',
-          '<b>ขอให้โชคดี!</b>']);
+          'ฉันเปิดทางให้แล้ว<br><b>ขอให้โชคดี!</b>']);
       }
     },
+    forbiddenIids: ['oil'],
   };
 
   // a2

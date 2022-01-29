@@ -290,6 +290,44 @@ const [MAP_DATA, NPC_DATA] = function () {
     pid: 'b3', row: 1, col: 4,
     arrows: {'nw': 'b4', 'sw': 'b2', 'e': 'c1', 'se': 's'},
     hideArrows: {'midbossDefeated': 'e'},
+    onMove: function (destPid, flags, utils) {
+      if (destPid === 's') flags.shopBOpen = true;
+    },
+  };
+
+  npc_data.midboss = {
+    nid: 'midboss', loc: 'b3',
+    name: 'ลุงยักษ์',
+    actionText: 'ขอทางหน่อย',
+    itemText: GIVE,
+    mapStates: {'midbossDefeated': 'gone'},
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          return R(null, true, true, [
+            '...',
+            '<i>(ลุงยักษ์ใหญ่ขวางทางอยู่)</i>']);
+        case 'action':
+          return R('angry', true, true, [
+            'ลุงมีรูที่แขน',
+            'ชาวป่าแล้งน้ำใจ ไม่ยอมฟิลม์ให้ลุง!',
+            'ลุงก็จะแล้งน้ำใจ <b>ไม่ยอมให้ทางใคร!</b>']);
+        case 'queue':
+          utils.removeItem('queue');
+          flags.midbossDefeated = true;
+          utils.refreshNpcOnMap('midboss');
+          utils.refreshNpcOnMap('nurse');
+          utils.showArrows();
+          return R('happy', false, false, [
+            'รักษาทุกโรคงั้นรึ?',
+            'งั้นลุงขอ<b>จิ๊ก</b>ไปใช้ละกัน',
+            '<b>555!</b>']);
+        default:
+          return R(null, true, true, [
+            '...',
+            '<i>(ลุงยักษ์ไม่สนใจ)</i>']);
+      }
+    },
   };
 
   // b4
@@ -320,6 +358,46 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.b8 = {
     pid: 'b8', row: 2, col: 1,
     arrows: {'ne': 'b7'},
+  };
+
+  npc_data.midboss = {
+    nid: 'nurse', loc: 'b8',
+    name: 'พยาบาล',
+    actionText: '"ยืม" ตัง',
+    itemText: GIVE,
+    mapStates: {'midbossDefeated': 'away', 'moneyStolen': 'stolen'},
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          if (!flags.midbossDefeated) {
+            return R(null, false, true, [
+              'สวัสดีครับ',
+              '']);
+          }
+          return R(null, true, true, [
+            '...',
+            '<i>(ลุงยักษ์ใหญ่ขวางทางอยู่)</i>']);
+        case 'action':
+          return R('angry', true, true, [
+            'ลุงมีรูที่แขน',
+            'ชาวป่าแล้งน้ำใจ ไม่ยอมฟิลม์ให้ลุง!',
+            'ลุงก็จะแล้งน้ำใจ <b>ไม่ยอมให้ทางใคร!</b>']);
+        case 'queue':
+          utils.removeItem('queue');
+          flags.midbossDefeated = true;
+          utils.refreshNpcOnMap('midboss');
+          utils.refreshNpcOnMap('nurse');
+          utils.showArrows();
+          return R('happy', false, false, [
+            'รักษาทุกโรคงั้นรึ?',
+            'งั้นลุงขอ<b>จิ๊ก</b>ไปใช้ละกัน',
+            '<b>555!</b>']);
+        default:
+          return R(null, true, true, [
+            '...',
+            '<i>(ลุงยักษ์ไม่สนใจ)</i>']);
+      }
+    },
   };
 
   // ################################################

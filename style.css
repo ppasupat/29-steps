@@ -147,7 +147,7 @@ div.scene {
   position: absolute;
   width: 2560px; height: 2060px; left: 0; top: -1660px;
   background: url('img/map-draft.png');
-  transition: left 400ms, top 400ms;
+  transition: left 300ms, top 300ms;
 }
 
 .arrow {
@@ -190,7 +190,7 @@ div.scene {
   cursor: pointer;
   background: cyan; font-size: 150%; /* temp! */
 }
-.map-npc[data-nid="fairy"].gone {
+.map-npc.gone {
   display: none;
 }
 .map-npc[data-nid="door"].open,

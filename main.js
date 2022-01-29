@@ -69,11 +69,15 @@ $(function () {
         top: (corrds.top + MAP_PANE_HEIGHT / 2) + 'px',
         left: (corrds.left + MAP_PANE_WIDTH / 2) + 'px',
       }).text(npc.name).appendTo('#map');
+      UTILS.refreshNpcOnMap(npc.nid);
     });
   }
 
-  UTILS.getNpcOnMap = function (nid) {
-    return $('.map-npc[data-nid=' + nid + ']');
+  UTILS.refreshNpcOnMap = function (nid) {
+    let npcOnMap = $('.map-npc[data-nid=' + nid + ']');
+    Object.keys(NPC_DATA[nid].mapStates || {}).forEach(k => {
+      npcOnMap.toggleClass(NPC_DATA[nid].mapStates[k], !!flags[k]);
+    });
   };
 
   $('#map').on('click', '.map-npc', function (e) {

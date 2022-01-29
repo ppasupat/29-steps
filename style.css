@@ -190,6 +190,13 @@ div.scene {
   cursor: pointer;
   background: cyan; font-size: 150%; /* temp! */
 }
+.map-npc[data-nid="fairy"].gone {
+  display: none;
+}
+.map-npc[data-nid="door"].open,
+.map-npc[data-nid="lake1"].fished {
+  opacity: 0.5;
+}
 
 /* ################################ */
 /* encounter */

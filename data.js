@@ -9,8 +9,8 @@ const [MAP_DATA, NPC_DATA] = function () {
   const item_names = {
     oil: 'OIL',
     ice: 'ICE',
-    money: 'เงิน',
-    rod: 'เบ็ด',
+    money: 'เงิน 30 บาท',
+    rod: 'เบ็ดตกปลา',
     fish: 'ปลา',
     key: 'กุญแจ',
     queue: 'บัตรคิว',
@@ -51,7 +51,8 @@ const [MAP_DATA, NPC_DATA] = function () {
     name: 'นางฟ้า',
     actionText: 'ขอตังหน่อย',
     itemText: GIVE,
-    content: function(op, flags, utils) {
+    mapStates: {'tutorialDone1': 'gone'},
+    content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
           if (!flags.gotMoneyFromFairy) 
@@ -60,19 +61,19 @@ const [MAP_DATA, NPC_DATA] = function () {
               'มีอะไรให้ฉันช่วยไหม?']);
           else
             return R(null, false, true, [
-              'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>ที่ได้มา แล้วกด "ให้เงิน")</i>']);
+              'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>ที่ได้มา<br>แล้วกด "ให้")</i>']);
         case 'action':
           flags.gotMoneyFromFairy = true;
           utils.addItem('money');
           return R(null, false, true, [
             'งกจริง!<br>เอาไป <b>30 บาท</b>',
-            'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>ที่ได้มา แล้วกด "ให้เงิน")</i>']);
+            'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>ที่ได้มา<br>แล้วกด "ให้")</i>']);
         case 'money':
-          flags.tutorialDone1 = flags.tutorialDone2 = true;
           utils.deselectItems();
+          flags.tutorialDone1 = flags.tutorialDone2 = true;
+          utils.refreshNpcOnMap('fairy');
           utils.showArrows();
-          utils.getNpcOnMap('fairy').hide();
-          return R(null, false, false, [
+          return R('happy', false, false, [
             '555+ ล้อเล่นๆ ไม่ต้องคืนเงินฉันหรอก',
             'ฉันเปิดทางให้แล้ว<br><b>ขอให้โชคดี!</b>']);
       }
@@ -104,7 +105,8 @@ const [MAP_DATA, NPC_DATA] = function () {
     name: 'ประตู',
     actionText: 'งั้นเดินอ้อม',
     itemText: USE,
-    content: function(op, flags, utils) {
+    mapStates: {'doorOpen': 'open'},
+    content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
           if (!flags.doorOpen) {
@@ -118,23 +120,21 @@ const [MAP_DATA, NPC_DATA] = function () {
           return R(null, true, true, [
             'อย่าโกงสิลูก',
             'ที่ประตูมี<b>รูกุญแจ</b>อยู่']);
-        case 'fish':
-        case 'rod':
-        case 'money':
-        case 'oil':
+        case 'key':
+          utils.removeItem('key');
+          flags.doorOpen = true;
+          utils.refreshNpcOnMap('door');
+          utils.showArrows();
+          return R('open', false, false, [
+            'คุณใช้กุญแจเปิดประตู',
+            'คุณสามารถเดินผ่านได้แล้ว']);
+        default:
           let line1 = (
             op === 'money' ? 'คุณพยายามติดสินบนประตู' :
             op === 'oil' ? 'คุณพยายามพังประตู' :
             'คุณใส่' + item_names[op] + 'ในรูกุญแจ');
           return R(null, true, true, [
             line1, 'แต่ประตูก็ยังเปิดไม่ออก']);
-        case 'key':
-          flags.doorOpen = true;
-          utils.getNpcOnMap('door').addClass('open');
-          utils.showArrows();
-          return R('open', true, true, [
-            'คุณใช้กุญแจเปิดประตู',
-            'คุณสามารถเดินผ่านได้แล้ว']);
       }
     },
   };
@@ -143,6 +143,39 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.a5 = {
     pid: 'a5', row: 3, col: 0,
     arrows: {'se': 'a4'},
+  };
+
+  npc_data.lake1 = {
+    nid: 'lake1', loc: 'a5',
+    name: 'ทะเลสาบ',
+    actionText: '',
+    itemText: USE,
+    mapStates: {'lake1Fished': 'fished'},
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          if (!flags.lake1Fished) {
+            return R(null, false, true, [
+              'มี<b>ปลา</b>ว่ายอยู่ในทะเลสาบ']);
+          } else {
+            return R('fished', false, false, [
+              'ไม่มีอะไรอยู่ในทะเลสาบ']);
+          }
+        case 'rod':
+          utils.addItem('fish');
+          flags.lake1Fished = true;
+          utils.refreshNpcOnMap('lake1');
+          return R('fished', false, false, [
+            'คุณตกปลาขึ้นมาจากทะเลสาบ']);
+        case 'oil':
+          return R(null, false, true, [
+            'คุณพยายามจับปลาด้วยมือ',
+            'แต่ปลาลื่นเกินไป']);
+        default:
+          return R(null, false, true, [
+            'อย่าทิ้งของลงทะเลสาบสิ!']);
+      }
+    },
   };
 
   // a6:
@@ -157,11 +190,85 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'sw': 'a6'},
   };
 
+  npc_data.cat = {
+    nid: 'cat', loc: 'a7',
+    name: 'แมว',
+    actionText: 'ขอตังหน่อย',
+    itemText: GIVE,
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          return R(null, true, true, [
+            'เมี้ยว!']);
+        case 'action':
+          return R('sad', true, true, [
+            'ฉันไม่มีเงินเลยเมี้ยว!',
+            'แต่ถ้าเธอให้<b>อาหาร</b>ฉัน ฉันมีของให้เธอนะเมี้ยว!']);
+        case 'fish':
+          utils.removeItem('fish');
+          utils.addItem('key');
+          return R('happy', true, true, [
+            'เมี้ยวๆๆ อร่อยจัง!',
+            'ฉันจะให้ของเธอเป็นการตอบแทนนะเมี้ยว!']);
+        case 'key':
+          return R('happy', true, true, [
+            'เธอเก็บของตอบแทนของฉันไว้เถอะ ไม่ต้องเกรงใจเมี้ยว!']);
+        case 'oil':
+        case 'ice':
+          return R('happy', true, true, [
+            'สวัสดี ' + item_names[op],
+            'ยินดีที่ได้รู้จักเมี้ยว!']);
+        default:
+          return R('sad', true, true, [
+            'อะไรหนะ',
+            'ฉันกินไม่เป็นเมี้ยว!']);
+      }
+    },
+  };
+
   // s: shop [+ money --> fishing rod][+ fishing rod --> money]
   map_data.s = {
     pid: 's', row: 3, col: 6,
     arrows: {'nw': 'b3', 'sw': 'a3', 'e': 'c7'},
     hideArrows: {'shopBOpen': 'nw', 'shopCOpen': 'e'},
+  };
+
+  npc_data.shop = {
+    nid: 'shop', loc: 's',
+    name: 'พ่อค้า',
+    actionText: 'ขอตังหน่อย',
+    itemText: GIVE,
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          return R(null, true, true, [
+            'แวะชมของก่อนได้นะครับ',
+            'ตอนนี้<b>เบ็ดตกปลา</b>ราคาพิเศษ 30 บาทเท่านั้น!']);
+        case 'action':
+          return R('sad', true, true, [
+            'ผมให้เงินคุณฟรีๆ ไม่ได้หรอกครับ',
+            'แต่ถ้าคุณไม่พอใจสินค้า ผมยินดี<b>คืนเงิน</b>ครับ']);
+        case 'money':
+          utils.removeItem('money');
+          utils.addItem('rod');
+          return R('happy', true, true, [
+            'เบ็ดตกปลา 1 คันนะครับ',
+            'ขอบคุณที่อุดหนุนครับ!']);
+        case 'rod':
+          utils.removeItem('rod');
+          utils.addItem('money');
+          return R('sad', true, true, [
+            'เบ็ดใช้งานไม่ดีหรือครับ',
+            'ไม่เป็นไรครับ ผมคืนเงินให้ครับ']);
+        case 'oil':
+        case 'ice':
+          return R(null, true, true, [
+            'ขอโทษครับ ผมยังไม่ต้องการลูกน้องครับ']);
+        default:
+          return R(null, true, true, [
+            'ขอโทษครับ ผมไม่รับซื้อของครับ']);
+      }
+    },
   };
 
   // ################################################

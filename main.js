@@ -72,8 +72,8 @@ $(function () {
     });
   }
 
-  UTILS.hideNpc = function (nid) {
-    $('.map-npc[data-nid=' + nid + ']').hide();
+  UTILS.getNpcOnMap = function (nid) {
+    return $('.map-npc[data-nid=' + nid + ']');
   };
 
   $('#map').on('click', '.map-npc', function (e) {
@@ -87,9 +87,10 @@ $(function () {
       return;
     }
     $('#npc-pic').removeClass();
-    if (content.picture) $('#npc-pic').addClass(content.picture);
-    $('#btn-action').toggleClass('enabled', content.enableAction);
-    $('#btn-item').toggleClass('enabled', content.enableItem);
+    $('#npc-pic').addClass('pic-' + currentNid);
+    $('#npc-pic').addClass('pic-' + currentNid + '-' + (content.picture || 'default'));
+    $('#btn-action-wrapper').toggleClass('enabled', content.enableAction);
+    $('#btn-item-wrapper').toggleClass('enabled', content.enableItem);
     $('#npc-dialog').empty();
     content.dialog.forEach(x => $('<p>').html(x).appendTo('#npc-dialog'));
   }
@@ -110,12 +111,12 @@ $(function () {
   }
 
   $('#btn-action-wrapper').click(function () {
-    if (! $('#btn-action').hasClass('enabled')) return;
+    if (! $('#btn-action-wrapper').hasClass('enabled')) return;
     displayEncounterContent(NPC_DATA[currentNid].content('action', flags, UTILS));
   });
 
   $('#btn-item-wrapper').click(function () {
-    if (! $('#btn-item').hasClass('enabled')) return;
+    if (! $('#btn-item-wrapper').hasClass('enabled')) return;
     let iid = getSelectedItem();
     if (!iid) return;
     displayEncounterContent(NPC_DATA[currentNid].content(iid, flags, UTILS));
@@ -151,18 +152,20 @@ $(function () {
 
   UTILS.deselectItems = function () {
     $('.item').removeClass('selected');
+    $('#btn-item-wrapper').removeClass('itemSelected');
     setBtnItemText('');
   }
 
   $('.item').click(function () {
     // Only allow item select in NPC page
-    if (currentNid === null || ! $('#btn-item').hasClass('enabled')) return;
+    if (currentNid === null || ! $('#btn-item-wrapper').hasClass('enabled')) return;
     let iid = this.dataset.iid;
     if (!iid || (NPC_DATA[currentNid].forbiddenIids || []).indexOf(iid) !== -1) {
       UTILS.deselectItems();
     } else {
       $('.item').removeClass('selected');
       $(this).addClass('selected');
+      $('#btn-item-wrapper').addClass('itemSelected');
       setBtnItemText(iid);
     }
   });

@@ -52,30 +52,29 @@ const [MAP_DATA, NPC_DATA] = function () {
     actionText: 'ขอตังหน่อย',
     itemText: GIVE,
     content: function(op, flags, utils) {
-      if (op === 'enter') {
-        if (!flags.gotMoneyFromFairy) 
-          return R(null, true, false, [
-            'สวัสดีจ้ะ เธอคือผู้กล้าที่จะมาช่วยพวกเราจาก<b>จอมมาร</b>สินะ',
-            'มีอะไรให้ฉันช่วยไหม?']);
-        else
+      switch (op) {
+        case 'enter':
+          if (!flags.gotMoneyFromFairy) 
+            return R(null, true, false, [
+              'สวัสดีจ้ะ เธอคือผู้กล้าที่จะมาช่วยพวกเราจาก<b>จอมมาร</b>สินะ',
+              'มีอะไรให้ฉันช่วยไหม?']);
+          else
+            return R(null, false, true, [
+              'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>ที่ได้มา แล้วกด "ให้เงิน")</i>']);
+        case 'action':
+          flags.gotMoneyFromFairy = true;
+          utils.addItem('money');
           return R(null, false, true, [
+            'งกจริง!<br>เอาไป <b>30 บาท</b>',
             'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>ที่ได้มา แล้วกด "ให้เงิน")</i>']);
-      }
-      if (op === 'action') {
-        flags.gotMoneyFromFairy = true;
-        utils.addItem('money');
-        return R(null, false, true, [
-          'งกจริง!<br>เอาไป <b>30 บาท</b>',
-          'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>ที่ได้มา แล้วกด "ให้เงิน")</i>']);
-      }
-      if (op === 'money') {
-        flags.tutorialDone1 = flags.tutorialDone2 = true;
-        utils.deselectItems();
-        utils.showArrows();
-        utils.hideNpc('fairy');
-        return R(null, false, false, [
-          '555+ ล้อเล่นๆ ไม่ต้องคืนเงินฉันหรอก',
-          'ฉันเปิดทางให้แล้ว<br><b>ขอให้โชคดี!</b>']);
+        case 'money':
+          flags.tutorialDone1 = flags.tutorialDone2 = true;
+          utils.deselectItems();
+          utils.showArrows();
+          utils.getNpcOnMap('fairy').hide();
+          return R(null, false, false, [
+            '555+ ล้อเล่นๆ ไม่ต้องคืนเงินฉันหรอก',
+            'ฉันเปิดทางให้แล้ว<br><b>ขอให้โชคดี!</b>']);
       }
     },
     forbiddenIids: ['oil'],
@@ -98,6 +97,46 @@ const [MAP_DATA, NPC_DATA] = function () {
     pid: 'a4', row: 4, col: 1,
     arrows: {'nw': 'a5', 'ne': 'b1', 'e': 'a6', 'sw': 'a1'},
     hideArrows: {'doorOpen': 'ne'},
+  };
+
+  npc_data.door = {
+    nid: 'door', loc: 'a4',
+    name: 'ประตู',
+    actionText: 'งั้นเดินอ้อม',
+    itemText: USE,
+    content: function(op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          if (!flags.doorOpen) {
+            return R(null, true, true, [
+              'มีประตูบานใหญ่ปิดทางอยู่']);
+          } else {
+            return R('open', false, false, [
+              'ประตูเปิดอยู่ คุณสามารถเดินผ่านได้']);
+          }
+        case 'action':
+          return R(null, true, true, [
+            'อย่าโกงสิลูก',
+            'ที่ประตูมี<b>รูกุญแจ</b>อยู่']);
+        case 'fish':
+        case 'rod':
+        case 'money':
+        case 'oil':
+          let line1 = (
+            op === 'money' ? 'คุณพยายามติดสินบนประตู' :
+            op === 'oil' ? 'คุณพยายามพังประตู' :
+            'คุณใส่' + item_names[op] + 'ในรูกุญแจ');
+          return R(null, true, true, [
+            line1, 'แต่ประตูก็ยังเปิดไม่ออก']);
+        case 'key':
+          flags.doorOpen = true;
+          utils.getNpcOnMap('door').addClass('open');
+          utils.showArrows();
+          return R('open', true, true, [
+            'คุณใช้กุญแจเปิดประตู',
+            'คุณสามารถเดินผ่านได้แล้ว']);
+      }
+    },
   };
 
   // a5: lake [+ fishing rod --> fish]
@@ -124,6 +163,8 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'nw': 'b3', 'sw': 'a3', 'e': 'c7'},
     hideArrows: {'shopBOpen': 'nw', 'shopCOpen': 'e'},
   };
+
+  // ################################################
 
   // b1
   map_data.b1 = {
@@ -173,6 +214,8 @@ const [MAP_DATA, NPC_DATA] = function () {
     pid: 'b8', row: 2, col: 1,
     arrows: {'ne': 'b7'},
   };
+
+  // ################################################
 
   // c1:
   map_data.c1 = {

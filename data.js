@@ -6,7 +6,7 @@ const [MAP_DATA, NPC_DATA] = function () {
   // ################################
   // Macros
 
-  const item_names = {
+  const itemNames = {
     oil: 'OIL',
     ice: 'ICE',
     money: 'เงิน 30 บาท',
@@ -18,8 +18,8 @@ const [MAP_DATA, NPC_DATA] = function () {
     gem: 'อัญมณี',
     powersword: 'ดาบปราบมาร',
   };
-  const GIVE = (x => 'ให้ <b>' + (item_names[x] || '???') + '</b>');
-  const USE = (x => 'ใช้ <b>' + (item_names[x] || '???') + '</b>');
+  const GIVE = (x => 'ให้ <b>' + (itemNames[x] || '???') + '</b>');
+  const USE = (x => 'ใช้ <b>' + (itemNames[x] || '???') + '</b>');
 
   function escapeHtml(x) {
     return x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -130,7 +130,7 @@ const [MAP_DATA, NPC_DATA] = function () {
           let line1 = (
             op === 'money' ? 'คุณพยายามติดสินบนประตู' :
             op === 'oil' ? 'คุณพยายามพังประตู' :
-            'คุณใส่' + item_names[op] + 'ในรูกุญแจ');
+            'คุณใส่' + itemNames[op] + 'ในรูกุญแจ');
           return R(null, true, true, [
             line1, 'แต่ประตูก็ยังเปิดไม่ออก']);
       }
@@ -213,7 +213,7 @@ const [MAP_DATA, NPC_DATA] = function () {
         case 'oil':
         case 'ice':
           return R('happy', true, true, [
-            'สวัสดี ' + item_names[op],
+            'สวัสดี ' + itemNames[op],
             'ยินดีที่ได้รู้จักเมี้ยว!']);
         default:
           return R('sad', true, true, [
@@ -484,21 +484,16 @@ const [MAP_DATA, NPC_DATA] = function () {
         case 'enter':
           if (!flags.nurseHelped) {
             return R(null, true, true, [
-              'สวัสดีครับ',
-              'เชิญนั่งรอก่อนนะครับ<br><b>ไม่รู้หมอไปไหน</b>']);
+              'เชิญนั่งรอก่อนนะครับ',
+              'ช่วงนี้เป็นอะไรไม่รู้ <b>หมอหายไปหมดเลย</b>']);
           } else {
             return R(null, true, false, [
               'สวัสดีครับหมอ']);
           }
         case 'action':
-          if (!flags.nurseHelped) {
-            return R('sad', true, true, [
-              'เอิ่ม...',
-              'ผมไม่มีเงินให้ครับ']);
-          } else {
-            return R('sad', true, false, [
-              'ขอโทษครับหมอ ช่วงนี้ผมช็อตเงิน']);
-          }
+          return R('sad', true, !flags.nurseHelped, [
+            'เฮ้อ... ผมก็ไม่มีเงินเหมือนกัน',
+            'จู่ๆ คลินิกเราก็โดนตัดงบ ไม่รู้ทำไม']);
         case 'oil':
           utils.addItem('entkit');
           flags.nurseHelped = true;
@@ -646,6 +641,52 @@ const [MAP_DATA, NPC_DATA] = function () {
     hideArrows: {'bossDefeated': 'sw'},
   };
 
+  npc_data.boss = {
+    nid: 'boss', loc: 'c8',
+    name: 'จอมมาร',
+    actionText: 'หมอที่หายไป ฝึมือแก?',
+    itemText: USE,
+    mapStates: {'bossDefeated': 'gone'},
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          return R(null, true, true, [
+            'ข้าคือ<b>จอมมาร</b>ผู้ครองป่านี้',
+            'ข้าจะทำให้แพทย์ทุกคนต้องทุกข์ระทม <b>555+</b>']);
+        case 'action':
+          return R(null, true, true, [
+            'ไอ้คลินิกไพรสัณฑ์อะไรนั่น มันบังอาจต่อต้านข้า',
+            'ข้าเลย "จัดการ" พวกมันซะ <b>555+</b>']);
+        case 'powersword':
+          utils.deselectItems();
+          flags.bossDefeated = true;
+          utils.refreshNpcOnMap('boss');
+          utils.showArrows();
+          return R(null, false, false, [
+            '<b>อ๊าก!! เป็นไปไม่ได้!!</b>',
+            'แก... แกไปเอาดาบนั่นมาจากไหน <b>อ้ากกกก!!!</b>']);
+        case 'sword':
+          return R(null, true, true, [
+            'ดาบกากๆ แบบนั้นทำอะไรข้าไม่ได้หรอก <b>555+</b>']);
+        case 'gem':
+          return R(null, true, true, [
+            'อัญมณีเวทเฉยๆ ทำอะไรข้าไม่ได้หรอก <b>555+</b>']);
+        case 'oil':
+        case 'ice':
+          return R(null, true, true, [
+            'มนุษย์ธรรมดาอย่างเจ้า จะทำอะไรข้าได้ <b>555+</b>']);
+        case 'money':
+          return R(null, true, true, [
+            'จะติดสินบนข้า แต่มีแค่ 30 บาท ข้าไม่รับหรอก <b>555+</b>']);
+        case 'rod':
+        case 'fish':
+        case 'key':
+          return R(null, true, true, [
+            'จะเอา' + itemNames[op] + 'มาตีข้างั้นเหรอ บ้าหรือเปล่า <b>555+</b>']);
+      }
+    },
+  };
+
   // d1:
   map_data.d1 = {
     pid: 'd1', row: 3, col: 10,
@@ -783,7 +824,7 @@ const [MAP_DATA, NPC_DATA] = function () {
         case 'rod':
           return R(bpic(), true, true, [
             'อืมม.. ขอโทษด้วย',
-            item_names[op] + 'ใช้เป็นอาวุธได้ก็จริง แต่ข้าเสริมพลังมันไม่เป็น']);
+            itemNames[op] + 'ใช้เป็นอาวุธได้ก็จริง แต่ข้าเสริมพลังมันไม่เป็น']);
       }
     },
   };
@@ -792,6 +833,21 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.f = {
     pid: 'f', row: 5, col: 6,
     arrows: {'ne': 'c8'},
+  };
+
+  npc_data.cake = {
+    nid: 'cake', loc: 'f',
+    name: 'เค้ก',
+    actionText: '',
+    itemText: GIVE,
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          return R(null, false, false, [
+            '<b>สุขสันต์วันเกิด</b>',
+            'ขอให้ออยมีความสุข ประสบความสำเร็จ มีสุขภาพดีนะครับ']);
+      }
+    },
   };
 
   return [map_data, npc_data];

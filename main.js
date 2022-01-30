@@ -256,7 +256,6 @@ $(function () {
     pid: "d2",
   }));
 
-
   // ################################
   // Preloading and screen resizing
 

@@ -145,43 +145,39 @@ div.scene {
 
 #map {
   position: absolute;
-  width: 2560px; height: 2060px; left: 0; top: -1660px;
-  background: url('img/map-draft.png');
+  width: 2100px; height: 1680px; left: 0; top: -1260px;
+  background: url('img/map-draft-2.png');
   transition: left 300ms, top 300ms;
 }
 
 .arrow {
   position: absolute; display: none;
-  width: 80px; height: 70px;
-  background: url('img/arrow.png');
+  width: 160px; height: 140px;
+  background: url('img/arrow.png') 30px 35px no-repeat;
   cursor: pointer;
 }
 
 #arrow-nw {
-  left: 112px; top: 10px;
+  left: 68px; top: -33px;
   transform: rotate(-122deg);
 }
 #arrow-ne {
-  right: 112px; top: 10px;
+  right: 68px; top: -33px;
   transform: rotate(-58deg);
 }
 #arrow-w {
-  left: 7px; top: 165px;
+  left: -40px; top: 130px;
   transform: rotate(180deg);
 }
 #arrow-e {
-  right: 7px; top: 165px;
-}
-#arrow-se {
-  right: 112px; bottom: 10px;
-  transform: rotate(58deg);
+  right: -40px; top: 130px;
 }
 #arrow-sw {
-  left: 112px; bottom: 10px;
+  left: 68px; bottom: -33px;
   transform: rotate(122deg);
 }
 #arrow-se {
-  right: 112px; bottom: 10px;
+  right: 68px; bottom: -33px;
   transform: rotate(58deg);
 }
 

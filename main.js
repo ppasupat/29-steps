@@ -4,8 +4,8 @@ $(function () {
   const SCREEN_WIDTH = 700, SCREEN_HEIGHT = 400;
   const FRAME_RATE = 8;
 
-  const MAP_ROW_HEIGHT = 320, MAP_COL_WIDTH = 200,
-    MAP_TOP_MARGIN = 30, MAP_LEFT_MARGIN = 30,
+  const MAP_ROW_HEIGHT = 256, MAP_COL_WIDTH = 160,
+    MAP_TOP_OFFSET = 0, MAP_LEFT_OFFSET = 0,
     MAP_PANE_HEIGHT = 400, MAP_PANE_WIDTH = 500;
 
   const UTILS = {};
@@ -18,8 +18,8 @@ $(function () {
   // Return the top-left position for the map location.
   function getMapCoords(pid) {
     return {
-      top: MAP_TOP_MARGIN + MAP_ROW_HEIGHT * MAP_DATA[pid].row,
-      left: MAP_LEFT_MARGIN + MAP_COL_WIDTH * MAP_DATA[pid].col,
+      top: MAP_TOP_OFFSET + MAP_ROW_HEIGHT * MAP_DATA[pid].row,
+      left: MAP_LEFT_OFFSET + MAP_COL_WIDTH * MAP_DATA[pid].col,
     };
   }
 

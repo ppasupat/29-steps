@@ -14,7 +14,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     fish: 'ปลา',
     key: 'กุญแจ',
     entkit: 'ชุดตรวจหู',
-    sword: 'ดาบโง่ๆ',
+    sword: 'ดาบกากๆ',
     gem: 'อัญมณี',
     powersword: 'ดาบปราบมาร',
   };
@@ -355,6 +355,54 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'ne': 'b5'},
   };
 
+  npc_data.fire = {
+    nid: 'fire', loc: 'b6',
+    name: 'กองไฟ',
+    actionText: 'แหย่มือ',
+    itemText: USE,
+    mapStates: {'fireIced': 'iced'},
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          if (!flags.fireIced) {
+            return R(null, true, true, [
+              'กองไฟลุกโชติช่วง',
+              'ในกองไฟเหมือน<b>มีอะไร</b>ประกายแสงอยู่']);
+          } else if (!flags.gemPicked) {
+            return R('iced', true, false, [
+              'ไฟถูกดับแล้ว',
+              'ในกองขี้เถ้ามี<b>อัญมณี</b>สะท้อนแสงวับวาว']);
+          } else {
+            return R('picked', false, false, [
+              'ไฟถูกดับแล้ว',
+              'ไม่มีอะไรอยู่ในกองขี้เถ้า']);
+          }
+        case 'action':
+        case 'oil':
+          if (!flags.fireIced) {
+            return R(null, true, true, [
+              '<b>โอ๊ย! ร้อนๆ!</b>',
+              'คุณดึงมือออกทันควัน']);
+          } else {
+            utils.addItem('gem');
+            flags.gemPicked = true;
+            return R('picked', false, false, [
+              'คุณเก็บอัญมณีขึ้นมา']);
+          }
+        case 'ice':
+          utils.deselectItems();
+          flags.fireIced = true;
+          utils.refreshNpcOnMap('fire');
+          return R('iced', true, false, [
+            'คุณใช้ ICE (น้ำแข็ง) ดับไฟ',
+            'ในกองขี้เถ้ามี<b>อัญมณี</b>สะท้อนแสงวับวาว']);
+        default:
+          return R(null, true, true, [
+            'อย่าโยนของลงกองไฟสิ!']);
+      }
+    },
+  };
+
   // b7: receptionist [+ money --> access to b8][(gone) --> money]
   map_data.b7 = {
     pid: 'b7', row: 1, col: 2,
@@ -491,6 +539,53 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'nw': 'c5', 'sw': 'c3'},
   };
 
+  npc_data.stone = {
+    nid: 'stone', loc: 'c4',
+    name: 'ศิลา',
+    actionText: 'ดึงดาบ',
+    itemText: USE,
+    mapStates: {'swordPulled': 'pulled'},
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          if (!flags.stoneOiled) {
+            return R(null, true, true, [
+              'ก้อนศิลาใหญ่',
+              'มี<b>ดาบ</b>เสียบแน่นอยู่']);
+          } else if (!flags.swordPulled) {
+            return R('oiled', true, false, [
+              'ก้อนศิลาใหญ่',
+              'น้ำมันหล่อลื่นทำให้<b>ดาบ</b>ดึงออกได้ง่าย']);
+          } else {
+            return R('pulled', false, false, [
+              'ก้อนศิลาใหญ่',
+              'ไม่มีอะไรเสียบอยู่ เหมือนที่ศิลาปกติควรจะเป็น']);
+          }
+        case 'action':
+          if (!flags.stoneOiled) {
+            return R(null, true, true, [
+              '<b>ฮึด! ฮึดดด!</b>',
+              'ดาบเสียบแน่นมาก<br>ดึงไม่ออก']);
+          } else {
+            utils.addItem('sword');
+            flags.swordPulled = true;
+            utils.refreshNpcOnMap('stone');
+            return R('pulled', false, false, [
+              'คุณดึงดาบออกมา',
+              'แต่พอมองดูดีๆ แล้ว มันเป็นแค่<b>ดาบกากๆ</b>']);
+          }
+        case 'oil':
+          flags.stoneOiled = true;
+          return R('iced', true, false, [
+            'คุณใช้ OIL (น้ำมัน) หล่อลื่น',
+            'ดาบน่าจะดึงออกได้ง่ายแล้ว']);
+        default:
+          return R(null, true, true, [
+            'ใช้ยังงัยวะ?']);
+      }
+    },
+  };
+
   // c5:
   map_data.c5 = {
     pid: 'c5', row: 0, col: 9,
@@ -503,10 +598,45 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'sw': 'c1', 'e': 'c5'},
   };
 
+  npc_data.lake = {
+    nid: 'lake', loc: 'c6',
+    name: 'ทะเลสาบ',
+    actionText: '',
+    itemText: USE,
+    mapStates: {'lakeFished': 'fished'},
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          if (!flags.lakeFished) {
+            return R(null, false, true, [
+              'มี<b>ปลา</b>ว่ายอยู่ในทะเลสาบ']);
+          } else {
+            return R('fished', false, false, [
+              'ไม่มีอะไรอยู่ในทะเลสาบ']);
+          }
+        case 'rod':
+          utils.addItem('fish');
+          flags.lakeFished = true;
+          utils.refreshNpcOnMap('lake');
+          return R('fished', false, false, [
+            'คุณตก<b>ปลา</b>ขึ้นมาจากทะเลสาบ']);
+        case 'oil':
+          return R(null, false, true, [
+            'คุณพยายามจับปลาด้วยมือ แต่ปลาลื่นเกินไป']);
+        default:
+          return R(null, false, true, [
+            'อย่าทิ้งของลงน้ำสิ!']);
+      }
+    },
+  };
+
   // c7: 
   map_data.c7 = {
     pid: 'c7', row: 3, col: 8,
     arrows: {'w': 's', 'ne': 'c3', 'sw': 'c8'},
+    onMove: function (destPid, flags, utils) {
+      if (destPid === 's') flags.shopCOpen = true;
+    },
   };
 
   // c8: boss [+ power sword --> access to f]
@@ -522,10 +652,58 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'nw': 'c3', 'sw': 'd2'},
   };
 
-  // d2: jail [+ key --> ice]
+  // d2: shackle [+ key --> ice]
   map_data.d2 = {
     pid: 'd2', row: 4, col: 9,
     arrows: {'ne': 'd1', 'sw': 'd3'},
+  };
+
+  npc_data.shackle = {
+    nid: 'shackle', loc: 'd2',
+    name: 'ไอซ์',
+    actionText: 'ขอตังหน่อย',
+    itemText: USE,
+    mapStates: {'iceEscaped': 'gone'},
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          return R(null, true, true, [
+            '<b>ช่วยด้วย!</b>',
+            'ไอซ์โดนจอมมารล่ามโซ่ไว้']);
+        case 'action':
+          return R('angry', true, true, [
+            'นี่ออยจะขอตังทุกคนเลยเหรอ?']);
+        case 'key':
+          utils.removeItem('key');
+          utils.addItem('ice', 5);
+          flags.iceEscaped = true;
+          utils.refreshNpcOnMap('shackle');
+          return R('escaped', false, false, [
+            '<b>อิสรภาพ!</b>',
+            'ขอบใจออยมาก ไอซ์ขอตามออยไปด้วยละกันนะ']);
+        case 'oil':
+          return R(null, true, true, [
+            'โซ่มันแน่นมาก ดึงเองไม่ออกหรอก',
+            'คงต้องหา<b>กุญแจ</b>มาไข']);
+        case 'money':
+          return R(null, true, true, [
+            'ไม่เป็นไร',
+            'ไอซ์ไม่งกเหมือนออย']);
+        case 'fish':
+          return R(null, true, true, [
+            'ไม่เป็นไร',
+            'ไอซ์ไม่หิว']);
+        case 'sword':
+          return R(null, true, true, [
+            'ดาบกากๆ แบบนั้นตัดโซ่ไม่ขาดหรอก']);
+        case 'rod':
+          return R(null, true, true, [
+            'จะมาตกปลากะพงเหรอจร๊ะ?']);
+        default:
+          return R(null, true, true, [
+            'ใช้ยังงัยอะ?']);
+      }
+    },
   };
 
   // d3:
@@ -538,6 +716,76 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.d4 = {
     pid: 'd4', row: 5, col: 10,
     arrows: {'w': 'd3'},
+  };
+
+  npc_data.blacksmith = {
+    nid: 'blacksmith', loc: 'd4',
+    name: 'ช่างตีเหล็ก',
+    actionText: 'ขอตังหน่อย',
+    itemText: GIVE,
+    content: function (op, flags, utils) {
+      let bpic = (() => {
+        if (flags.swordGiven && !flags.gemGiven)
+          return 'sword';
+        if (!flags.swordGiven && flags.gemGiven)
+          return 'gem';
+        return null;
+      });
+      switch (op) {
+        case 'enter':
+          if (!flags.swordGiven || !flags.gemGiven) {
+            return R(bpic(), true, true, [
+              'โย่! ยินดีต้อนรับสู่โรงตีเหล็กของข้า']);
+          } else {
+            return R(bpic(), false, false, [
+              'เป็นงัย ดาบปราบมารของข้า ใช้ได้ดีมั้ย?']);
+          }
+        case 'action':
+          return R(bpic(), true, true, [
+            'ข้าไม่มีเงินให้',
+            'แต่เอางี้ ข้าจะ<b>เสริมพลังอาวุธ</b>ให้เจ้าฟรีครั้งนึง']);
+        case 'sword':
+          flags.swordGiven = true;
+          utils.removeItem('sword');
+          if (!flags.gemGiven) {
+            return R(bpic(), true, true, [
+              'โอ้! ดาบของเจ้าค่อนข้าง... กาก',
+              'แต่ข้าเสริมพลังให้มันได้ ถ้ามีแหล่งพลังอย่าง<b>อัญมณีเวท</b>']);
+          } else {
+            utils.addItem('powersword');
+            return R('happy', false, false, [
+              'โอ้! พอดีเลย',
+              'ด้วยพลังอัญมณี<br><b>ดาบปราบมาร</b><br>เล่มนี้จะสยบมารได้ทุกระดับ!']);
+          }
+        case 'gem':
+          flags.gemGiven = true;
+          utils.removeItem('gem');
+          if (!flags.swordGiven) {
+            return R(bpic(), true, true, [
+              'โอ้! อัญมณีเวท ช่างงามยิ่งนัก',
+              'ข้าสามารถใช้มันเสริมพลัง<b>อาวุธ</b>ได้']);
+          } else {
+            utils.addItem('powersword');
+            return R('happy', false, false, [
+              'โอ้! พอดีเลย',
+              'ด้วยพลังอัญมณี<br><b>ดาบปราบมาร</b><br>เล่มนี้จะสยบมารได้ทุกระดับ!']);
+          }
+        case 'oil':
+        case 'ice':
+          return R(bpic(), true, true, [
+            'อืมม.. ตอนนี้ข้ายังไม่ต้องการผู้ช่วย']);
+        case 'money':
+          return R(bpic(), true, true, [
+            'ไม่เป็นไรๆ',
+            'ข้าจะเสริมพลังอาวุธให้เจ้า<b>ฟรี</b>ครั้งนึง']);
+        case 'fish':
+        case 'key':
+        case 'rod':
+          return R(bpic(), true, true, [
+            'อืมม.. ขอโทษด้วย',
+            item_names[op] + 'ใช้เป็นอาวุธได้ก็จริง แต่ข้าเสริมพลังมันไม่เป็น']);
+      }
+    },
   };
 
   // f: cake

@@ -233,6 +233,29 @@ $(function () {
     items: ['money', '', '', '', 'oil', ''],
     pid: "b3",
   }));
+  $('#skipI').click(() => loadGame({
+    flags: {
+      "gotMoneyFromFairy": true,
+      "tutorialDone2": true,
+      "tutorialDone1": true,
+      "pondFished": true,
+      "doorOpen": true,
+      "shopBOpen": true,
+      "feePaid": true,
+      "nurseHelped": true,
+      "midbossCleaned": true,
+      "midbossDefeated": true,
+      "moneyStolen": true,
+      "shopCOpen": true,
+      "stoneOiled": true,
+      "swordPulled": true,
+      "lakeFished": true,
+      "iceEscaped": true
+    },
+    items: ['rod', 'sword', '', '', 'oil', 'ice'],
+    pid: "d2",
+  }));
+
 
   // ################################
   // Preloading and screen resizing

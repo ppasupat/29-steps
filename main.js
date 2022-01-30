@@ -92,6 +92,7 @@ $(function () {
     $('#npc-pic').addClass('pic-' + currentNid + '-' + (content.picture || 'default'));
     $('#btn-action-wrapper').toggleClass('enabled', content.enableAction);
     $('#btn-item-wrapper').toggleClass('enabled', content.enableItem);
+    $('#inventory').toggleClass('selectable', content.enableItem);
     $('#npc-dialog').empty();
     content.dialog.forEach(x => $('<p>').html(x).appendTo('#npc-dialog'));
   }
@@ -127,6 +128,7 @@ $(function () {
     currentNid = null;
     UTILS.deselectItems();
     $('#encounter').addClass('hidden');
+    $('#Inventory').removeClass('selectable');
     saveGame();
   }
   $('#btn-leave-wrapper').click(hideEncounter);
@@ -208,11 +210,28 @@ $(function () {
       "gotMoneyFromFairy": true,
       "tutorialDone2": true,
       "tutorialDone1": true,
-      "lake1Fished": true,
+      "pondFished": true,
       "doorOpen": true
     },
     items: ['rod', '', '', '', 'oil', ''],
     pid: 'a4',
+  }));
+  $('#skipB').click(() => loadGame({
+    flags: {
+      "gotMoneyFromFairy": true,
+      "tutorialDone2": true,
+      "tutorialDone1": true,
+      "pondFished": true,
+      "doorOpen": true,
+      "shopBOpen": true,
+      "feePaid": true,
+      "nurseHelped": true,
+      "midbossCleaned": true,
+      "midbossDefeated": true,
+      "moneyStolen": true
+    },
+    items: ['money', '', '', '', 'oil', ''],
+    pid: "b3",
   }));
 
   // ################################

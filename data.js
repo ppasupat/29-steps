@@ -13,9 +13,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     rod: 'เบ็ดตกปลา',
     fish: 'ปลา',
     key: 'กุญแจ',
-    queue: 'บัตรคิว',
-    oilflask: 'ขวดน้ำมัน',
-    iceflask: 'ขวดน้ำแข็ง',
+    entkit: 'ชุดตรวจหู',
     sword: 'ดาบโง่ๆ',
     gem: 'อัญมณี',
     powersword: 'ดาบปราบมาร',
@@ -93,7 +91,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'w': 'a2', 'ne': 's'},
   };
 
-  // a4: locked door [+ key --> access to b1]
+  // a4: door [+ key --> access to b1]
   map_data.a4 = {
     pid: 'a4', row: 4, col: 1,
     arrows: {'nw': 'a5', 'ne': 'b1', 'e': 'a6', 'sw': 'a1'},
@@ -139,41 +137,40 @@ const [MAP_DATA, NPC_DATA] = function () {
     },
   };
 
-  // a5: lake [+ fishing rod --> fish]
+  // a5: pond [+ fishing rod --> fish]
   map_data.a5 = {
     pid: 'a5', row: 3, col: 0,
     arrows: {'se': 'a4'},
   };
 
-  npc_data.lake1 = {
-    nid: 'lake1', loc: 'a5',
-    name: 'ทะเลสาบ',
+  npc_data.pond = {
+    nid: 'pond', loc: 'a5',
+    name: 'บ่อน้ำ',
     actionText: '',
     itemText: USE,
-    mapStates: {'lake1Fished': 'fished'},
+    mapStates: {'pondFished': 'fished'},
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
-          if (!flags.lake1Fished) {
+          if (!flags.pondFished) {
             return R(null, false, true, [
-              'มี<b>ปลา</b>ว่ายอยู่ในทะเลสาบ']);
+              'มี<b>ปลา</b>ว่ายอยู่ในบ่อน้ำ']);
           } else {
             return R('fished', false, false, [
-              'ไม่มีอะไรอยู่ในทะเลสาบ']);
+              'ไม่มีอะไรอยู่ในบ่อน้ำ']);
           }
         case 'rod':
           utils.addItem('fish');
-          flags.lake1Fished = true;
-          utils.refreshNpcOnMap('lake1');
+          flags.pondFished = true;
+          utils.refreshNpcOnMap('pond');
           return R('fished', false, false, [
-            'คุณตกปลาขึ้นมาจากทะเลสาบ']);
+            'คุณตก<b>ปลา</b>ขึ้นมาจากบ่อน้ำ']);
         case 'oil':
           return R(null, false, true, [
-            'คุณพยายามจับปลาด้วยมือ',
-            'แต่ปลาลื่นเกินไป']);
+            'คุณพยายามจับปลาด้วยมือ แต่ปลาลื่นเกินไป']);
         default:
           return R(null, false, true, [
-            'อย่าทิ้งของลงทะเลสาบสิ!']);
+            'อย่าทิ้งของลงน้ำสิ!']);
       }
     },
   };
@@ -212,7 +209,7 @@ const [MAP_DATA, NPC_DATA] = function () {
             'ฉันจะให้ของเธอเป็นการตอบแทนนะเมี้ยว!']);
         case 'key':
           return R('happy', true, true, [
-            'เธอเก็บของตอบแทนของฉันไว้เถอะ ไม่ต้องเกรงใจเมี้ยว!']);
+            'เธอเก็บมันไว้เถอะ ไม่ต้องเกรงใจเมี้ยว!']);
         case 'oil':
         case 'ice':
           return R('happy', true, true, [
@@ -220,8 +217,7 @@ const [MAP_DATA, NPC_DATA] = function () {
             'ยินดีที่ได้รู้จักเมี้ยว!']);
         default:
           return R('sad', true, true, [
-            'อะไรหนะ',
-            'ฉันกินไม่เป็นเมี้ยว!']);
+            'อะไรหนะ? ฉันกินไม่เป็นเมี้ยว!']);
       }
     },
   };
@@ -285,7 +281,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'sw': 'b1', 'ne': 'b3'},
   };
 
-  // b3: midboss [+ queue slip --> access to c1]
+  // b3: midboss [+ ent kit --> access to c1]
   map_data.b3 = {
     pid: 'b3', row: 1, col: 4,
     arrows: {'nw': 'b4', 'sw': 'b2', 'e': 'c1', 'se': 's'},
@@ -297,25 +293,46 @@ const [MAP_DATA, NPC_DATA] = function () {
 
   npc_data.midboss = {
     nid: 'midboss', loc: 'b3',
-    name: 'ลุงยักษ์',
+    name: 'สัตว์ประหลาด',
     actionText: 'ขอทางหน่อย',
-    itemText: GIVE,
+    itemText: USE,
     mapStates: {'midbossDefeated': 'gone'},
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
-          return R(null, true, true, [
-            '...',
-            '<i>(ลุงยักษ์ใหญ่ขวางทางอยู่)</i>']);
+          if (!flags.midbossCleaned) {
+            return R(null, true, true, [
+              '...',
+              '(มีสัตว์ประหลาดขวางทางอยู่)']);
+          } else {
+            return R('cleaned', true, false, [
+              'สวัสดี!',
+              'ขอบใจเจ้าอีกครั้งที่ช่วยตรวจหูข้า']);
+          }
         case 'action':
-          return R('angry', true, true, [
-            'ลุงมีรูที่แขน',
-            'ชาวป่าแล้งน้ำใจ ไม่ยอมฟิล์มให้ลุง!',
-            'ลุงก็จะแล้งน้ำใจ <b>ไม่ยอมให้ทางใคร!</b>']);
+          if (!flags.midbossCleaned) {
+            return R(null, true, true, [
+              'ฮะ? พูดว่าอะไรนะ?',
+              '<b>ข้าไม่ได้ยิน</b>']);
+          } else {
+            flags.midbossDefeated = true;
+            utils.refreshNpcOnMap('midboss');
+            utils.refreshNpcOnMap('receptionist');
+            utils.showArrows();
+            return R('cleaned', false, false, [
+              'ได้สิ! ขอให้เจ้าเดินทางปลอดภัย']);
+          }
+        case 'entkit':
+          utils.removeItem('entkit');
+          flags.midbossCleaned = true;
+          return R('cleaned', true, false, [
+            'อ๊ะ!',
+            'จู่ๆ ข้าก็ได้ยินชัดขึ้น',
+            'ขอบใจเจ้ามากที่ช่วยตรวจหูข้า']);
         default:
           return R(null, true, true, [
             '...',
-            '<i>(ลุงยักษ์ไม่สนใจ)</i>']);
+            '(สัตว์ประหลาดไม่สนใจ)']);
       }
     },
   };
@@ -332,22 +349,120 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'sw': 'b6', 'e': 'b4'},
   };
 
-  // b6: sword in stone [+ oil flask --> sword]
+  // b6: fire [+ ice --> gem]
   map_data.b6 = {
     pid: 'b6', row: 1, col: 0,
     arrows: {'ne': 'b5'},
   };
 
-  // b7:
+  // b7: receptionist [+ money --> access to b8][(gone) --> money]
   map_data.b7 = {
     pid: 'b7', row: 1, col: 2,
     arrows: {'sw': 'b8', 'ne': 'b4'},
+    hideArrows: {'feePaid': 'sw'},
   };
 
-  // b8: radiologist [+ money --> queue slip][(radiologist gone) --> money]
+  npc_data.receptionist = {
+    nid: 'receptionist', loc: 'b7',
+    name: 'แผนกต้อนรับ',
+    actionText: 'ขอตังหน่อย',
+    itemText: GIVE,
+    mapStates: {'midbossDefeated': 'rest', 'moneyStolen': 'stolen'},
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          if (!flags.midbossDefeated) {
+            if (!flags.feePaid) {
+              return R(null, true, true, [
+                'ไพรสัณฑ์คลินิก<br>ยินดีต้อนรับค่ะ',
+                'คลินิกเราอยู่ในโครงการ <b>30 บาทรักษา 1 โรค</b>นะคะ']);
+            } else {
+              return R(null, true, false, [
+                'ไพรสัณฑ์คลินิก<br>ยินดีต้อนรับค่ะ',
+                'เชิญพบคุณหมอที่ห้องตรวจได้เลยค่ะ']);
+            }
+          } else if (!flags.moneyStolen) {
+            return R('rest', true, false, [
+              'ป้าย:<br>"พักเที่ยงค่ะ"',
+              'บนโต๊ะมี<b>เงิน</b>อยู่']);
+          } else {
+            return R('stolen', false, false, [
+              'ป้าย:<br>"พักเที่ยงค่ะ"']);
+          }
+        case 'action':
+          if (!flags.midbossDefeated) {
+            if (!flags.feePaid) {
+              return R(null, true, true, [
+                'ไม่ให้ค่ะ']);
+            } else {
+              return R(null, true, false, [
+                'ทางเราไม่มีนโยบายคืนเงินค่ะ']);
+            }
+          } else {
+            utils.addItem('money');
+            flags.moneyStolen = true;
+            return R('stolen', false, false, [
+              'คุณ <b>"ยืม"</b> เงิน 30 บาท จากโต๊ะ']);
+          }
+        case 'money':
+          utils.removeItem('money');
+          flags.feePaid = true;
+          utils.showArrows();
+          return R(null, true, false, [
+            'เชิญพบคุณหมอที่ห้องตรวจได้เลยค่ะ']);
+        case 'oil':
+          return R(null, true, true, [
+            'กรุณาชำระเงิน 30 บาทก่อนพบคุณหมอค่ะ']);
+        default:
+          return R(null, true, true, [
+            'ไม่เอาค่ะ']);
+      }
+    },
+  };
+
+  // b8: nurse [+ oil --> ent kit]
   map_data.b8 = {
     pid: 'b8', row: 2, col: 1,
     arrows: {'ne': 'b7'},
+  };
+
+  npc_data.nurse = {
+    nid: 'nurse', loc: 'b8',
+    name: 'พยาบาล',
+    actionText: 'ขอตังหน่อย',
+    itemText: GIVE,
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          if (!flags.nurseHelped) {
+            return R(null, true, true, [
+              'สวัสดีครับ',
+              'เชิญนั่งรอก่อนนะครับ<br><b>ไม่รู้หมอไปไหน</b>']);
+          } else {
+            return R(null, true, false, [
+              'สวัสดีครับหมอ']);
+          }
+        case 'action':
+          if (!flags.nurseHelped) {
+            return R('sad', true, true, [
+              'เอิ่ม...',
+              'ผมไม่มีเงินให้ครับ']);
+          } else {
+            return R('sad', true, false, [
+              'ขอโทษครับหมอ ช่วงนี้ผมช็อตเงิน']);
+          }
+        case 'oil':
+          utils.addItem('entkit');
+          flags.nurseHelped = true;
+          return R('happy', true, false, [
+            'อ้อ! คุณเป็นหมอ ENT ใหม่สินะครับ',
+            'ดีเลย ช่วงนี้คนไข้เยอะ นี่<b>ชุดตรวจหู</b>ครับ']);
+        default:
+          return R('sad', true, true, [
+            'เอิ่ม...',
+            'อะไรครับเนี่ย']);
+      }
+    },
   };
 
   // ################################################
@@ -358,7 +473,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'w': 'b3', 'ne': 'c6', 'se': 'c2'},
   };
 
-  // c2: stove on fire [+ ice flask --> gem]
+  // c2:
   map_data.c2 = {
     pid: 'c2', row: 2, col: 7,
     arrows: {'nw': 'c1', 'e': 'c3'},
@@ -370,19 +485,19 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'w': 'c2', 'ne': 'c4', 'sw': 'c7', 'se': 'd1'},
   };
 
-  // c4: magician [+ oil --> oil flask][+ ice --> ice flask]
+  // c4: sword in stone [+ oil --> sword]
   map_data.c4 = {
     pid: 'c4', row: 1, col: 10,
     arrows: {'nw': 'c5', 'sw': 'c3'},
   };
 
-  // c5: lake [+ fishing rod --> fish]
+  // c5:
   map_data.c5 = {
     pid: 'c5', row: 0, col: 9,
     arrows: {'w': 'c6', 'se': 'c4'},
   };
 
-  // c6:
+  // c6: lake [+ fishing rod --> fish]
   map_data.c6 = {
     pid: 'c6', row: 0, col: 7,
     arrows: {'sw': 'c1', 'e': 'c5'},
@@ -401,7 +516,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     hideArrows: {'bossDefeated': 'sw'},
   };
 
-  // d1
+  // d1:
   map_data.d1 = {
     pid: 'd1', row: 3, col: 10,
     arrows: {'nw': 'c3', 'sw': 'd2'},

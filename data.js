@@ -148,17 +148,12 @@ const [MAP_DATA, NPC_DATA] = function () {
     name: 'บ่อน้ำ',
     actionText: '',
     itemText: USE,
-    mapStates: {'pondFished': 'fished'},
+    mapStates: {'pondFished': 'gone'},
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
-          if (!flags.pondFished) {
-            return R(null, false, true, [
-              'มี<b>ปลา</b>ว่ายอยู่ในบ่อน้ำ']);
-          } else {
-            return R('fished', false, false, [
-              'ไม่มีอะไรอยู่ในบ่อน้ำ']);
-          }
+          return R(null, false, true, [
+            'มี<b>ปลา</b>ว่ายอยู่ในบ่อน้ำ']);
         case 'rod':
           utils.addItem('fish');
           flags.pondFished = true;
@@ -226,7 +221,7 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.s = {
     pid: 's', row: 3, col: 6,
     arrows: {'nw': 'b3', 'sw': 'a3', 'e': 'c7'},
-    hideArrows: {'shopBOpen': 'nw', 'shopCOpen': 'e'},
+    hideArrows: {'doorOpen': 'nw', 'midbossDefeated': 'e'},
   };
 
   npc_data.shop = {
@@ -286,9 +281,6 @@ const [MAP_DATA, NPC_DATA] = function () {
     pid: 'b3', row: 1, col: 4,
     arrows: {'nw': 'b4', 'sw': 'b2', 'e': 'c1', 'se': 's'},
     hideArrows: {'midbossDefeated': 'e'},
-    onMove: function (destPid, flags, utils) {
-      if (destPid === 's') flags.shopBOpen = true;
-    },
   };
 
   npc_data.midboss = {
@@ -516,251 +508,14 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'w': 'b3', 'ne': 'c6', 'se': 'c2'},
   };
 
-  // c2:
+  // c2: blacksmith [+ sword + gem --> power sword]
   map_data.c2 = {
     pid: 'c2', row: 2, col: 7,
     arrows: {'nw': 'c1', 'e': 'c3'},
   };
 
-  // c3:
-  map_data.c3 = {
-    pid: 'c3', row: 2, col: 9,
-    arrows: {'w': 'c2', 'ne': 'c4', 'sw': 'c7', 'se': 'd1'},
-  };
-
-  // c4: sword in stone [+ oil --> sword]
-  map_data.c4 = {
-    pid: 'c4', row: 1, col: 10,
-    arrows: {'nw': 'c5', 'sw': 'c3'},
-  };
-
-  npc_data.stone = {
-    nid: 'stone', loc: 'c4',
-    name: 'ศิลา',
-    actionText: 'ดึงดาบ',
-    itemText: USE,
-    mapStates: {'swordPulled': 'pulled'},
-    content: function (op, flags, utils) {
-      switch (op) {
-        case 'enter':
-          if (!flags.stoneOiled) {
-            return R(null, true, true, [
-              'ก้อนศิลาใหญ่',
-              'มี<b>ดาบ</b>เสียบแน่นอยู่']);
-          } else if (!flags.swordPulled) {
-            return R('oiled', true, false, [
-              'ก้อนศิลาใหญ่',
-              'น้ำมันหล่อลื่นทำให้<b>ดาบ</b>ดึงออกได้ง่าย']);
-          } else {
-            return R('pulled', false, false, [
-              'ก้อนศิลาใหญ่',
-              'ไม่มีอะไรเสียบอยู่ เหมือนที่ศิลาปกติควรจะเป็น']);
-          }
-        case 'action':
-          if (!flags.stoneOiled) {
-            return R(null, true, true, [
-              '<b>ฮึด! ฮึดดด!</b>',
-              'ดาบเสียบแน่นมาก<br>ดึงไม่ออก']);
-          } else {
-            utils.addItem('sword');
-            flags.swordPulled = true;
-            utils.refreshNpcOnMap('stone');
-            return R('pulled', false, false, [
-              'คุณดึงดาบออกมา',
-              'แต่พอมองดูดีๆ แล้ว มันเป็นแค่<b>ดาบกากๆ</b>']);
-          }
-        case 'oil':
-          flags.stoneOiled = true;
-          return R('iced', true, false, [
-            'คุณใช้ OIL (น้ำมัน) หล่อลื่น',
-            'ดาบน่าจะดึงออกได้ง่ายแล้ว']);
-        default:
-          return R(null, true, true, [
-            'ใช้ยังงัยวะ?']);
-      }
-    },
-  };
-
-  // c5:
-  map_data.c5 = {
-    pid: 'c5', row: 0, col: 9,
-    arrows: {'w': 'c6', 'se': 'c4'},
-  };
-
-  // c6: lake [+ fishing rod --> fish]
-  map_data.c6 = {
-    pid: 'c6', row: 0, col: 7,
-    arrows: {'sw': 'c1', 'e': 'c5'},
-  };
-
-  npc_data.lake = {
-    nid: 'lake', loc: 'c6',
-    name: 'ทะเลสาบ',
-    actionText: '',
-    itemText: USE,
-    mapStates: {'lakeFished': 'fished'},
-    content: function (op, flags, utils) {
-      switch (op) {
-        case 'enter':
-          if (!flags.lakeFished) {
-            return R(null, false, true, [
-              'มี<b>ปลา</b>ว่ายอยู่ในทะเลสาบ']);
-          } else {
-            return R('fished', false, false, [
-              'ไม่มีอะไรอยู่ในทะเลสาบ']);
-          }
-        case 'rod':
-          utils.addItem('fish');
-          flags.lakeFished = true;
-          utils.refreshNpcOnMap('lake');
-          return R('fished', false, false, [
-            'คุณตก<b>ปลา</b>ขึ้นมาจากทะเลสาบ']);
-        case 'oil':
-          return R(null, false, true, [
-            'คุณพยายามจับปลาด้วยมือ แต่ปลาลื่นเกินไป']);
-        default:
-          return R(null, false, true, [
-            'อย่าทิ้งของลงน้ำสิ!']);
-      }
-    },
-  };
-
-  // c7: 
-  map_data.c7 = {
-    pid: 'c7', row: 3, col: 8,
-    arrows: {'w': 's', 'ne': 'c3', 'sw': 'c8'},
-    onMove: function (destPid, flags, utils) {
-      if (destPid === 's') flags.shopCOpen = true;
-    },
-  };
-
-  // c8: boss [+ power sword --> access to f]
-  map_data.c8 = {
-    pid: 'c8', row: 4, col: 7,
-    arrows: {'ne': 'c7', 'sw': 'f'},
-    hideArrows: {'bossDefeated': 'sw'},
-  };
-
-  npc_data.boss = {
-    nid: 'boss', loc: 'c8',
-    name: 'จอมมาร',
-    actionText: 'หมอที่หายไป ฝึมือแก?',
-    itemText: USE,
-    mapStates: {'bossDefeated': 'gone'},
-    content: function (op, flags, utils) {
-      switch (op) {
-        case 'enter':
-          return R(null, true, true, [
-            'ข้าคือ<b>จอมมาร</b>ผู้ครองป่านี้',
-            'ข้าจะทำให้แพทย์ทุกคนต้องทุกข์ระทม <b>555+</b>']);
-        case 'action':
-          return R(null, true, true, [
-            'ไอ้คลินิกไพรสัณฑ์อะไรนั่น มันบังอาจต่อต้านข้า',
-            'ข้าเลย "จัดการ" พวกมันซะ <b>555+</b>']);
-        case 'powersword':
-          utils.deselectItems();
-          flags.bossDefeated = true;
-          utils.refreshNpcOnMap('boss');
-          utils.showArrows();
-          return R(null, false, false, [
-            '<b>อ๊าก!! เป็นไปไม่ได้!!</b>',
-            'แก... แกไปเอาดาบนั่นมาจากไหน <b>อ้ากกกก!!!</b>']);
-        case 'sword':
-          return R(null, true, true, [
-            'ดาบกากๆ แบบนั้นทำอะไรข้าไม่ได้หรอก <b>555+</b>']);
-        case 'gem':
-          return R(null, true, true, [
-            'อัญมณีเวทเฉยๆ ทำอะไรข้าไม่ได้หรอก <b>555+</b>']);
-        case 'oil':
-        case 'ice':
-          return R(null, true, true, [
-            'มนุษย์ธรรมดาอย่างเจ้า จะทำอะไรข้าได้ <b>555+</b>']);
-        case 'money':
-          return R(null, true, true, [
-            'จะติดสินบนข้า แต่มีแค่ 30 บาท ข้าไม่รับหรอก <b>555+</b>']);
-        case 'rod':
-        case 'fish':
-        case 'key':
-          return R(null, true, true, [
-            'จะเอา' + itemNames[op] + 'มาตีข้างั้นเหรอ บ้าหรือเปล่า <b>555+</b>']);
-      }
-    },
-  };
-
-  // d1:
-  map_data.d1 = {
-    pid: 'd1', row: 3, col: 10,
-    arrows: {'nw': 'c3', 'sw': 'd2'},
-  };
-
-  // d2
-  map_data.d2 = {
-    pid: 'd2', row: 4, col: 9,
-    arrows: {'ne': 'd1', 'sw': 'd3', 'se': 'd4'},
-  };
-
-  // d3: shackle [+ key --> ice]
-  map_data.d3 = {
-    pid: 'd3', row: 5, col: 8,
-    arrows: {'ne': 'd2'},
-  };
-
-  npc_data.shackle = {
-    nid: 'shackle', loc: 'd3',
-    name: 'ไอซ์',
-    actionText: 'ขอตังหน่อย',
-    itemText: USE,
-    mapStates: {'iceEscaped': 'gone'},
-    content: function (op, flags, utils) {
-      switch (op) {
-        case 'enter':
-          return R(null, true, true, [
-            '<b>ช่วยด้วย!</b>',
-            'ไอซ์โดนจอมมารล่ามโซ่ไว้']);
-        case 'action':
-          return R('angry', true, true, [
-            'นี่ออยจะขอตังทุกคนเลยเหรอ?']);
-        case 'key':
-          utils.removeItem('key');
-          utils.addItem('ice', 5);
-          flags.iceEscaped = true;
-          utils.refreshNpcOnMap('shackle');
-          return R('escaped', false, false, [
-            '<b>อิสรภาพ!</b>',
-            'ขอบใจออยมาก ไอซ์ขอตามออยไปด้วยละกันนะ']);
-        case 'oil':
-          return R(null, true, true, [
-            'โซ่มันแน่นมาก ดึงเองไม่ออกหรอก',
-            'คงต้องหา<b>กุญแจ</b>มาไข']);
-        case 'money':
-          return R(null, true, true, [
-            'ไม่เป็นไร',
-            'ไอซ์ไม่งกเหมือนออย']);
-        case 'fish':
-          return R(null, true, true, [
-            'ไม่เป็นไร',
-            'ไอซ์ไม่หิว']);
-        case 'sword':
-          return R(null, true, true, [
-            'ดาบกากๆ แบบนั้นตัดโซ่ไม่ขาดหรอก']);
-        case 'rod':
-          return R(null, true, true, [
-            'จะมาตกปลากะพงเหรอจร๊ะ?']);
-        default:
-          return R(null, true, true, [
-            'ใช้ยังงัยอะ?']);
-      }
-    },
-  };
-
-  // d4: blacksmith [+ sword + gem --> power sword]
-  map_data.d4 = {
-    pid: 'd4', row: 5, col: 10,
-    arrows: {'nw': 'd2'},
-  };
-
   npc_data.blacksmith = {
-    nid: 'blacksmith', loc: 'd4',
+    nid: 'blacksmith', loc: 'c2',
     name: 'ช่างตีเหล็ก',
     actionText: 'ขอตังหน่อย',
     itemText: GIVE,
@@ -829,23 +584,241 @@ const [MAP_DATA, NPC_DATA] = function () {
     },
   };
 
-  // f: cake
-  map_data.f = {
-    pid: 'f', row: 5, col: 6,
-    arrows: {'ne': 'c8'},
+
+  // c3:
+  map_data.c3 = {
+    pid: 'c3', row: 2, col: 9,
+    arrows: {'w': 'c2', 'ne': 'c4', 'sw': 'c7', 'se': 'd1'},
   };
 
-  npc_data.cake = {
-    nid: 'cake', loc: 'f',
-    name: 'เค้ก',
-    actionText: '',
-    itemText: GIVE,
+  // c4:
+  map_data.c4 = {
+    pid: 'c4', row: 1, col: 10,
+    arrows: {'nw': 'c5', 'sw': 'c3'},
+  };
+
+  // c5:
+  map_data.c5 = {
+    pid: 'c5', row: 0, col: 9,
+    arrows: {'w': 'c6', 'se': 'c4'},
+  };
+
+  // c6: lake [+ fishing rod --> fish]
+  map_data.c6 = {
+    pid: 'c6', row: 0, col: 7,
+    arrows: {'sw': 'c1', 'e': 'c5'},
+  };
+
+  npc_data.lake = {
+    nid: 'lake', loc: 'c6',
+    name: 'ทะเลสาบ',
+    actionText: 'ทำไมรูปคุ้นๆ',
+    itemText: USE,
+    mapStates: {'lakeFished': 'gone'},
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
+          return R(null, true, true, [
+            'มี<b>ปลา</b>ว่ายอยู่ในทะเลสาบ']);
+        case 'action':
+          return R(null, true, true, [
+            'เออ ไอซ์ขี้เกียจวาดใหม่']);
+        case 'rod':
+          utils.addItem('fish');
+          flags.lakeFished = true;
+          utils.refreshNpcOnMap('lake');
+          return R('fished', false, false, [
+            'คุณตก<b>ปลา</b>ขึ้นมาจากทะเลสาบ']);
+        case 'oil':
+          return R(null, true, true, [
+            'คุณพยายามจับปลาด้วยมือ แต่ปลาลื่นเกินไป']);
+        default:
+          return R(null, true, true, [
+            'อย่าทิ้งของลงน้ำสิ!']);
+      }
+    },
+  };
+
+  // c7: 
+  map_data.c7 = {
+    pid: 'c7', row: 3, col: 8,
+    arrows: {'w': 's', 'ne': 'c3', 'sw': 'c8'},
+  };
+
+  // c8:
+  map_data.c8 = {
+    pid: 'c8', row: 4, col: 7,
+    arrows: {'ne': 'c7', 'sw': 'c9'},
+  };
+
+  // c9: sword in stone [+ oil --> sword]
+  map_data.c9 = {
+    pid: 'c9', row: 5, col: 6,
+    arrows: {'ne': 'c8'},
+  };
+
+  npc_data.stone = {
+    nid: 'stone', loc: 'c9',
+    name: 'ศิลา',
+    actionText: 'ดึงดาบ',
+    itemText: USE,
+    mapStates: {'swordPulled': 'pulled'},
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          if (!flags.stoneOiled) {
+            return R(null, true, true, [
+              'ก้อนศิลาใหญ่',
+              'มี<b>ดาบ</b>เสียบแน่นอยู่']);
+          } else if (!flags.swordPulled) {
+            return R('oiled', true, false, [
+              'ก้อนศิลาใหญ่',
+              'น้ำมันหล่อลื่นทำให้<b>ดาบ</b>ดึงออกได้ง่าย']);
+          } else {
+            return R('pulled', false, false, [
+              'ก้อนศิลาใหญ่',
+              'ไม่มีอะไรเสียบอยู่ เหมือนที่ศิลาปกติควรจะเป็น']);
+          }
+        case 'action':
+          if (!flags.stoneOiled) {
+            return R(null, true, true, [
+              '<b>ฮึด! ฮึดดด!</b>',
+              'ดาบเสียบแน่นมาก<br>ดึงไม่ออก']);
+          } else {
+            utils.addItem('sword');
+            flags.swordPulled = true;
+            utils.refreshNpcOnMap('stone');
+            return R('pulled', false, false, [
+              'คุณดึงดาบออกมา',
+              'แต่พอมองดูดีๆ แล้ว มันเป็นแค่<b>ดาบกากๆ</b>']);
+          }
+        case 'oil':
+          flags.stoneOiled = true;
+          return R('iced', true, false, [
+            'คุณใช้ OIL (น้ำมัน) หล่อลื่น',
+            'ดาบน่าจะดึงออกได้ง่ายแล้ว']);
+        default:
+          return R(null, true, true, [
+            'ใช้ยังงัยวะ?']);
+      }
+    },
+  };
+
+
+  // d1:
+  map_data.d1 = {
+    pid: 'd1', row: 3, col: 10,
+    arrows: {'nw': 'c3', 'sw': 'd2'},
+  };
+
+  // d2
+  map_data.d2 = {
+    pid: 'd2', row: 4, col: 9,
+    arrows: {'ne': 'd1', 'sw': 'd3', 'se': 'd4'},
+  };
+
+  // d3: shackle [+ key --> ice]
+  map_data.d3 = {
+    pid: 'd3', row: 5, col: 8,
+    arrows: {'ne': 'd2'},
+  };
+
+  npc_data.shackle = {
+    nid: 'shackle', loc: 'd3',
+    name: 'ไอซ์',
+    actionText: 'ขอตังหน่อย',
+    itemText: USE,
+    mapStates: {'iceEscaped': 'gone'},
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          return R(null, true, true, [
+            '<b>ช่วยด้วย!</b>',
+            'ไอซ์โดนจอมมารล่ามโซ่ไว้']);
+        case 'action':
+          return R('angry', true, true, [
+            'นี่ออยจะขอตังทุกคนเลยเหรอ?']);
+        case 'key':
+          utils.removeItem('key');
+          utils.addItem('ice', 5);
+          flags.iceEscaped = true;
+          utils.refreshNpcOnMap('shackle');
+          return R('escaped', false, false, [
+            '<b>อิสรภาพ!</b>',
+            'ขอบใจออยมาก ไอซ์ขอตามออยไปด้วยละกันนะ']);
+        case 'oil':
+          return R(null, true, true, [
+            'โซ่มันแน่นมาก ดึงเองไม่ออกหรอก',
+            'คงต้องหา<b>กุญแจ</b>มาไข']);
+        case 'money':
+          return R(null, true, true, [
+            'ไม่เป็นไร',
+            'ไอซ์ไม่งกเหมือนออย']);
+        case 'fish':
+          return R(null, true, true, [
+            'ไม่เป็นไร',
+            'ไอซ์ไม่หิว']);
+        case 'sword':
+          return R(null, true, true, [
+            'ดาบกากๆ แบบนั้นตัดโซ่ไม่ขาดหรอก']);
+        case 'rod':
+          return R(null, true, true, [
+            'จะมาตกปลากะพงเหรอจร๊ะ?']);
+        default:
+          return R(null, true, true, [
+            'ใช้ยังงัยอะ?']);
+      }
+    },
+  };
+
+  // d4: boss [+ power sword --> (win)]
+  map_data.d4 = {
+    pid: 'd4', row: 5, col: 10,
+    arrows: {'nw': 'd2'},
+  };
+
+  npc_data.boss = {
+    nid: 'boss', loc: 'd4',
+    name: 'จอมมาร',
+    actionText: 'หมอที่หายไป ฝึมือแก?',
+    itemText: USE,
+    mapStates: {'bossDefeated': 'gone'},
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          return R(null, true, true, [
+            'ข้าคือ<b>จอมมาร</b>ผู้ครองป่านี้',
+            'ข้าจะทำให้แพทย์ทุกคนต้องทุกข์ระทม <b>555+</b>']);
+        case 'action':
+          return R(null, true, true, [
+            'ไอ้คลินิกไพรสัณฑ์อะไรนั่น มันบังอาจต่อต้านข้า',
+            'ข้าเลย "จัดการ" พวกมันซะ <b>555+</b>']);
+        case 'powersword':
+          utils.deselectItems();
+          flags.bossDefeated = true;
+          utils.refreshNpcOnMap('boss');
+          // TODO: Show the win scene
           return R(null, false, false, [
-            '<b>สุขสันต์วันเกิด</b>',
-            'ขอให้ออยมีความสุข ประสบความสำเร็จ มีสุขภาพดีนะครับ']);
+            '<b>อ๊าก!! เป็นไปไม่ได้!!</b>',
+            'แก... แกไปเอาดาบนั่นมาจากไหน <b>อ้ากกกก!!!</b>']);
+        case 'sword':
+          return R(null, true, true, [
+            'ดาบกากๆ แบบนั้นทำอะไรข้าไม่ได้หรอก <b>555+</b>']);
+        case 'gem':
+          return R(null, true, true, [
+            'อัญมณีเวทเฉยๆ ทำอะไรข้าไม่ได้หรอก <b>555+</b>']);
+        case 'oil':
+        case 'ice':
+          return R(null, true, true, [
+            'มนุษย์ธรรมดาอย่างเจ้า จะทำอะไรข้าได้ <b>555+</b>']);
+        case 'money':
+          return R(null, true, true, [
+            'จะติดสินบนข้า แต่มีแค่ 30 บาท ข้าไม่รับหรอก <b>555+</b>']);
+        case 'rod':
+        case 'fish':
+        case 'key':
+          return R(null, true, true, [
+            'จะเอา' + itemNames[op] + 'มาตีข้างั้นเหรอ บ้าหรือเปล่า <b>555+</b>']);
       }
     },
   };

@@ -28,8 +28,6 @@ $(function () {
       UTILS.showArrows();
       return;
     }
-    if (currentPid !== null && MAP_DATA[currentPid].onMove)
-      MAP_DATA[currentPid].onMove(pid, flags, UTILS);
     currentPid = pid;
     let coords = getMapCoords(pid);
     $('#map').css({

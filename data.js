@@ -693,14 +693,20 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'nw': 'c3', 'sw': 'd2'},
   };
 
-  // d2: shackle [+ key --> ice]
+  // d2
   map_data.d2 = {
     pid: 'd2', row: 4, col: 9,
-    arrows: {'ne': 'd1', 'sw': 'd3'},
+    arrows: {'ne': 'd1', 'sw': 'd3', 'se': 'd4'},
+  };
+
+  // d3: shackle [+ key --> ice]
+  map_data.d3 = {
+    pid: 'd3', row: 5, col: 8,
+    arrows: {'ne': 'd2'},
   };
 
   npc_data.shackle = {
-    nid: 'shackle', loc: 'd2',
+    nid: 'shackle', loc: 'd3',
     name: 'ไอซ์',
     actionText: 'ขอตังหน่อย',
     itemText: USE,
@@ -747,16 +753,10 @@ const [MAP_DATA, NPC_DATA] = function () {
     },
   };
 
-  // d3:
-  map_data.d3 = {
-    pid: 'd3', row: 5, col: 8,
-    arrows: {'ne': 'd2', 'e': 'd4'},
-  };
-
   // d4: blacksmith [+ sword + gem --> power sword]
   map_data.d4 = {
     pid: 'd4', row: 5, col: 10,
-    arrows: {'w': 'd3'},
+    arrows: {'nw': 'd2'},
   };
 
   npc_data.blacksmith = {

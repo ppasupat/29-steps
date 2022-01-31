@@ -37,6 +37,7 @@ $(function () {
       left: -(coords.left) + 'px',
     });
     $('.arrow').hide();
+    visitMinimap(pid);
   }
 
   UTILS.showArrows = function () {
@@ -53,6 +54,58 @@ $(function () {
 
   $('.arrow').click(
     e => moveMap(MAP_DATA[currentPid].arrows[e.target.dataset.dir]));
+
+  // ################################
+  // Minimap
+
+  const MINIMAP_ROW_HEIGHT = 20, MINIMAP_COL_WIDTH = 15,
+    MINIMAP_TOP_OFFSET = 12, MINIMAP_LEFT_OFFSET = 15;
+
+  function getMiniMapCoords(pid) {
+    return {
+      x: MINIMAP_LEFT_OFFSET + MAP_DATA[pid].col * MINIMAP_COL_WIDTH,
+      y: MINIMAP_TOP_OFFSET + MAP_DATA[pid].row * MINIMAP_ROW_HEIGHT,
+    };
+  }
+
+  // Generate a tag in SVG namespace
+  function S(tag, attr) {
+    return $(document.createElementNS(
+      "http://www.w3.org/2000/svg", tag.replace(/[<>]/g, '')))
+      .attr(attr || {});
+  }
+
+  function setupMinimap() {
+    S('circle', {
+      id: 'mm-player',
+      r: 4,
+      fill: 'red',
+    }).appendTo('#minimap-avatars');
+    Object.keys(MAP_DATA).forEach(pid => {
+      let coords = getMiniMapCoords(pid);
+      S('circle', {
+        cx: coords.x, cy: coords.y,
+        r: 5,
+        fill: 'yellow',
+      }).appendTo('#minimap-nodes').addClass('mm-' + pid).hide();
+      Object.keys(MAP_DATA[pid].arrows).forEach(d => {
+        if (d === 'nw' || d === 'sw' || d === 'w') return;
+        let tgt = MAP_DATA[pid].arrows[d], tgtCoords = getMiniMapCoords(tgt);
+        S('line', {
+          x1: coords.x, y1: coords.y,
+          x2: tgtCoords.x, y2: tgtCoords.y,
+          stroke: 'yellow', 'stroke-width': 2,
+        }).appendTo('#minimap-edges')
+          .addClass('mm-' + pid).addClass('mm-' + tgt).hide();
+      });
+    });
+  }
+
+  function visitMinimap(pid) {
+    $('.mm-' + pid).show();
+    let coords = getMiniMapCoords(pid);
+    $('#mm-player').attr({cx: coords.x, cy: coords.y});
+  }
 
   // ################################
   // NPC Encounter
@@ -188,6 +241,7 @@ $(function () {
 
   function setupMain() {
     setupNPCs();
+    setupMinimap();
     $('.scene').hide();
     $('#scene-main').show();
     setTimeout(() => moveMap('a1'), 1);

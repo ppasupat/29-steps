@@ -57,7 +57,8 @@ $(function () {
   // Minimap
 
   const MINIMAP_ROW_HEIGHT = 20, MINIMAP_COL_WIDTH = 15,
-    MINIMAP_TOP_OFFSET = 12, MINIMAP_LEFT_OFFSET = 15;
+    MINIMAP_TOP_OFFSET = 12, MINIMAP_LEFT_OFFSET = 15,
+    YELLOW = '#fea';
 
   function getMiniMapCoords(pid) {
     return {
@@ -84,7 +85,7 @@ $(function () {
       S('circle', {
         cx: coords.x, cy: coords.y,
         r: 5,
-        fill: 'yellow',
+        fill: ((MAP_DATA[pid].customColors || {})['x'] || YELLOW),
       }).appendTo('#minimap-nodes').addClass('mm-' + pid).hide();
       Object.keys(MAP_DATA[pid].arrows).forEach(d => {
         if (d === 'nw' || d === 'sw' || d === 'w') return;
@@ -92,7 +93,8 @@ $(function () {
         S('line', {
           x1: coords.x, y1: coords.y,
           x2: tgtCoords.x, y2: tgtCoords.y,
-          stroke: 'yellow', 'stroke-width': 2,
+          'stroke-width': 2,
+          stroke: ((MAP_DATA[pid].customColors || {})[d] || YELLOW),
         }).appendTo('#minimap-edges')
           .addClass('mm-' + pid).addClass('mm-' + tgt).hide();
       });

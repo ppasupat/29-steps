@@ -288,7 +288,7 @@ div.scene {
 #minimap-wrapper {
   position: absolute;
   left: 10px; top: 10px; width: 180px; height: 125px;
-  background: green;
+  background: #262;
 }
 
 /* ################################ */

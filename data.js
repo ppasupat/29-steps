@@ -20,6 +20,7 @@ const [MAP_DATA, NPC_DATA] = function () {
   };
   const GIVE = (x => 'ให้ <b>' + (itemNames[x] || '???') + '</b>');
   const USE = (x => 'ใช้ <b>' + (itemNames[x] || '???') + '</b>');
+  const GRAY = '#667', BROWN = '#741', PURPLE = '#606';
 
   function escapeHtml(x) {
     return x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -89,6 +90,7 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.a3 = {
     pid: 'a3', row: 5, col: 4,
     arrows: {'w': 'a2', 'ne': 's'},
+    customColors: {'ne': BROWN},
   };
 
   // a4: door [+ key --> access to b1]
@@ -96,6 +98,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     pid: 'a4', row: 4, col: 1,
     arrows: {'nw': 'a5', 'ne': 'b1', 'e': 'a6', 'sw': 'a1'},
     hideArrows: {'doorOpen': 'ne'},
+    customColors: {'e': GRAY},
   };
 
   npc_data.door = {
@@ -141,6 +144,7 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.a5 = {
     pid: 'a5', row: 3, col: 0,
     arrows: {'se': 'a4'},
+    customColors: {'x': BROWN, 'se': GRAY},
   };
 
   npc_data.pond = {
@@ -174,12 +178,14 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.a6 = {
     pid: 'a6', row: 4, col: 3,
     arrows: {'w': 'a4', 'ne': 'a7'},
+    customColors: {'x': BROWN, 'ne': BROWN},
   };
 
   // a7: cat [+ fish --> key]
   map_data.a7 = {
     pid: 'a7', row: 3, col: 4,
     arrows: {'sw': 'a6'},
+    customColors: {'x': BROWN},
   };
 
   npc_data.cat = {
@@ -222,6 +228,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     pid: 's', row: 3, col: 6,
     arrows: {'nw': 'b3', 'sw': 'a3', 'e': 'c7'},
     hideArrows: {'doorOpen': 'nw', 'midbossDefeated': 'e'},
+    customColors: {'x': GRAY, 'e': BROWN},
   };
 
   npc_data.shop = {
@@ -281,6 +288,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     pid: 'b3', row: 1, col: 4,
     arrows: {'nw': 'b4', 'sw': 'b2', 'e': 'c1', 'se': 's'},
     hideArrows: {'midbossDefeated': 'e'},
+    customColors: {'e': GRAY, 'se': BROWN},
   };
 
   npc_data.midboss = {
@@ -400,6 +408,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     pid: 'b7', row: 1, col: 2,
     arrows: {'sw': 'b8', 'ne': 'b4'},
     hideArrows: {'feePaid': 'sw'},
+    customColors: {'x': PURPLE, 'ne': PURPLE},
   };
 
   npc_data.receptionist = {
@@ -464,6 +473,7 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.b8 = {
     pid: 'b8', row: 2, col: 1,
     arrows: {'ne': 'b7'},
+    customColors: {'x': PURPLE, 'ne': PURPLE},
   };
 
   npc_data.nurse = {
@@ -589,6 +599,7 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.c3 = {
     pid: 'c3', row: 2, col: 9,
     arrows: {'w': 'c2', 'ne': 'c4', 'sw': 'c7', 'se': 'd1'},
+    customColors: {'se': GRAY},
   };
 
   // c4:
@@ -709,18 +720,21 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.d1 = {
     pid: 'd1', row: 3, col: 10,
     arrows: {'nw': 'c3', 'sw': 'd2'},
+    customColors: {'x': BROWN},
   };
 
   // d2
   map_data.d2 = {
     pid: 'd2', row: 4, col: 9,
     arrows: {'ne': 'd1', 'sw': 'd3', 'se': 'd4'},
+    customColors: {'x': BROWN, 'ne': BROWN, 'se': BROWN},
   };
 
   // d3: shackle [+ key --> ice]
   map_data.d3 = {
     pid: 'd3', row: 5, col: 8,
     arrows: {'ne': 'd2'},
+    customColors: {'x': BROWN, 'ne': BROWN},
   };
 
   npc_data.shackle = {

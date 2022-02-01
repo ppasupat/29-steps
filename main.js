@@ -183,6 +183,7 @@ $(function () {
     $('#encounter').addClass('hidden');
     $('#Inventory').removeClass('selectable');
     saveGame();
+    if (flags.gameWon) showWinScene();
   }
   $('#btn-leave-wrapper').click(hideEncounter);
 
@@ -237,14 +238,31 @@ $(function () {
   }
 
   // ################################
+  // Win scene
+
+  function showWinScene() {
+    let showWinSceneInner = function () {
+      $('#scene-cover').off('transitionend', showWinSceneInner);
+      $('#btn-leave-wrapper').hide();
+      showEncounter('cake');
+      $('#scene-cover').addClass('hidden');
+    };
+    $('#scene-cover').on('transitionend', showWinSceneInner).removeClass('hidden');
+  }
+
+  // ################################
   // Main UI
 
   function setupMain() {
     setupNPCs();
     setupMinimap();
     $('.scene').hide();
+    $('#scene-cover').show().removeClass('hidden');
     $('#scene-main').show();
-    setTimeout(() => moveMap('a1'), 1);
+    setTimeout(() => {
+      moveMap('a1');
+      $('#scene-cover').addClass('hidden');
+    }, 1);
   }
 
   function saveGame() {
@@ -277,7 +295,6 @@ $(function () {
       "tutorialDone1": true,
       "pondFished": true,
       "doorOpen": true,
-      "shopBOpen": true,
       "feePaid": true,
       "nurseHelped": true,
       "midbossCleaned": true,
@@ -294,13 +311,11 @@ $(function () {
       "tutorialDone1": true,
       "pondFished": true,
       "doorOpen": true,
-      "shopBOpen": true,
       "feePaid": true,
       "nurseHelped": true,
       "midbossCleaned": true,
       "midbossDefeated": true,
       "moneyStolen": true,
-      "shopCOpen": true,
       "stoneOiled": true,
       "swordPulled": true,
       "lakeFished": true,
@@ -308,6 +323,30 @@ $(function () {
     },
     items: ['rod', 'sword', '', '', 'oil', 'ice'],
     pid: "d2",
+  }));
+  $('#skipC').click(() => loadGame({
+    flags: {
+      "gotMoneyFromFairy": true,
+      "tutorialDone2": true,
+      "tutorialDone1": true,
+      "pondFished": true,
+      "doorOpen": true,
+      "feePaid": true,
+      "nurseHelped": true,
+      "midbossCleaned": true,
+      "midbossDefeated": true,
+      "moneyStolen": true,
+      "stoneOiled": true,
+      "swordPulled": true,
+      "lakeFished": true,
+      "iceEscaped": true,
+      "swordGiven": true,
+      "fireIced": true,
+      "gemPicked": true,
+      "gemGiven": true
+    },
+    items: ['rod', 'powersword', '', '', 'oil', 'ice'],
+    pid: "d4",
   }));
 
   // ################################
@@ -331,7 +370,8 @@ $(function () {
 
   const imageList = [
     'img/heart.png',
-    'img/map-draft.png',
+    'img/arrow.png',
+    'img/map-draft-3.png',
   ];
   let numResourcesLeft = imageList.length;
 

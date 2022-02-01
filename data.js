@@ -796,7 +796,6 @@ const [MAP_DATA, NPC_DATA] = function () {
     name: 'จอมมาร',
     actionText: 'หมอที่หายไป ฝึมือแก?',
     itemText: USE,
-    mapStates: {'bossDefeated': 'gone'},
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
@@ -809,9 +808,7 @@ const [MAP_DATA, NPC_DATA] = function () {
             'ข้าเลย "จัดการ" พวกมันซะ <b>555+</b>']);
         case 'powersword':
           utils.deselectItems();
-          flags.bossDefeated = true;
-          utils.refreshNpcOnMap('boss');
-          // TODO: Show the win scene
+          flags.gameWon = true;
           return R(null, false, false, [
             '<b>อ๊าก!! เป็นไปไม่ได้!!</b>',
             'แก... แกไปเอาดาบนั่นมาจากไหน <b>อ้ากกกก!!!</b>']);
@@ -833,6 +830,23 @@ const [MAP_DATA, NPC_DATA] = function () {
         case 'key':
           return R(null, true, true, [
             'จะเอา' + itemNames[op] + 'มาตีข้างั้นเหรอ บ้าหรือเปล่า <b>555+</b>']);
+      }
+    },
+  };
+
+  // win screen
+
+  npc_data.cake = {
+    nid: 'cake', loc: 'd4',
+    name: 'เค้ก',
+    actionText: '',
+    itemText: USE,
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          return R(null, false, false, [
+            '<b>สุขสันต์วันเกิด</b>',
+            'ขอให้ออยมีความสุข ประสบความสำเร็จ มีสุขภาพดีนะครับ']);
       }
     },
   };

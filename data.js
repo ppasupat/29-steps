@@ -125,6 +125,8 @@ const [MAP_DATA, NPC_DATA] = function () {
           utils.removeItem('key');
           flags.doorOpen = true;
           utils.refreshNpcOnMap('door');
+          utils.refreshNpcOnMap('noBridgeB');
+          utils.refreshNpcOnMap('bridgeB');
           utils.showArrows();
           return R('open', false, false, [
             'คุณใช้กุญแจเปิดประตู',
@@ -231,6 +233,27 @@ const [MAP_DATA, NPC_DATA] = function () {
     customColors: {'x': GRAY, 'e': BROWN},
   };
 
+  npc_data.noBridgeB = {
+    nid: 'noBridgeB', loc: 's', cosmetic: true,
+    name: 'noBridgeB',
+    mapStates: {'doorOpen': 'gone'},
+  };
+  npc_data.bridgeB = {
+    nid: 'bridgeB', loc: 's', cosmetic: true,
+    name: 'bridgeB',
+    mapStates: {'doorOpen': 'appear'},
+  };
+  npc_data.noBridgeC = {
+    nid: 'noBridgeC', loc: 's', cosmetic: true,
+    name: 'noBridgeC',
+    mapStates: {'midbossDefeated': 'gone'},
+  };
+  npc_data.bridgeC = {
+    nid: 'bridgeC', loc: 's', cosmetic: true,
+    name: 'bridgeC',
+    mapStates: {'midbossDefeated': 'appear'},
+  };
+
   npc_data.shop = {
     nid: 'shop', loc: 's',
     name: 'พ่อค้า',
@@ -318,6 +341,8 @@ const [MAP_DATA, NPC_DATA] = function () {
             flags.midbossDefeated = true;
             utils.refreshNpcOnMap('midboss');
             utils.refreshNpcOnMap('receptionist');
+            utils.refreshNpcOnMap('noBridgeC');
+            utils.refreshNpcOnMap('bridgeC');
             utils.showArrows();
             return R('cleaned', false, false, [
               'ได้สิ! ขอให้เจ้าเดินทางปลอดภัย']);

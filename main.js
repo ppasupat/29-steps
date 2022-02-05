@@ -115,12 +115,10 @@ $(function () {
   function setupNPCs() {
     Object.values(NPC_DATA).forEach(npc => {
       let corrds = getMapCoords(npc.loc);
-      $('<div class=map-npc>').attr({
+      let npcDiv = $('<div class=map-npc>').attr({
         'data-nid': npc.nid,
-      }).css({
-        top: (corrds.top + MAP_PANE_HEIGHT / 2) + 'px',
-        left: (corrds.left + MAP_PANE_WIDTH / 2) + 'px',
       }).text(npc.name).appendTo('#map');
+      if (npc.cosmetic) npcDiv.addClass('cosmetic');
       UTILS.refreshNpcOnMap(npc.nid);
     });
   }
@@ -133,6 +131,7 @@ $(function () {
   };
 
   $('#map').on('click', '.map-npc', function (e) {
+    if ($(this).hasClass('cosmetic')) return;
     showEncounter(this.dataset.nid);
   });
 
@@ -290,9 +289,8 @@ $(function () {
       "tutorialDone2": true,
       "tutorialDone1": true,
       "pondFished": true,
-      "doorOpen": true
     },
-    items: ['rod', '', '', '', 'oil', ''],
+    items: ['rod', 'key', '', '', 'oil', ''],
     pid: 'a4',
   }));
   $('#skipB').click(() => loadGame({
@@ -305,7 +303,6 @@ $(function () {
       "feePaid": true,
       "nurseHelped": true,
       "midbossCleaned": true,
-      "midbossDefeated": true,
       "moneyStolen": true
     },
     items: ['money', '', '', '', 'oil', ''],

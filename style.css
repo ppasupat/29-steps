@@ -64,6 +64,13 @@ table {
   justify-content: flex-end;
 }
 
+.leftize {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 /* ################################ */
 /* page */
 
@@ -226,16 +233,20 @@ div.scene {
 
 #npc-name-wrapper {
   position: absolute;
-  left: 15px; bottom: 20px; width: 220px; height: 50px;
-  background: #eee;
-  box-shadow: 5px 5px #444;
+  left: 0; top: 0; width: 100%; height: 70px;
+  background: #eaa;
+}
+#npc-name {
+  margin-left: 80px;
+  font-size: 112%;
 }
 
 #npc-dialog-wrapper {
   position: absolute;
-  right: 10px; top: 10px; width: 230px; height: 230px;
+  right: 10px; top: 10px; width: 250px; height: 235px;
   background: #eee;
   border-radius: 10px;
+  border: 3px solid #222;
 }
 
 #npc-dialog {
@@ -256,44 +267,46 @@ div.scene {
   font-size: 80%;
 }
 
-.button {
+#btn-action-wrapper, #btn-item-wrapper {
+  position: absolute;
+  right: 20px; width: 230px; height: 60px;
+  visibility: hidden;
   text-shadow: 1px 1px 2px black;
+  border: 1px solid #77c;
+  box-shadow: 0 0 0 2px #228, 5px 5px #004;
+  background: #228;
 }
-.button:active {
-  background-color: #55b;
-}
-#btn-action-wrapper {
-  position: absolute;
-  right: 10px; bottom: 80px; width: 230px; height: 70px;
-  background-color: #228;
-  visibility: hidden;
-}
-#btn-item-wrapper {
-  position: absolute;
-  right: 10px; bottom: 5px; width: 230px; height: 70px;
-  background-color: #228;
-  visibility: hidden;
-}
+#btn-action-wrapper { bottom: 85px; }
+#btn-item-wrapper { bottom: 10px; }
 #btn-action-wrapper.enabled, #btn-item-wrapper.enabled {
   visibility: inherit;
 }
 #btn-action-wrapper.enabled, #btn-item-wrapper.enabled.itemSelected {
   cursor: pointer;
 }
+#btn-action-wrapper:active, #btn-item-wrapper.itemSelected:active {
+  background-color: #55b;
+}
 
 #btn-item {
   color: #888;
 }
 #btn-action, #btn-item-wrapper.itemSelected #btn-item {
-  color: white;
+  color: #eee;
 }
 
 #btn-leave-wrapper {
   position: absolute;
-  left: 5px; top: 5px; width: 60px; height: 60px;
+  left: 5px; top: 5px; width: 55px; height: 55px;
   cursor: pointer;
+  text-shadow: 1px 1px 2px black;
+  border: 1px solid #c77;
+  box-shadow: 0 0 0 2px #822, 5px 5px #400;
   background-color: #822;
-  color: white;
+  color: #eee;
+}
+#btn-leave-wrapper:active {
+  background-color: #b55;
 }
 
 /* ################################ */

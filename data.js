@@ -60,13 +60,13 @@ const [MAP_DATA, NPC_DATA] = function () {
               'มีอะไรให้ฉันช่วยไหม?']);
           else
             return R(null, false, true, [
-              'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>ที่ได้มา<br>แล้วกด "ให้")</i>']);
+              'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>แล้วกด "ให้")</i>']);
         case 'action':
           flags.gotMoneyFromFairy = true;
           utils.addItem('money');
           return R(null, false, true, [
             'งกจริง!<br>เอาไป <b>30 บาท</b>',
-            'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>ที่ได้มา<br>แล้วกด "ให้")</i>']);
+            'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>แล้วกด "ให้")</i>']);
         case 'money':
           utils.deselectItems();
           flags.tutorialDone1 = flags.tutorialDone2 = true;

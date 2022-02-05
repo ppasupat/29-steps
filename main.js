@@ -203,7 +203,12 @@ $(function () {
     }
     $('.item')[index].dataset.iid = iid;
     UTILS.deselectItems();
+    $('.item').eq(index).addClass('flashing');
   };
+
+  $('.item').on('click animationend', function () {
+    $(this).removeClass('flashing');
+  });
 
   UTILS.removeItem = function (iid) {
     $('.item[data-iid="' + iid + '"]')[0].dataset.iid = '';

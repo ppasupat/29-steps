@@ -495,7 +495,7 @@ const [MAP_DATA, NPC_DATA] = function () {
         case 'action':
           return R('sad', true, !flags.nurseHelped, [
             'เฮ้อ... ผมก็ไม่มีเงินเหมือนกัน',
-            'จู่ๆ คลินิกเราก็โดนตัดงบ ไม่รู้ทำไม']);
+            'จู่ๆ คลินิกเราก็โดน<b>ตัดงบ</b> ไม่รู้ทำไม']);
         case 'oil':
           utils.addItem('entkit');
           flags.nurseHelped = true;
@@ -789,6 +789,7 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.d4 = {
     pid: 'd4', row: 5, col: 10,
     arrows: {'nw': 'd2'},
+    customColors: {'x': BROWN},
   };
 
   npc_data.boss = {
@@ -838,7 +839,7 @@ const [MAP_DATA, NPC_DATA] = function () {
 
   npc_data.cake = {
     nid: 'cake', loc: 'd4',
-    name: 'เค้ก',
+    name: '',
     actionText: '',
     itemText: USE,
     content: function (op, flags, utils) {

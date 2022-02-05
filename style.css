@@ -140,20 +140,17 @@ div.scene {
 /* main scene */
 
 #scene-main {
-  background: white;
 }
 
 #map-pane {
   position: absolute;
   left: 0; top: 0; width: 500px; height: 400px;
-  background: gray;
+  overflow: hidden;
 }
 
 #hud-pane {
   position: absolute;
   left: 500px; top: 0; width: 200px; height: 400px;
-  background: #ccccbb;
-  box-shadow: -1px 0 5px #888;
 }
 
 /* ################################ */
@@ -229,19 +226,20 @@ div.scene {
 
 #npc-name-wrapper {
   position: absolute;
-  left: 5px; bottom: 5px; width: 240px; height: 75px;
-  border: 5px solid #222;
-  background: white;
+  left: 15px; bottom: 20px; width: 220px; height: 50px;
+  background: #eee;
+  box-shadow: 5px 5px #444;
 }
 
 #npc-dialog-wrapper {
   position: absolute;
-  right: 0; top: 0; width: 250px; height: 240px;
+  right: 10px; top: 10px; width: 230px; height: 230px;
   background: #eee;
+  border-radius: 10px;
 }
 
 #npc-dialog {
-  margin: 25px;
+  margin: 15px;
   text-align: center;
   line-height: 1.4;
 }
@@ -259,7 +257,6 @@ div.scene {
 }
 
 .button {
-  border-radius: 20px;
   text-shadow: 1px 1px 2px black;
 }
 .button:active {
@@ -294,7 +291,6 @@ div.scene {
 #btn-leave-wrapper {
   position: absolute;
   left: 5px; top: 5px; width: 60px; height: 60px;
-  border-radius: 30px;
   cursor: pointer;
   background-color: #822;
   color: white;
@@ -305,8 +301,7 @@ div.scene {
 
 #minimap-wrapper {
   position: absolute;
-  left: 10px; top: 10px; width: 180px; height: 125px;
-  background: #262;
+  left: 10px; top: 5px; width: 180px; height: 125px;
 }
 
 /* ################################ */
@@ -314,14 +309,12 @@ div.scene {
 
 #inventory {
   position: absolute;
-  left: 10px; top: 145px; width: 180px; height: 245px;
+  left: 10px; top: 140px; width: 180px; height: 260px;
 }
 
 .item {
   position: absolute;
-  width: 85px; height: 75px;
-  border: 2px solid #666;
-  border-radius: 5px;
+  width: 85px; height: 80px;
   background-color: #ccc;
 }
 #inventory.selectable .item {
@@ -330,16 +323,16 @@ div.scene {
 
 .item:nth-child(1) { left: 0; top: 0; }
 .item:nth-child(2) { left: 95px; top: 0; }
-.item:nth-child(3) { left: 0; top: 85px; }
-.item:nth-child(4) { left: 95px; top: 85px; }
-.item:nth-child(5) { left: 0; top: 170px; }
-.item:nth-child(6) { left: 95px; top: 170px; }
+.item:nth-child(3) { left: 0; top: 90px; }
+.item:nth-child(4) { left: 95px; top: 90px; }
+.item:nth-child(5) { left: 0; top: 180px; }
+.item:nth-child(6) { left: 95px; top: 180px; }
 
 .item.selected {
   background-color: #ffc;
 }
 .item[data-iid=""] {
-  background-color: #aaa;
+  background-color: transparent;
   cursor: auto;
 }
 

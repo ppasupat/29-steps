@@ -117,8 +117,9 @@ div.scene {
 
 #pane-loading button {
   font-size: 30px;
-  padding: 10px;
+  padding: 10px 20px;
   cursor: pointer;
+  font-family: 'Mali', sans-serif;
 }
 
 /* ################################ */
@@ -151,7 +152,8 @@ div.scene {
 #hud-pane {
   position: absolute;
   left: 500px; top: 0; width: 200px; height: 400px;
-  background: #cca;
+  background: #ccccbb;
+  box-shadow: -1px 0 5px #888;
 }
 
 /* ################################ */
@@ -223,13 +225,13 @@ div.scene {
 #npc-pic-wrapper {
   position: absolute;
   left: 0; top: 0; width: 250px; height: 320px;
-  background: cyan;
 }
 
 #npc-name-wrapper {
   position: absolute;
-  left: 0; bottom: 0; width: 250px; height: 80px;
-  background: yellow;
+  left: 5px; bottom: 5px; width: 240px; height: 75px;
+  border: 5px solid #222;
+  background: white;
 }
 
 #npc-dialog-wrapper {
@@ -256,16 +258,23 @@ div.scene {
   font-size: 80%;
 }
 
+.button {
+  border-radius: 20px;
+  text-shadow: 1px 1px 2px black;
+}
+.button:active {
+  background-color: #55b;
+}
 #btn-action-wrapper {
   position: absolute;
-  right: 0; bottom: 80px; width: 250px; height: 80px;
-  background: #ccf;
+  right: 10px; bottom: 80px; width: 230px; height: 70px;
+  background-color: #228;
   visibility: hidden;
 }
 #btn-item-wrapper {
   position: absolute;
-  right: 0; bottom: 0; width: 250px; height: 80px;
-  background: #cfc;
+  right: 10px; bottom: 5px; width: 230px; height: 70px;
+  background-color: #228;
   visibility: hidden;
 }
 #btn-action-wrapper.enabled, #btn-item-wrapper.enabled {
@@ -275,21 +284,20 @@ div.scene {
   cursor: pointer;
 }
 
-#btn-action, #btn-item {
-  text-align: center;
-}
 #btn-item {
-  color: #aaa;
+  color: #888;
 }
 #btn-action, #btn-item-wrapper.itemSelected #btn-item {
-  color: black;
+  color: white;
 }
 
 #btn-leave-wrapper {
   position: absolute;
-  left: 0; top: 0; width: 80px; height: 80px;
+  left: 5px; top: 5px; width: 60px; height: 60px;
+  border-radius: 30px;
   cursor: pointer;
-  background: #fcc;
+  background-color: #822;
+  color: white;
 }
 
 /* ################################ */

@@ -77,8 +77,10 @@ $(function () {
   function setupMinimap() {
     S('circle', {
       id: 'mm-player',
-      r: 4,
-      fill: 'red',
+      r: 7,
+      fill: 'none',
+      stroke: '#f55',
+      'stroke-width': 4,
     }).appendTo('#minimap-avatars');
     Object.keys(MAP_DATA).forEach(pid => {
       let coords = getMiniMapCoords(pid);

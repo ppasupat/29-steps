@@ -141,9 +141,8 @@ $(function () {
       console.log(currentPid, currentNid, flags);
       return;
     }
-    $('#npc-pic').removeClass();
-    $('#npc-pic').addClass('pic-' + currentNid);
-    $('#npc-pic').addClass('pic-' + currentNid + '-' + (content.picture || 'default'));
+    $('#npc-pic')[0].dataset.nid = currentNid;
+    $('#npc-pic')[0].dataset.mood = (content.mood || 'default');
     $('#btn-action-wrapper').toggleClass('enabled', content.enableAction);
     $('#btn-item-wrapper').toggleClass('enabled', content.enableItem);
     $('#inventory').toggleClass('selectable', content.enableItem);

@@ -26,9 +26,9 @@ const [MAP_DATA, NPC_DATA] = function () {
     return x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
-  function R(picture, enableAction, enableItem, dialog) {
+  function R(mood, enableAction, enableItem, dialog) {
     return {
-      picture: picture,
+      mood: mood,
       enableAction: enableAction,
       enableItem: enableItem,
       dialog: dialog,

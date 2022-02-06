@@ -305,7 +305,21 @@ div.scene {
 
 #npc-pic-wrapper {
   position: absolute;
-  left: 0; top: 0; width: 250px; height: 320px;
+  left: 0; bottom: 0; width: 240px; height: 320px;
+  opacity: 1;
+  transition: bottom 500ms, opacity 500ms;
+}
+#encounter.hidden #npc-pic-wrapper {
+  bottom: -30px;
+  opacity: 0;
+}
+
+#npc-pic {
+  position: absolute;
+  left: 0; bottom: 0; width: 240px; height: 320px;
+}
+#npc-pic[data-nid="fairy"] {
+  background: url('img/fairy.png');
 }
 
 #npc-name-wrapper {

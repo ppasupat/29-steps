@@ -142,7 +142,7 @@ $(function () {
       return;
     }
     $('#npc-pic')[0].dataset.nid = currentNid;
-    $('#npc-pic')[0].dataset.mood = (content.mood || 'default');
+    [1, 2, 4].forEach(x => $('#npc-pic').toggleClass('x' + x, !!(+content.mood & x)));
     $('#btn-action-wrapper').toggleClass('enabled', content.enableAction);
     $('#btn-item-wrapper').toggleClass('enabled', content.enableItem);
     $('#inventory').toggleClass('selectable', content.enableItem);
@@ -372,9 +372,12 @@ $(function () {
   $(window).resize(resizeScreen);
 
   const imageList = [
-    'img/heart.png',
     'img/arrow.png',
     'img/map-draft-3.png',
+    'img/bridgeB.png',
+    'img/bridgeC.png',
+    'img/construction.png',
+    'img/fairy.png',
   ];
   let numResourcesLeft = imageList.length;
 

@@ -6,6 +6,7 @@
   <title>29 Steps</title>
   <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="npc.css">
   <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="data.js"></script>
   <script type="text/javascript" src="main.js"></script>
@@ -25,7 +26,12 @@
           <div id=arrow-sw class=arrow data-dir=sw></div>
           <div id=arrow-se class=arrow data-dir=se></div>
           <div id=encounter class=hidden>
-            <div id=npc-pic-wrapper class=bottomize><div id=npc-pic></div></div>
+            <div id=npc-pic>
+              <div id=npc-pic-body></div>
+              <div id=npc-pic-x1></div>
+              <div id=npc-pic-x2></div>
+              <div id=npc-pic-x4></div>
+            </div>
             <div id=npc-name-wrapper class=leftize><div id=npc-name></div></div>
             <div id=npc-dialog-wrapper class=centerize><div id=npc-dialog></div></div>
             <div id=btn-action-wrapper class=centerize><div id=btn-action></div></div>

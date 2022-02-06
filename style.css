@@ -209,83 +209,6 @@ div.scene {
 .map-npc.cosmetic {
   cursor: auto;
 }
-.map-npc.gone, .map-npc[data-nid="cake"] {
-  display: none;
-}
-
-.map-npc[data-nid="fairy"] {
-  top: 1480px; left: 250px;
-}
-.map-npc[data-nid="door"] {
-  top: 1224px; left: 410px; 
-}
-.map-npc[data-nid="pond"] {
-  top: 968px; left: 250px;
-}
-.map-npc[data-nid="cat"] {
-  top: 968px; left: 890px;
-}
-
-.map-npc[data-nid="shop"] {
-  top: 968px; left: 1210px; 
-}
-.map-npc[data-nid="noBridgeB"] {
-  top: 804px; left: 1125px; 
-  background: url('img/construction.png');
-  width: 70px; height: 100px;
-}
-.map-npc[data-nid="bridgeB"] {
-  top: 568px; left: 977px;
-  background: url('img/bridgeB.png');
-  width: 195px; height: 330px;
-  display: none;
-}
-.map-npc[data-nid="bridgeB"].appear {
-  display: block;
-}
-.map-npc[data-nid="noBridgeC"] {
-  top: 868px; left: 1243px; 
-  background: url('img/construction.png');
-  width: 70px; height: 100px;
-}
-.map-npc[data-nid="bridgeC"] {
-  top: 940px; left: 1296px;
-  background: url('img/bridgeC.png');
-  width: 95px; height: 47px;
-  display: none;
-}
-.map-npc[data-nid="bridgeC"].appear {
-  display: block;
-}
-
-.map-npc[data-nid="midboss"] {
-  top: 456px; left: 890px; 
-}
-.map-npc[data-nid="fire"] {
-  top: 456px; left: 250px;
-}
-.map-npc[data-nid="receptionist"] {
-  top: 456px; left: 570px;
-}
-.map-npc[data-nid="nurse"] {
-  top: 712px; left: 410px; 
-}
-
-.map-npc[data-nid="blacksmith"] {
-  top: 712px; left: 1370px; 
-}
-.map-npc[data-nid="lake"] {
-  top: 200px; left: 1370px;
-}
-.map-npc[data-nid="stone"] {
-  top: 1480px; left: 1210px;
-}
-.map-npc[data-nid="shackle"] {
-  top: 1480px; left: 1530px; 
-}
-.map-npc[data-nid="boss"] {
-  top: 1480px; left: 1850px;
-}
 
 /* ################################ */
 /* encounter */
@@ -303,23 +226,28 @@ div.scene {
   opacity: 0;
 }
 
-#npc-pic-wrapper {
+#npc-pic {
   position: absolute;
-  left: 0; bottom: 0; width: 240px; height: 320px;
+  left: 0; top: 80px; width: 240px; height: 320px;
   opacity: 1;
-  transition: bottom 500ms, opacity 500ms;
+  transition: top 500ms, opacity 500ms;
 }
-#encounter.hidden #npc-pic-wrapper {
-  bottom: -30px;
+#encounter.hidden #npc-pic {
+  top: 110px;
   opacity: 0;
 }
 
-#npc-pic {
+#npc-pic-body {
   position: absolute;
-  left: 0; bottom: 0; width: 240px; height: 320px;
 }
-#npc-pic[data-nid="fairy"] {
-  background: url('img/fairy.png');
+#npc-pic-x1, #npc-pic-x2, #npc-pic-x4 {
+  position: absolute;
+  visibility: hidden;
+}
+#npc-pic.x1 #npc-pic-x1,
+#npc-pic.x2 #npc-pic-x2,
+#npc-pic.x4 #npc-pic-x4 {
+  visibility: visible;
 }
 
 #npc-name-wrapper {
@@ -443,7 +371,7 @@ div.scene {
 .item.flashing {
   animation-name: flash;
   animation-duration: 300ms;
-  animation-iteration-count: 2;
+  animation-iteration-count: 3;
 }
 .item[data-iid=""] {
   border: none;

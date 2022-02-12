@@ -192,34 +192,34 @@ const [MAP_DATA, NPC_DATA] = function () {
 
   npc_data.cat = {
     nid: 'cat', loc: 'a7',
-    name: 'แมว',
+    name: 'แมว (?)',
     actionText: 'ขอตังหน่อย',
     itemText: GIVE,
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'เมี้ยว!']);
         case 'action':
-          return R('sad', true, true, [
+          return R(0, true, true, [
             'ฉันไม่มีเงินเลยเมี้ยว!',
             'แต่ถ้าเธอให้<b>อาหาร</b>ฉัน ฉันมีของให้เธอนะเมี้ยว!']);
         case 'fish':
           utils.removeItem('fish');
           utils.addItem('key');
-          return R('happy', true, true, [
+          return R(1, true, true, [
             'เมี้ยวๆๆ อร่อยจัง!',
             'ฉันจะให้ของเธอเป็นการตอบแทนนะเมี้ยว!']);
         case 'key':
-          return R('happy', true, true, [
+          return R(1, true, true, [
             'เธอเก็บมันไว้เถอะ ไม่ต้องเกรงใจเมี้ยว!']);
         case 'oil':
         case 'ice':
-          return R('happy', true, true, [
+          return R(1, true, true, [
             'สวัสดี ' + itemNames[op],
             'ยินดีที่ได้รู้จักเมี้ยว!']);
         default:
-          return R('sad', true, true, [
+          return R(0, true, true, [
             'อะไรหนะ? ฉันกินไม่เป็นเมี้ยว!']);
       }
     },

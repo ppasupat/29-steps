@@ -7,14 +7,22 @@
   width: 95px; height: 47px;
 }
 .map-construction {
-  background-position: -2px -381px;
+  background-position: -436px -580px;
   width: 65px; height: 95px;
+}
+.npc-cat-0 {
+  background-position: -2px -580px;
+  width: 215px; height: 146px;
+}
+.npc-cat-1 {
+  background-position: -219px -580px;
+  width: 215px; height: 146px;
 }
 .npc-fairy-0 {
   background-position: -199px -2px;
   width: 235px; height: 287px;
 }
 .npc-fairy-1 {
-  background-position: -436px -2px;
+  background-position: -199px -291px;
   width: 235px; height: 287px;
 }

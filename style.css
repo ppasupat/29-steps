@@ -166,7 +166,7 @@ div.scene {
 #map {
   position: absolute;
   width: 2100px; height: 1680px; left: 0; top: -1260px;
-  background: url('img/map-draft-3.png');
+  background: url('img/map.png');
   transition: left 250ms linear, top 250ms linear;
 }
 
@@ -202,9 +202,10 @@ div.scene {
 }
 
 .map-npc {
+  background-image: url('img/sheet.png');
   position: absolute;
   cursor: pointer;
-  background: cyan; font-size: 150%; /* temp! */
+  font-size: 150%; color: cyan; text-shadow: 2px 2px black, -2px -2px black; /* temp */
 }
 .map-npc.cosmetic {
   cursor: auto;
@@ -226,28 +227,18 @@ div.scene {
   opacity: 0;
 }
 
-#npc-pic {
+#npc-pic-wrapper {
   position: absolute;
   left: 0; top: 80px; width: 240px; height: 320px;
   opacity: 1;
-  transition: top 500ms, opacity 500ms;
+  transition: transform 500ms, opacity 500ms;
 }
-#encounter.hidden #npc-pic {
-  top: 110px;
+#encounter.hidden #npc-pic-wrapper {
+  transform: translateY(20px);
   opacity: 0;
 }
-
-#npc-pic-body {
-  position: absolute;
-}
-#npc-pic-x1, #npc-pic-x2, #npc-pic-x4 {
-  position: absolute;
-  visibility: hidden;
-}
-#npc-pic.x1 #npc-pic-x1,
-#npc-pic.x2 #npc-pic-x2,
-#npc-pic.x4 #npc-pic-x4 {
-  visibility: visible;
+#npc-pic {
+  background-image: url('img/sheet.png');
 }
 
 #npc-name-wrapper {

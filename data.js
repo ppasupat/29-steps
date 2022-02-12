@@ -55,16 +55,16 @@ const [MAP_DATA, NPC_DATA] = function () {
       switch (op) {
         case 'enter':
           if (!flags.gotMoneyFromFairy) 
-            return R(1, true, false, [
+            return R(0, true, false, [
               'สวัสดีจ้ะ เธอคือผู้กล้าที่จะมาช่วยพวกเราจาก<b>จอมมาร</b>สินะ',
               'มีอะไรให้ฉันช่วยไหม?']);
           else
-            return R(1, false, true, [
+            return R(0, false, true, [
               'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>แล้วกด "ให้")</i>']);
         case 'action':
           flags.gotMoneyFromFairy = true;
           utils.addItem('money');
-          return R(2, false, true, [
+          return R(1, false, true, [
             'งกจริง!<br>เอาไป <b>30 บาท</b>',
             'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>แล้วกด "ให้")</i>']);
         case 'money':
@@ -72,7 +72,7 @@ const [MAP_DATA, NPC_DATA] = function () {
           flags.tutorialDone1 = flags.tutorialDone2 = true;
           utils.refreshNpcOnMap('fairy');
           utils.showArrows();
-          return R(1, false, false, [
+          return R(0, false, false, [
             '555+ ล้อเล่นๆ ไม่ต้องคืนเงินฉันหรอก',
             'ฉันเปิดทางให้แล้ว<br><b>ขอให้โชคดี!</b>']);
       }
@@ -235,6 +235,7 @@ const [MAP_DATA, NPC_DATA] = function () {
 
   npc_data.noBridgeB = {
     nid: 'noBridgeB', loc: 's', cosmetic: true,
+    nidAlias: 'construction',
     name: 'noBridgeB',
     mapStates: {'doorOpen': 'gone'},
   };
@@ -245,6 +246,7 @@ const [MAP_DATA, NPC_DATA] = function () {
   };
   npc_data.noBridgeC = {
     nid: 'noBridgeC', loc: 's', cosmetic: true,
+    nidAlias: 'construction',
     name: 'noBridgeC',
     mapStates: {'midbossDefeated': 'gone'},
   };

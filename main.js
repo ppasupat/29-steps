@@ -117,7 +117,8 @@ $(function () {
       let corrds = getMapCoords(npc.loc);
       let npcDiv = $('<div class=map-npc>').attr({
         'data-nid': npc.nid,
-      }).text(npc.name).appendTo('#map');
+      }).addClass('map-' + npc.nid).text(npc.name).appendTo('#map');
+      if (npc.nidAlias) npcDiv.addClass('map-' + npc.nidAlias);
       if (npc.cosmetic) npcDiv.addClass('cosmetic');
       UTILS.refreshNpcOnMap(npc.nid);
     });
@@ -141,8 +142,7 @@ $(function () {
       console.log(currentPid, currentNid, flags);
       return;
     }
-    $('#npc-pic')[0].dataset.nid = currentNid;
-    [1, 2, 4].forEach(x => $('#npc-pic').toggleClass('x' + x, !!(+content.mood & x)));
+    $('#npc-pic').removeClass().addClass('npc-' + currentNid + '-' + content.mood);
     $('#btn-action-wrapper').toggleClass('enabled', content.enableAction);
     $('#btn-item-wrapper').toggleClass('enabled', content.enableItem);
     $('#inventory').toggleClass('selectable', content.enableItem);
@@ -372,12 +372,9 @@ $(function () {
   $(window).resize(resizeScreen);
 
   const imageList = [
+    'img/map.png',
     'img/arrow.png',
-    'img/map-draft-3.png',
-    'img/bridgeB.png',
-    'img/bridgeC.png',
-    'img/construction.png',
-    'img/fairy.png',
+    'img/sheet.png',
   ];
   let numResourcesLeft = imageList.length;
 

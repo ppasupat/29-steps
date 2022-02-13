@@ -284,6 +284,15 @@ $(function () {
     moveMap(data.pid);
   }
 
+  $('#debug').click(() => loadGame({
+    flags: {
+      "gotMoneyFromFairy": true,
+      "tutorialDone2": true,
+      "tutorialDone1": true,
+    },
+    items: ['rod', '', '', '', 'oil', ''],
+    pid: 'a5',
+  }));
   $('#skipA').click(() => loadGame({
     flags: {
       "gotMoneyFromFairy": true,

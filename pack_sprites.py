@@ -17,7 +17,7 @@ def main():
     packer = Packer.create(
         max_width=8128,
         max_height=8128,
-        trim_mode=1,
+        trim_mode=0,
         atlas_format='json',
         enable_rotated=False,
         force_square=False,

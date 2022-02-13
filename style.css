@@ -229,7 +229,7 @@ div.scene {
 
 #npc-pic-wrapper {
   position: absolute;
-  left: 0; top: 80px; width: 240px; height: 320px;
+  left: 0; top: 70px; width: 240px; height: 330px;
   opacity: 1;
   transition: transform 500ms, opacity 500ms;
 }

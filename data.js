@@ -111,14 +111,14 @@ const [MAP_DATA, NPC_DATA] = function () {
       switch (op) {
         case 'enter':
           if (!flags.doorOpen) {
-            return R(null, true, true, [
+            return R(0, true, true, [
               'มีประตูบานใหญ่ปิดทางอยู่']);
           } else {
-            return R('open', false, false, [
+            return R(1, false, false, [
               'ประตูเปิดอยู่ คุณสามารถเดินผ่านได้']);
           }
         case 'action':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'อย่าโกงสิลูก',
             'ที่ประตูมี<b>รูกุญแจ</b>อยู่']);
         case 'key':
@@ -128,7 +128,7 @@ const [MAP_DATA, NPC_DATA] = function () {
           utils.refreshNpcOnMap('noBridgeB');
           utils.refreshNpcOnMap('bridgeB');
           utils.showArrows();
-          return R('open', false, false, [
+          return R(1, false, false, [
             'คุณใช้กุญแจเปิดประตู',
             'คุณสามารถเดินผ่านได้แล้ว']);
         default:
@@ -136,7 +136,7 @@ const [MAP_DATA, NPC_DATA] = function () {
             op === 'money' ? 'คุณพยายามติดสินบนประตู' :
             op === 'oil' ? 'คุณพยายามพังประตู' :
             'คุณใส่' + itemNames[op] + 'ในรูกุญแจ');
-          return R(null, true, true, [
+          return R(0, true, true, [
             line1, 'แต่ประตูก็ยังเปิดไม่ออก']);
       }
     },
@@ -151,6 +151,7 @@ const [MAP_DATA, NPC_DATA] = function () {
 
   npc_data.pond = {
     nid: 'pond', loc: 'a5',
+    nidAlias: 'fish',
     name: 'บ่อน้ำ',
     actionText: '',
     itemText: USE,
@@ -158,19 +159,19 @@ const [MAP_DATA, NPC_DATA] = function () {
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
-          return R(null, false, true, [
+          return R(0, false, true, [
             'มี<b>ปลา</b>ว่ายอยู่ในบ่อน้ำ']);
         case 'rod':
           utils.addItem('fish');
           flags.pondFished = true;
           utils.refreshNpcOnMap('pond');
-          return R('fished', false, false, [
+          return R(1, false, false, [
             'คุณตก<b>ปลา</b>ขึ้นมาจากบ่อน้ำ']);
         case 'oil':
-          return R(null, false, true, [
+          return R(0, false, true, [
             'คุณพยายามจับปลาด้วยมือ แต่ปลาลื่นเกินไป']);
         default:
-          return R(null, false, true, [
+          return R(0, false, true, [
             'อย่าทิ้งของลงน้ำสิ!']);
       }
     },
@@ -649,6 +650,7 @@ const [MAP_DATA, NPC_DATA] = function () {
 
   npc_data.lake = {
     nid: 'lake', loc: 'c6',
+    nidAlias: 'fish',
     name: 'ทะเลสาบ',
     actionText: 'ทำไมรูปคุ้นๆ',
     itemText: USE,
@@ -656,22 +658,22 @@ const [MAP_DATA, NPC_DATA] = function () {
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'มี<b>ปลา</b>ว่ายอยู่ในทะเลสาบ']);
         case 'action':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'เออ ไอซ์ขี้เกียจวาดใหม่']);
         case 'rod':
           utils.addItem('fish');
           flags.lakeFished = true;
           utils.refreshNpcOnMap('lake');
-          return R('fished', false, false, [
+          return R(1, false, false, [
             'คุณตก<b>ปลา</b>ขึ้นมาจากทะเลสาบ']);
         case 'oil':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'คุณพยายามจับปลาด้วยมือ แต่ปลาลื่นเกินไป']);
         default:
-          return R(null, true, true, [
+          return R(0, true, true, [
             'อย่าทิ้งของลงน้ำสิ!']);
       }
     },

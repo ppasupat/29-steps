@@ -234,7 +234,7 @@ div.scene {
   transition: transform 500ms, opacity 500ms;
 }
 #encounter.hidden #npc-pic-wrapper {
-  transform: translateY(20px);
+  transform: translateY(30px);
   opacity: 0;
 }
 #npc-pic {

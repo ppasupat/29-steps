@@ -143,6 +143,8 @@ $(function () {
       return;
     }
     $('#npc-pic').removeClass().addClass('npc-' + currentNid + '-' + content.mood);
+    if (NPC_DATA[currentNid].nidAlias)
+      $('#npc-pic').addClass('npc-' + NPC_DATA[currentNid].nidAlias + '-' + content.mood);
     $('#btn-action-wrapper').toggleClass('enabled', content.enableAction);
     $('#btn-item-wrapper').toggleClass('enabled', content.enableItem);
     $('#inventory').toggleClass('selectable', content.enableItem);

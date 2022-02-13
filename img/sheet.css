@@ -3,26 +3,42 @@
   width: 195px; height: 328px;
 }
 .map-bridgeC {
-  background-position: -2px -332px;
+  background-position: -869px -2px;
   width: 95px; height: 47px;
 }
 .map-construction {
-  background-position: -436px -580px;
+  background-position: -2px -909px;
   width: 65px; height: 95px;
 }
 .npc-cat-0 {
-  background-position: -2px -580px;
+  background-position: -652px -278px;
   width: 215px; height: 146px;
 }
 .npc-cat-1 {
-  background-position: -219px -580px;
+  background-position: -244px -579px;
   width: 215px; height: 146px;
 }
+.npc-door-0 {
+  background-position: -652px -2px;
+  width: 214px; height: 274px;
+}
+.npc-door-1 {
+  background-position: -436px -2px;
+  width: 214px; height: 282px;
+}
 .npc-fairy-0 {
-  background-position: -199px -2px;
+  background-position: -2px -332px;
   width: 235px; height: 287px;
 }
 .npc-fairy-1 {
-  background-position: -199px -291px;
+  background-position: -199px -2px;
   width: 235px; height: 287px;
+}
+.npc-fish-0 {
+  background-position: -239px -291px;
+  width: 240px; height: 286px;
+}
+.npc-fish-1 {
+  background-position: -2px -621px;
+  width: 240px; height: 286px;
 }

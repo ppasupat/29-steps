@@ -12,6 +12,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     money: 'เงิน 30 บาท',
     rod: 'เบ็ดตกปลา',
     fish: 'ปลา',
+    grilledfish: 'ปลาย่าง',
     key: 'กุญแจ',
     entkit: 'ชุดตรวจหู',
     sword: 'ดาบกากๆ',
@@ -202,25 +203,38 @@ const [MAP_DATA, NPC_DATA] = function () {
           return R(0, true, true, [
             'เมี้ยว!']);
         case 'action':
-          return R(0, true, true, [
+          return R(1, true, true, [
             'ฉันไม่มีเงินเลยเมี้ยว!',
             'แต่ถ้าเธอให้<b>อาหาร</b>ฉัน ฉันมีของให้เธอนะเมี้ยว!']);
         case 'fish':
-          utils.removeItem('fish');
+          if (flags.catFed) {
+            return R(1, true, true, [
+              'เบื่อปลา<b>ดิบ</b>แล้วหงะเมี้ยว!',
+              'มีอย่างอื่นมั้ยเมี้ยว?']);
+          } else {
+            utils.removeItem('fish');
+            utils.addItem('key');
+            flags.catFed = true;
+            return R(2, true, true, [
+              'เมี้ยวๆๆ อร่อยจัง!',
+              'ฉันจะให้ของเธอเป็นการตอบแทนนะเมี้ยว!']);
+          }
+        case 'grilledfish':
+          utils.removeItem('grilledfish');
           utils.addItem('key');
-          return R(1, true, true, [
+          return R(2, true, true, [
             'เมี้ยวๆๆ อร่อยจัง!',
             'ฉันจะให้ของเธอเป็นการตอบแทนนะเมี้ยว!']);
         case 'key':
-          return R(1, true, true, [
+          return R(0, true, true, [
             'เธอเก็บมันไว้เถอะ ไม่ต้องเกรงใจเมี้ยว!']);
         case 'oil':
         case 'ice':
-          return R(1, true, true, [
+          return R(0, true, true, [
             'สวัสดี ' + itemNames[op],
             'ยินดีที่ได้รู้จักเมี้ยว!']);
         default:
-          return R(0, true, true, [
+          return R(1, true, true, [
             'อะไรหนะ? ฉันกินไม่เป็นเมี้ยว!']);
       }
     },
@@ -423,6 +437,19 @@ const [MAP_DATA, NPC_DATA] = function () {
           return R(1, true, false, [
             'คุณใช้ ICE (น้ำแข็ง) ดับไฟ',
             'ในกองขี้เถ้ามี<b>อัญมณี</b>สะท้อนแสงวับวาว']);
+        case 'fish':
+          utils.removeItem('fish');
+          utils.addItem('grilledfish');
+          return R(0, true, true, [
+            'คุณย่างปลา',
+            'กลิ่นหอมน่ากินมาก']);
+        case 'grilledfish':
+          return R(0, true, true, [
+            'ย่างพอแล้ว',
+            'เดี๋ยวก็ไหม้หรอก']);
+        case 'rod':
+          return R(0, true, true, [
+            'คุณพยายามตกของในกองไฟ แต่มันตกไม่ขึ้น']);
         default:
           return R(0, true, true, [
             'อย่าโยนของลงกองไฟสิ!']);
@@ -612,6 +639,7 @@ const [MAP_DATA, NPC_DATA] = function () {
             'ไม่เป็นไรๆ',
             'ข้าจะเสริมพลังอาวุธให้เจ้า<b>ฟรี</b>ครั้งนึง']);
         case 'fish':
+        case 'grilledfish':
         case 'key':
         case 'rod':
           return R(bpic(), true, true, [
@@ -710,11 +738,11 @@ const [MAP_DATA, NPC_DATA] = function () {
               'ก้อนศิลา',
               'มี<b>ดาบ</b>เสียบแน่นอยู่']);
           } else if (!flags.swordPulled) {
-            return R(2, true, false, [
+            return R(1, true, false, [
               'ก้อนศิลา',
               'น้ำมันหล่อลื่นทำให้<b>ดาบ</b>ดึงออกได้ง่าย']);
           } else {
-            return R(1, false, false, [
+            return R(2, false, false, [
               'ก้อนศิลา',
               'ไม่มีอะไรเสียบอยู่ เหมือนที่ศิลาปกติควรจะเป็น']);
           }
@@ -727,13 +755,13 @@ const [MAP_DATA, NPC_DATA] = function () {
             utils.addItem('sword');
             flags.swordPulled = true;
             utils.refreshNpcOnMap('stone');
-            return R(1, false, false, [
+            return R(2, false, false, [
               'คุณดึงดาบออกมา',
               'แต่พอมองดูดีๆ แล้ว มันเป็นแค่<b>ดาบกากๆ</b>']);
           }
         case 'oil':
           flags.stoneOiled = true;
-          return R(2, true, false, [
+          return R(1, true, false, [
             'คุณใช้ OIL (น้ำมัน) หล่อลื่น',
             'ดาบน่าจะดึงออกได้ง่ายแล้ว']);
         default:
@@ -797,6 +825,7 @@ const [MAP_DATA, NPC_DATA] = function () {
             'ไม่เป็นไร',
             'ไอซ์ไม่งกเหมือนออย']);
         case 'fish':
+        case 'grilledfish':
           return R(null, true, true, [
             'ไม่เป็นไร',
             'ไอซ์ไม่หิว']);
@@ -856,6 +885,7 @@ const [MAP_DATA, NPC_DATA] = function () {
             'จะติดสินบนข้า แต่มีแค่ 30 บาท ข้าไม่รับหรอก <b>555+</b>']);
         case 'rod':
         case 'fish':
+        case 'grilledfish':
         case 'key':
           return R(null, true, true, [
             'จะเอา' + itemNames[op] + 'มาตีข้างั้นเหรอ บ้าหรือเปล่า <b>555+</b>']);

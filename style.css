@@ -384,6 +384,9 @@ div.scene {
 .item[data-iid="fish"]::before {
   content: 'fish';
 }
+.item[data-iid="grilledfish"]::before {
+  content: 'grilledfish';
+}
 .item[data-iid="key"]::before {
   content: 'key';
 }

@@ -3,38 +3,50 @@
   width: 195px; height: 330px;
 }
 .map-bridgeC {
-  background-position: -436px -960px;
+  background-position: -910px -104px;
   width: 95px; height: 47px;
 }
 .map-construction {
-  background-position: -436px -858px;
+  background-position: -910px -2px;
   width: 70px; height: 100px;
 }
 .npc-cat-0 {
-  background-position: -2px -864px;
+  background-position: -476px -564px;
   width: 215px; height: 146px;
 }
 .npc-cat-1 {
-  background-position: -219px -864px;
+  background-position: -693px -564px;
   width: 215px; height: 146px;
 }
 .npc-door-0 {
-  background-position: -218px -580px;
+  background-position: -652px -2px;
   width: 214px; height: 282px;
 }
 .npc-door-1 {
-  background-position: -2px -580px;
+  background-position: -436px -2px;
   width: 214px; height: 282px;
 }
 .npc-fairy-0 {
-  background-position: -199px -2px;
+  background-position: -239px -659px;
   width: 235px; height: 287px;
 }
 .npc-fairy-1 {
-  background-position: -199px -291px;
+  background-position: -239px -327px;
   width: 235px; height: 287px;
 }
 .npc-fish-0 {
-  background-position: -434px -580px;
+  background-position: -652px -286px;
   width: 181px; height: 276px;
+}
+.npc-shop-0 {
+  background-position: -199px -2px;
+  width: 235px; height: 323px;
+}
+.npc-shop-1 {
+  background-position: -2px -659px;
+  width: 235px; height: 323px;
+}
+.npc-shop-2 {
+  background-position: -2px -334px;
+  width: 235px; height: 323px;
 }

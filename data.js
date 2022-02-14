@@ -265,31 +265,31 @@ const [MAP_DATA, NPC_DATA] = function () {
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'แวะชมของก่อนได้นะครับ',
             'ตอนนี้<b>เบ็ดตกปลา</b>ราคาพิเศษ 30 บาทเท่านั้น!']);
         case 'action':
-          return R('sad', true, true, [
+          return R(1, true, true, [
             'ผมให้เงินคุณฟรีๆ ไม่ได้หรอกครับ',
             'แต่ถ้าคุณไม่พอใจสินค้า ผมยินดี<b>คืนเงิน</b>ครับ']);
         case 'money':
           utils.removeItem('money');
           utils.addItem('rod');
-          return R('happy', true, true, [
+          return R(2, true, true, [
             'เบ็ดตกปลา 1 คันนะครับ',
             'ขอบคุณที่อุดหนุนครับ!']);
         case 'rod':
           utils.removeItem('rod');
           utils.addItem('money');
-          return R('sad', true, true, [
+          return R(1, true, true, [
             'เบ็ดใช้งานไม่ดีหรือครับ',
             'ไม่เป็นไรครับ ผมคืนเงินให้ครับ']);
         case 'oil':
         case 'ice':
-          return R(null, true, true, [
-            'ขอโทษครับ ผมยังไม่ต้องการลูกน้องครับ']);
+          return R(0, true, true, [
+            'ขอบคุณครับ แต่ผมยังไม่ต้องการลูกน้องครับ']);
         default:
-          return R(null, true, true, [
+          return R(1, true, true, [
             'ขอโทษครับ ผมไม่รับซื้อของครับ']);
       }
     },

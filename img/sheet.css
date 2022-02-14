@@ -3,7 +3,7 @@
   width: 195px; height: 330px;
 }
 .map-bridgeC {
-  background-position: -239px -961px;
+  background-position: -621px -575px;
   width: 95px; height: 47px;
 }
 .map-construction {
@@ -11,11 +11,11 @@
   width: 70px; height: 100px;
 }
 .npc-cat-0 {
-  background-position: -667px -575px;
+  background-position: -787px -786px;
   width: 215px; height: 146px;
 }
 .npc-cat-1 {
-  background-position: -667px -723px;
+  background-position: -957px -564px;
   width: 215px; height: 146px;
 }
 .npc-door-0 {
@@ -61,4 +61,16 @@
 .npc-shop-2 {
   background-position: -2px -334px;
   width: 235px; height: 323px;
+}
+.npc-stone-0 {
+  background-position: -889px -2px;
+  width: 118px; height: 220px;
+}
+.npc-stone-1 {
+  background-position: -837px -564px;
+  width: 118px; height: 220px;
+}
+.npc-stone-2 {
+  background-position: -667px -786px;
+  width: 118px; height: 220px;
 }

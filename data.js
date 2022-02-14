@@ -706,38 +706,38 @@ const [MAP_DATA, NPC_DATA] = function () {
       switch (op) {
         case 'enter':
           if (!flags.stoneOiled) {
-            return R(null, true, true, [
-              'ก้อนศิลาใหญ่',
+            return R(0, true, true, [
+              'ก้อนศิลา',
               'มี<b>ดาบ</b>เสียบแน่นอยู่']);
           } else if (!flags.swordPulled) {
-            return R('oiled', true, false, [
-              'ก้อนศิลาใหญ่',
+            return R(2, true, false, [
+              'ก้อนศิลา',
               'น้ำมันหล่อลื่นทำให้<b>ดาบ</b>ดึงออกได้ง่าย']);
           } else {
-            return R('pulled', false, false, [
-              'ก้อนศิลาใหญ่',
+            return R(1, false, false, [
+              'ก้อนศิลา',
               'ไม่มีอะไรเสียบอยู่ เหมือนที่ศิลาปกติควรจะเป็น']);
           }
         case 'action':
           if (!flags.stoneOiled) {
-            return R(null, true, true, [
+            return R(0, true, true, [
               '<b>ฮึด! ฮึดดด!</b>',
               'ดาบเสียบแน่นมาก<br>ดึงไม่ออก']);
           } else {
             utils.addItem('sword');
             flags.swordPulled = true;
             utils.refreshNpcOnMap('stone');
-            return R('pulled', false, false, [
+            return R(1, false, false, [
               'คุณดึงดาบออกมา',
               'แต่พอมองดูดีๆ แล้ว มันเป็นแค่<b>ดาบกากๆ</b>']);
           }
         case 'oil':
           flags.stoneOiled = true;
-          return R('iced', true, false, [
+          return R(2, true, false, [
             'คุณใช้ OIL (น้ำมัน) หล่อลื่น',
             'ดาบน่าจะดึงออกได้ง่ายแล้ว']);
         default:
-          return R(null, true, true, [
+          return R(0, true, true, [
             'ใช้ยังงัยวะ?']);
       }
     },

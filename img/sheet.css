@@ -3,74 +3,82 @@
   width: 195px; height: 330px;
 }
 .map-bridgeC {
-  background-position: -621px -575px;
+  background-position: -910px -2px;
   width: 95px; height: 47px;
 }
 .map-construction {
-  background-position: -430px -918px;
+  background-position: -940px -1197px;
   width: 70px; height: 100px;
 }
 .npc-cat-0 {
-  background-position: -787px -786px;
+  background-position: -723px -1197px;
   width: 215px; height: 146px;
 }
 .npc-cat-1 {
-  background-position: -957px -564px;
+  background-position: -239px -1206px;
   width: 215px; height: 146px;
 }
 .npc-door-0 {
-  background-position: -673px -2px;
+  background-position: -789px -913px;
   width: 214px; height: 282px;
 }
 .npc-door-1 {
-  background-position: -621px -291px;
+  background-position: -789px -629px;
   width: 214px; height: 282px;
 }
 .npc-fairy-0 {
-  background-position: -436px -2px;
+  background-position: -2px -931px;
   width: 235px; height: 287px;
 }
 .npc-fairy-1 {
-  background-position: -430px -629px;
+  background-position: -552px -629px;
   width: 235px; height: 287px;
 }
 .npc-fire-0 {
-  background-position: -239px -659px;
+  background-position: -673px -327px;
   width: 189px; height: 300px;
 }
 .npc-fire-1 {
-  background-position: -239px -327px;
+  background-position: -199px -327px;
   width: 189px; height: 300px;
 }
 .npc-fire-2 {
-  background-position: -430px -327px;
+  background-position: -2px -334px;
   width: 189px; height: 300px;
 }
 .npc-fish-0 {
-  background-position: -837px -286px;
+  background-position: -2px -636px;
   width: 181px; height: 276px;
 }
+.npc-midboss-0 {
+  background-position: -239px -931px;
+  width: 240px; height: 273px;
+}
+.npc-midboss-1 {
+  background-position: -481px -931px;
+  width: 240px; height: 273px;
+}
 .npc-shop-0 {
-  background-position: -199px -2px;
+  background-position: -436px -2px;
   width: 235px; height: 323px;
 }
 .npc-shop-1 {
-  background-position: -2px -659px;
+  background-position: -673px -2px;
   width: 235px; height: 323px;
 }
 .npc-shop-2 {
-  background-position: -2px -334px;
+  background-position: -199px -2px;
   width: 235px; height: 323px;
 }
 .npc-stone-0 {
-  background-position: -889px -2px;
-  width: 118px; height: 220px;
+  background-position: -390px -327px;
+  width: 160px; height: 300px;
 }
 .npc-stone-1 {
-  background-position: -837px -564px;
-  width: 118px; height: 220px;
+  background-position: -390px -629px;
+  width: 160px; height: 300px;
 }
 .npc-stone-2 {
-  background-position: -667px -786px;
-  width: 118px; height: 220px;
+  background-position: -193px -629px;
+  width: 160px; height: 300px;
 }

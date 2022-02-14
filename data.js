@@ -327,17 +327,17 @@ const [MAP_DATA, NPC_DATA] = function () {
       switch (op) {
         case 'enter':
           if (!flags.midbossCleaned) {
-            return R(null, true, true, [
+            return R(0, true, true, [
               '...',
               '(มีสัตว์ประหลาดขวางทางอยู่)']);
           } else {
-            return R('cleaned', true, false, [
+            return R(1, true, false, [
               'สวัสดี!',
               'ขอบใจเจ้าอีกครั้งที่ช่วยตรวจหูข้า']);
           }
         case 'action':
           if (!flags.midbossCleaned) {
-            return R(null, true, true, [
+            return R(0, true, true, [
               'ฮะ? พูดว่าอะไรนะ?',
               '<b>ข้าไม่ได้ยิน</b>']);
           } else {
@@ -347,18 +347,18 @@ const [MAP_DATA, NPC_DATA] = function () {
             utils.refreshNpcOnMap('noBridgeC');
             utils.refreshNpcOnMap('bridgeC');
             utils.showArrows();
-            return R('cleaned', false, false, [
+            return R(1, false, false, [
               'ได้สิ! ขอให้เจ้าเดินทางปลอดภัย']);
           }
         case 'entkit':
           utils.removeItem('entkit');
           flags.midbossCleaned = true;
-          return R('cleaned', true, false, [
+          return R(1, true, false, [
             'อ๊ะ!',
             'จู่ๆ ข้าก็ได้ยินชัดขึ้น',
             'ขอบใจเจ้ามากที่ช่วยตรวจหูข้า']);
         default:
-          return R(null, true, true, [
+          return R(0, true, true, [
             '...',
             '(สัตว์ประหลาดไม่สนใจ)']);
       }

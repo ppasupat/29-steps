@@ -393,39 +393,38 @@ const [MAP_DATA, NPC_DATA] = function () {
       switch (op) {
         case 'enter':
           if (!flags.fireIced) {
-            return R(null, true, true, [
+            return R(0, true, true, [
               'กองไฟลุกโชติช่วง',
               'ในกองไฟเหมือน<b>มีอะไร</b>ประกายแสงอยู่']);
           } else if (!flags.gemPicked) {
-            return R('iced', true, false, [
+            return R(1, true, false, [
               'ไฟถูกดับแล้ว',
-              'ในกองขี้เถ้ามี<b>อัญมณี</b>สะท้อนแสงวับวาว']);
+              'ในกองไม้มี<b>อัญมณี</b>สะท้อนแสงวับวาว']);
           } else {
-            return R('picked', false, false, [
-              'ไฟถูกดับแล้ว',
-              'ไม่มีอะไรอยู่ในกองขี้เถ้า']);
+            return R(2, false, false, [
+              'ไฟถูกดับแล้ว']);
           }
         case 'action':
         case 'oil':
           if (!flags.fireIced) {
-            return R(null, true, true, [
+            return R(0, true, true, [
               '<b>โอ๊ย! ร้อนๆ!</b>',
               'คุณดึงมือออกทันควัน']);
           } else {
             utils.addItem('gem');
             flags.gemPicked = true;
-            return R('picked', false, false, [
+            return R(2, false, false, [
               'คุณเก็บอัญมณีขึ้นมา']);
           }
         case 'ice':
           utils.deselectItems();
           flags.fireIced = true;
           utils.refreshNpcOnMap('fire');
-          return R('iced', true, false, [
+          return R(1, true, false, [
             'คุณใช้ ICE (น้ำแข็ง) ดับไฟ',
             'ในกองขี้เถ้ามี<b>อัญมณี</b>สะท้อนแสงวับวาว']);
         default:
-          return R(null, true, true, [
+          return R(0, true, true, [
             'อย่าโยนของลงกองไฟสิ!']);
       }
     },

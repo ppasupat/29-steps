@@ -3,86 +3,114 @@
   width: 195px; height: 330px;
 }
 .map-bridgeC {
-  background-position: -910px -2px;
+  background-position: -847px -606px;
   width: 95px; height: 47px;
 }
 .map-construction {
-  background-position: -940px -1197px;
+  background-position: -638px -981px;
   width: 70px; height: 100px;
 }
 .npc-cat-0 {
-  background-position: -723px -1197px;
+  background-position: -2px -1878px;
   width: 215px; height: 146px;
 }
 .npc-cat-1 {
-  background-position: -239px -1206px;
+  background-position: -219px -1865px;
   width: 215px; height: 146px;
 }
 .npc-cat-2 {
-  background-position: -2px -1220px;
+  background-position: -436px -1534px;
   width: 215px; height: 146px;
 }
 .npc-door-0 {
-  background-position: -789px -913px;
+  background-position: -239px -981px;
   width: 214px; height: 282px;
 }
 .npc-door-1 {
-  background-position: -789px -629px;
+  background-position: -193px -1274px;
   width: 214px; height: 282px;
 }
 .npc-fairy-0 {
-  background-position: -2px -931px;
+  background-position: -2px -981px;
   width: 235px; height: 287px;
 }
 .npc-fairy-1 {
-  background-position: -552px -629px;
+  background-position: -164px -1576px;
   width: 235px; height: 287px;
 }
 .npc-fire-0 {
-  background-position: -673px -327px;
-  width: 189px; height: 300px;
-}
-.npc-fire-1 {
-  background-position: -199px -327px;
-  width: 189px; height: 300px;
-}
-.npc-fire-2 {
   background-position: -2px -334px;
   width: 189px; height: 300px;
 }
+.npc-fire-1 {
+  background-position: -713px -972px;
+  width: 189px; height: 300px;
+}
+.npc-fire-2 {
+  background-position: -2px -1274px;
+  width: 189px; height: 300px;
+}
 .npc-fish-0 {
-  background-position: -2px -636px;
+  background-position: -455px -981px;
   width: 181px; height: 276px;
 }
 .npc-midboss-0 {
-  background-position: -239px -931px;
+  background-position: -455px -1259px;
   width: 240px; height: 273px;
 }
 .npc-midboss-1 {
-  background-position: -481px -931px;
+  background-position: -697px -1274px;
   width: 240px; height: 273px;
 }
+.npc-receptionist-0 {
+  background-position: -415px -2px;
+  width: 214px; height: 325px;
+}
+.npc-receptionist-1 {
+  background-position: -631px -2px;
+  width: 214px; height: 325px;
+}
+.npc-receptionist-2 {
+  background-position: -199px -2px;
+  width: 214px; height: 325px;
+}
+.npc-receptionist-3 {
+  background-position: -631px -329px;
+  width: 214px; height: 325px;
+}
+.npc-receptionist-4 {
+  background-position: -199px -329px;
+  width: 214px; height: 325px;
+}
+.npc-restceptionist-0 {
+  background-position: -415px -329px;
+  width: 201px; height: 314px;
+}
+.npc-restceptionist-1 {
+  background-position: -713px -656px;
+  width: 201px; height: 314px;
+}
 .npc-shop-0 {
-  background-position: -436px -2px;
+  background-position: -239px -656px;
   width: 235px; height: 323px;
 }
 .npc-shop-1 {
-  background-position: -673px -2px;
+  background-position: -476px -656px;
   width: 235px; height: 323px;
 }
 .npc-shop-2 {
-  background-position: -199px -2px;
+  background-position: -2px -656px;
   width: 235px; height: 323px;
 }
 .npc-stone-0 {
-  background-position: -390px -327px;
+  background-position: -847px -2px;
   width: 160px; height: 300px;
 }
 .npc-stone-1 {
-  background-position: -390px -629px;
+  background-position: -847px -304px;
   width: 160px; height: 300px;
 }
 .npc-stone-2 {
-  background-position: -193px -629px;
+  background-position: -2px -1576px;
   width: 160px; height: 300px;
 }

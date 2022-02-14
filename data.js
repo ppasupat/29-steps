@@ -476,48 +476,48 @@ const [MAP_DATA, NPC_DATA] = function () {
         case 'enter':
           if (!flags.midbossDefeated) {
             if (!flags.feePaid) {
-              return R(null, true, true, [
+              return R(0, true, true, [
                 'ไพรสัณฑ์คลินิก<br>ยินดีต้อนรับค่ะ',
                 'คลินิกเราอยู่ในโครงการ <b>30 บาทรักษา 1 โรค</b>นะคะ']);
             } else {
-              return R(null, true, false, [
+              return R(2, true, false, [
                 'ไพรสัณฑ์คลินิก<br>ยินดีต้อนรับค่ะ',
                 'เชิญพบคุณหมอที่ห้องตรวจได้เลยค่ะ']);
             }
           } else if (!flags.moneyStolen) {
-            return R('rest', true, false, [
+            return R(3, true, false, [
               'ป้าย:<br>"พักเที่ยงค่ะ"',
               'บนโต๊ะมี<b>เงิน</b>อยู่']);
           } else {
-            return R('stolen', false, false, [
+            return R(4, false, false, [
               'ป้าย:<br>"พักเที่ยงค่ะ"']);
           }
         case 'action':
           if (!flags.midbossDefeated) {
             if (!flags.feePaid) {
-              return R(null, true, true, [
+              return R(1, true, true, [
                 'ไม่ให้ค่ะ']);
             } else {
-              return R(null, true, false, [
+              return R(0, true, false, [
                 'ทางเราไม่มีนโยบายคืนเงินค่ะ']);
             }
           } else {
             utils.addItem('money');
             flags.moneyStolen = true;
-            return R('stolen', false, false, [
+            return R(4, false, false, [
               'คุณ <b>"ยืม"</b> เงิน 30 บาท จากโต๊ะ']);
           }
         case 'money':
           utils.removeItem('money');
           flags.feePaid = true;
           utils.showArrows();
-          return R(null, true, false, [
+          return R(2, true, false, [
             'เชิญพบคุณหมอที่ห้องตรวจได้เลยค่ะ']);
         case 'oil':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'กรุณาชำระเงิน 30 บาทก่อนพบคุณหมอค่ะ']);
         default:
-          return R(null, true, true, [
+          return R(1, true, true, [
             'ไม่เอาค่ะ']);
       }
     },
@@ -661,6 +661,25 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.c4 = {
     pid: 'c4', row: 1, col: 10,
     arrows: {'nw': 'c5', 'sw': 'c3'},
+  };
+
+  npc_data.restceptionist = {
+    nid: 'restceptionist', loc: 'c4',
+    name: 'คนต้อนรับ',
+    actionText: 'ขอตังหน่อย',
+    itemText: GIVE,
+    content: function (op, flags, utils) {
+      switch (op) {
+        case 'enter':
+          return R(0, true, false, [
+            'อย่ากวนเดี๊ยน',
+            'เดี๊ยนพักเที่ยงอยู่']);
+        case 'action':
+          return R(1, true, false, [
+            'เออ! พูดถึงเงิน<br>เดี๊ยนลืมเงินไว้<b>บนโต๊ะ</b>',
+            '... คงไม่มีใคร<br><b>ขโมย</b>หรอกมั้ง ...']);
+      }
+    },
   };
 
   // c5:

@@ -315,7 +315,6 @@ $(function () {
       "feePaid": true,
       "nurseHelped": true,
       "midbossCleaned": true,
-      "moneyStolen": true
     },
     items: ['money', '', '', '', 'oil', ''],
     pid: "b3",

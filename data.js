@@ -165,7 +165,7 @@ const [MAP_DATA, NPC_DATA] = function () {
           utils.addItem('fish');
           flags.pondFished = true;
           utils.refreshNpcOnMap('pond');
-          return R(1, false, false, [
+          return R(999, false, false, [
             'คุณตก<b>ปลา</b>ขึ้นมาจากบ่อน้ำ']);
         case 'oil':
           return R(0, false, true, [
@@ -667,7 +667,7 @@ const [MAP_DATA, NPC_DATA] = function () {
           utils.addItem('fish');
           flags.lakeFished = true;
           utils.refreshNpcOnMap('lake');
-          return R(1, false, false, [
+          return R(999, false, false, [
             'คุณตก<b>ปลา</b>ขึ้นมาจากทะเลสาบ']);
         case 'oil':
           return R(0, true, true, [

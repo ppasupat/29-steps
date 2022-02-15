@@ -406,10 +406,9 @@ $(function () {
       "swordPulled": 1,
       "lakeFished": 1,
       "iceEscaped": 1,
-      "swordGiven": 1,
       "fireIced": 1,
       "gemPicked": 1,
-      "gemGiven": 1,
+      "crafted": 1,
       "visited": {
         "a1": 1, "a2": 1, "a3": 1, "a4": 1, "a5": 1, "a6": 1, "a7": 1, "s": 1,
         "b1": 1, "b2": 1, "b3": 1, "b4": 1, "b5": 1, "b6": 1, "b7": 1, "b8": 1,

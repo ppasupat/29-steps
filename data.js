@@ -597,17 +597,18 @@ const [MAP_DATA, NPC_DATA] = function () {
     name: 'ช่างตีเหล็ก',
     actionText: 'ขอตังหน่อย',
     itemText: GIVE,
+    mapStates: {'swordGiven': 'map-blacksmith-1', 'gemGiven': 'map-blacksmith-2'},
     content: function (op, flags, utils) {
       let bpic = (() => {
         if (flags.swordGiven && !flags.gemGiven)
-          return 'sword';
+          return 1;
         if (!flags.swordGiven && flags.gemGiven)
-          return 'gem';
-        return null;
+          return 2;
+        return 0;
       });
       switch (op) {
         case 'enter':
-          if (!flags.swordGiven || !flags.gemGiven) {
+          if (!flags.crafted) {
             return R(bpic(), true, true, [
               'โย่! ยินดีต้อนรับสู่โรงตีเหล็กของข้า']);
           } else {
@@ -619,28 +620,36 @@ const [MAP_DATA, NPC_DATA] = function () {
             'ข้าไม่มีเงินให้',
             'แต่เอางี้ ข้าจะ<b>เสริมพลังอาวุธ</b>ให้เจ้าฟรีครั้งนึง']);
         case 'sword':
-          flags.swordGiven = 1;
           utils.removeItem('sword');
           if (!flags.gemGiven) {
+            flags.swordGiven = 1;
+            utils.refreshNpcOnMap('blacksmith');
             return R(bpic(), true, true, [
               'โอ้! ดาบของเจ้าค่อนข้าง... กาก',
               'แต่ข้าเสริมพลังให้มันได้ ถ้ามีแหล่งพลังอย่าง<b>อัญมณีเวท</b>']);
           } else {
+            delete flags.gemGiven;
+            flags.crafted = 1;
+            utils.refreshNpcOnMap('blacksmith');
             utils.addItem('powersword');
-            return R('happy', false, false, [
+            return R(bpic(), false, false, [
               'โอ้! พอดีเลย',
               'ด้วยพลังอัญมณี<br><b>ดาบปราบมาร</b><br>เล่มนี้จะสยบมารได้ทุกระดับ!']);
           }
         case 'gem':
-          flags.gemGiven = 1;
           utils.removeItem('gem');
           if (!flags.swordGiven) {
+            flags.gemGiven = 1;
+            utils.refreshNpcOnMap('blacksmith');
             return R(bpic(), true, true, [
               'โอ้! อัญมณีเวท ช่างงามยิ่งนัก',
               'ข้าสามารถใช้มันเสริมพลัง<b>อาวุธ</b>ได้']);
           } else {
+            delete flags.swordGiven;
+            flags.crafted = 1;
+            utils.refreshNpcOnMap('blacksmith');
             utils.addItem('powersword');
-            return R('happy', false, false, [
+            return R(bpic(), false, false, [
               'โอ้! พอดีเลย',
               'ด้วยพลังอัญมณี<br><b>ดาบปราบมาร</b><br>เล่มนี้จะสยบมารได้ทุกระดับ!']);
           }

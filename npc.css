@@ -132,11 +132,11 @@
 }
 
 .map-blacksmith {
-  top: 712px;
-  left: 1370px; 
+  top: 552px;
+  left: 1360px;
 }
 .map-blacksmith > .msp {
-  transform: scale(0.5);
+  transform: scale(0.55);
 }
 
 .map-restceptionist {

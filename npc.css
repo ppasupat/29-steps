@@ -28,6 +28,9 @@
 .map-door > .msp {
   transform: scale(0.4);
 }
+.map-door > #exclaim {
+  top: 20px;
+}
 
 .map-pond {
   top: 858px;
@@ -35,6 +38,11 @@
 }
 .map-pond > .msp {
   transform: scale(0.4);
+}
+.map-pond > #exclaim {
+  top: 20px;
+  left: -60px;
+  top: -40px;
 }
 
 .map-cat {
@@ -51,6 +59,10 @@
 }
 .map-shop > .msp {
   transform: scale(0.55);
+}
+.map-shop > #exclaim {
+  left: -40px;
+  top: 30px;
 }
 
 .map-noBridgeB {
@@ -93,6 +105,9 @@
 .map-fire > .msp {
   transform: scale(0.5);
 }
+.map-fire-2 > #exclaim {
+  display: none;
+}
 
 .map-receptionist {
   top: 322px;
@@ -100,6 +115,9 @@
 }
 .map-receptionist > .msp {
   transform: scale(0.5);
+}
+.map-receptionist-4 > #exclaim {
+  display: none;
 }
 
 .map-nurse {
@@ -125,6 +143,10 @@
 .map-restceptionist > .msp {
   transform: scale(0.5);
 }
+.map-restceptionist > #exclaim {
+  left: -50px;
+  top: 40px;
+}
 
 .map-lake {
   top: 40px;
@@ -133,6 +155,11 @@
 .map-lake > .msp {
   transform: scale(0.4);
 }
+.map-lake > #exclaim {
+  top: 20px;
+  left: -60px;
+  top: -40px;
+}
 
 .map-stone {
   top: 1480px;
@@ -140,6 +167,12 @@
 }
 .map-stone > .msp {
   transform: scale(0.5);
+}
+.map-stone > #exclaim {
+  left: -60px;
+}
+.map-stone-2 > #exclaim {
+  display: none;
 }
 
 .map-shackle {

@@ -210,6 +210,37 @@ div.scene {
   cursor: auto;
 }
 
+#exclaim {
+  background: url("img/exclaim.png");
+  width: 65px;
+  height: 65px;
+  position: absolute;
+  left: -40px;
+  top: -20px;
+}
+#exclaim.hidden {
+  display: none;
+}
+
+@keyframes exclaimWiggle {
+  from {transform: rotate(-10deg);}
+  to {transform: rotate(10deg);}
+}
+#exclaim-fg {
+  position: absolute;
+  background: url("img/exclaim.png");
+  background-position: -68px 0;
+  width: 20px;
+  height: 60px;
+  left: 21px;
+  top: 1px;
+  animation-name: exclaimWiggle;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
 /* ################################ */
 /* encounter */
 

@@ -48,6 +48,7 @@ $(function () {
         $('#arrow-' + MAP_DATA[currentPid].hideArrows[k]).hide();
       }
     });
+    showExclaim();
   }
 
   $('#map').on('transitionend', UTILS.showArrows);
@@ -114,6 +115,8 @@ $(function () {
   // ################################
   // NPC Encounter
 
+  let exclaimDiv = null;
+
   function setupNPCs() {
     Object.values(NPC_DATA).forEach(npc => {
       let corrds = getMapCoords(npc.loc);
@@ -126,6 +129,7 @@ $(function () {
       if (npc.cosmetic) npcDiv.addClass('cosmetic');
       UTILS.refreshNpcOnMap(npc.nid);
     });
+    exclaimDiv = $('<div id=exclaim>').append($('<div id=exclaim-fg>'));
   }
 
   UTILS.refreshNpcOnMap = function (nid) {
@@ -134,6 +138,16 @@ $(function () {
       npcOnMap.toggleClass(NPC_DATA[nid].mapStates[k], !!flags[k]);
     });
   };
+
+  function showExclaim() {
+    let nid = MAP_DATA[currentPid].mainNpc;
+    if (nid) {
+      let npcOnMap = $('.map-npc[data-nid=' + nid + ']');
+      npcOnMap.append(exclaimDiv.removeClass('hidden'));
+    } else {
+      exclaimDiv.addClass('hidden');
+    }
+  }
 
   $('#map').on('click', '.map-npc', function (e) {
     if ($(this).hasClass('cosmetic')) return;

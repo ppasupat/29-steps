@@ -44,6 +44,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     pid: 'a1', row: 5, col: 0,
     arrows: {'ne': 'a4', 'e': 'a2'},
     hideArrows: {'tutorialDone1': 'e', 'tutorialDone2': 'ne'},
+    mainNpc: 'fairy',
   };
 
   npc_data.fairy = {
@@ -100,6 +101,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'nw': 'a5', 'ne': 'b1', 'e': 'a6', 'sw': 'a1'},
     hideArrows: {'doorOpen': 'ne'},
     customColors: {'e': GRAY},
+    mainNpc: 'door',
   };
 
   npc_data.door = {
@@ -149,6 +151,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     pid: 'a5', row: 3, col: 0,
     arrows: {'se': 'a4'},
     customColors: {'x': BROWN, 'se': GRAY},
+    mainNpc: 'pond',
   };
 
   npc_data.pond = {
@@ -191,6 +194,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     pid: 'a7', row: 3, col: 4,
     arrows: {'sw': 'a6'},
     customColors: {'x': BROWN},
+    mainNpc: 'cat',
   };
 
   npc_data.cat = {
@@ -247,6 +251,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'nw': 'b3', 'sw': 'a3', 'e': 'c7'},
     hideArrows: {'doorOpen': 'nw', 'midbossDefeated': 'e'},
     customColors: {'x': GRAY, 'e': BROWN},
+    mainNpc: 'shop',
   };
 
   npc_data.noBridgeB = {
@@ -330,6 +335,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'nw': 'b4', 'sw': 'b2', 'e': 'c1', 'se': 's'},
     hideArrows: {'midbossDefeated': 'e'},
     customColors: {'e': GRAY, 'se': BROWN},
+    mainNpc: 'midboss',
   };
 
   npc_data.midboss = {
@@ -396,6 +402,7 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.b6 = {
     pid: 'b6', row: 1, col: 0,
     arrows: {'ne': 'b5'},
+    mainNpc: 'fire',
   };
 
   npc_data.fire = {
@@ -465,6 +472,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     arrows: {'sw': 'b8', 'ne': 'b4'},
     hideArrows: {'feePaid': 'sw'},
     customColors: {'x': PURPLE, 'ne': PURPLE},
+    mainNpc: 'receptionist',
   };
 
   npc_data.receptionist = {
@@ -532,6 +540,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     pid: 'b8', row: 2, col: 1,
     arrows: {'ne': 'b7'},
     customColors: {'x': PURPLE, 'ne': PURPLE},
+    mainNpc: 'nurse',
   };
 
   npc_data.nurse = {
@@ -580,6 +589,7 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.c2 = {
     pid: 'c2', row: 2, col: 7,
     arrows: {'nw': 'c1', 'e': 'c3'},
+    mainNpc: 'blacksmith',
   };
 
   npc_data.blacksmith = {
@@ -661,10 +671,11 @@ const [MAP_DATA, NPC_DATA] = function () {
     customColors: {'se': GRAY},
   };
 
-  // c4:
+  // c4: (hint for receptionist)
   map_data.c4 = {
     pid: 'c4', row: 1, col: 10,
     arrows: {'nw': 'c5', 'sw': 'c3'},
+    mainNpc: 'restceptionist',
   };
 
   npc_data.restceptionist = {
@@ -696,6 +707,7 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.c6 = {
     pid: 'c6', row: 0, col: 7,
     arrows: {'sw': 'c1', 'e': 'c5'},
+    mainNpc: 'lake',
   };
 
   npc_data.lake = {
@@ -745,6 +757,7 @@ const [MAP_DATA, NPC_DATA] = function () {
   map_data.c9 = {
     pid: 'c9', row: 5, col: 6,
     arrows: {'ne': 'c8'},
+    mainNpc: 'stone',
   };
 
   npc_data.stone = {
@@ -814,6 +827,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     pid: 'd3', row: 5, col: 8,
     arrows: {'ne': 'd2'},
     customColors: {'x': BROWN, 'ne': BROWN},
+    mainNpc: 'shackle',
   };
 
   npc_data.shackle = {
@@ -870,6 +884,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     pid: 'd4', row: 5, col: 10,
     arrows: {'nw': 'd2'},
     customColors: {'x': BROWN},
+    mainNpc: 'boss',
   };
 
   npc_data.boss = {

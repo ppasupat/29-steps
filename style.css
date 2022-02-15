@@ -124,6 +124,7 @@ div.scene {
 
 #pane-loading button {
   font-size: 30px;
+  margin: 10px;
   padding: 10px 20px;
   cursor: pointer;
   font-family: 'Mali', sans-serif;

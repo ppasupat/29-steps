@@ -262,21 +262,41 @@ $(function () {
   // ################################
   // Main UI
 
-  function setupMain() {
+  function setupMain(savedData) {
     setupNPCs();
     setupMinimap();
     $('.scene').hide();
     $('#scene-cover').show().removeClass('hidden');
     $('#scene-main').show();
     setTimeout(() => {
-      moveMap('a1');
+      if (savedData !== undefined) {
+        loadGame(savedData);
+      } else {
+        moveMap('a1');
+      }
       $('#scene-cover').addClass('hidden');
+      saveGame();
     }, 1);
   }
+
+  const APP_NAME = '29-steps';
 
   function saveGame() {
     let data = {flags: flags, items: getAllItems(), pid: currentPid};
     console.log(data);
+    try {
+      localStorage.setItem(APP_NAME, JSON.stringify(data));
+    } catch (e) {
+      alert('ERROR: ' + e.message);
+    }
+  }
+
+  function getSavedGame() {
+    let data = localStorage.getItem(APP_NAME);
+    if (data !== null) {
+      data = JSON.parse(data);
+    }
+    return data;
   }
 
   function loadGame(data) {
@@ -284,6 +304,7 @@ $(function () {
     Object.keys(NPC_DATA).forEach(UTILS.refreshNpcOnMap);
     data.items.forEach(UTILS.addItem);
     moveMap(data.pid);
+    if (flags.gameWon) showWinScene();
   }
 
   $('#debug').click(() => loadGame({
@@ -397,8 +418,17 @@ $(function () {
   function decrementPreload () {
     numResourcesLeft--;
     if (numResourcesLeft === 0) {
-      $('#pane-loading').empty()
-        .append($('<button type=button>').text('START').click(setupMain));
+      $('#pane-loading').empty();
+      let savedData = getSavedGame();
+      if (savedData !== null) {
+        $('<button type=button>').text('CONTINUE').click(() => {
+          setupMain(savedData);
+        }).appendTo('#pane-loading');
+      }
+      $('<button type=button>').text('NEW GAME').click(() => {
+        if (savedData !== null && !window.confirm('Reset progress?')) return;
+        setupMain();
+      }).appendTo('#pane-loading');
     } else {
       $('#pane-loading').text('Loading resources (' + numResourcesLeft + ' left)');
     }

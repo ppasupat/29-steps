@@ -107,7 +107,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     name: 'ประตู',
     actionText: 'งั้นเดินอ้อม',
     itemText: USE,
-    mapStates: {'doorOpen': 'map-door-1'},
+    mapStates: {'doorOpen': 'gone'},
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
@@ -129,9 +129,10 @@ const [MAP_DATA, NPC_DATA] = function () {
           utils.refreshNpcOnMap('noBridgeB');
           utils.refreshNpcOnMap('bridgeB');
           utils.showArrows();
-          return R(1, false, false, [
+          return R(999, false, false, [
             'คุณใช้กุญแจเปิดประตู',
-            'คุณสามารถเดินผ่านได้แล้ว']);
+            'แล้วประตูก็หายไป!',
+            '<i>เพราะไอซ์ขี้เกียจวาด</i>']);
         default:
           let line1 = (
             op === 'money' ? 'คุณพยายามติดสินบนประตู' :
@@ -402,7 +403,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     name: 'กองไฟ',
     actionText: 'แหย่มือ',
     itemText: USE,
-    mapStates: {'fireIced': 'map-fire-2'},
+    mapStates: {'fireIced': 'map-fire-1', 'gemPicked': 'map-fire-2'},
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
@@ -427,6 +428,7 @@ const [MAP_DATA, NPC_DATA] = function () {
           } else {
             utils.addItem('gem');
             flags.gemPicked = true;
+            utils.refreshNpcOnMap('fire');
             return R(2, false, false, [
               'คุณเก็บอัญมณีขึ้นมา']);
           }
@@ -505,6 +507,7 @@ const [MAP_DATA, NPC_DATA] = function () {
           } else {
             utils.addItem('money');
             flags.moneyStolen = true;
+            utils.refreshNpcOnMap('receptionist');
             return R(4, false, false, [
               'คุณ <b>"ยืม"</b> เงิน 30 บาท จากโต๊ะ']);
           }
@@ -749,7 +752,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     name: 'ศิลา',
     actionText: 'ดึงดาบ',
     itemText: USE,
-    mapStates: {'swordPulled': 'pulled'},
+    mapStates: {'swordPulled': 'map-stone-2'},
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':

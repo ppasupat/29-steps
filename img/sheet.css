@@ -3,7 +3,7 @@
   width: 195px; height: 330px;
 }
 .npc-bridgeC-0, .map-bridgeC > .msp {
-  background-position: -847px -606px;
+  background-position: -916px -708px;
   width: 95px; height: 47px;
 }
 .npc-cat-0, .map-cat > .msp {
@@ -15,18 +15,14 @@
   width: 215px; height: 146px;
 }
 .npc-cat-2, .map-cat.map-cat-2 > .msp {
-  background-position: -436px -1534px;
+  background-position: -664px -1274px;
   width: 215px; height: 146px;
 }
 .npc-construction-0, .map-construction > .msp {
-  background-position: -638px -981px;
+  background-position: -916px -606px;
   width: 70px; height: 100px;
 }
 .npc-door-0, .map-door > .msp {
-  background-position: -239px -981px;
-  width: 214px; height: 282px;
-}
-.npc-door-1, .map-door.map-door-1 > .msp {
   background-position: -193px -1274px;
   width: 214px; height: 282px;
 }
@@ -51,15 +47,15 @@
   width: 189px; height: 300px;
 }
 .npc-fish-0, .map-fish > .msp {
-  background-position: -455px -981px;
+  background-position: -239px -981px;
   width: 181px; height: 276px;
 }
 .npc-midboss-0, .map-midboss > .msp {
-  background-position: -455px -1259px;
+  background-position: -422px -981px;
   width: 240px; height: 273px;
 }
 .npc-midboss-1, .map-midboss.map-midboss-1 > .msp {
-  background-position: -697px -1274px;
+  background-position: -422px -1256px;
   width: 240px; height: 273px;
 }
 .npc-receptionist-0, .map-receptionist > .msp {

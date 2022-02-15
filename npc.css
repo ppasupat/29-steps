@@ -34,7 +34,7 @@
   left: 212px;
 }
 .map-pond > .msp {
-  transform: scale(0.4);
+  transform: scale(0.35);
 }
 
 .map-cat {
@@ -46,11 +46,11 @@
 }
 
 .map-shop {
-  top: 821px;
-  left: 1147px;
+  top: 820px;
+  left: 1140px;
 }
 .map-shop > .msp {
-  transform: scale(0.5);
+  transform: scale(0.55);
 }
 
 .map-noBridgeB {
@@ -87,11 +87,11 @@
 }
 
 .map-fire {
-  top: 326px;
+  top: 305px;
   left: 200px;
 }
 .map-fire > .msp {
-  transform: scale(0.4);
+  transform: scale(0.5);
 }
 
 .map-receptionist {
@@ -106,30 +106,56 @@
   top: 712px;
   left: 410px; 
 }
+.map-nurse > .msp {
+  transform: scale(0.5);
+}
 
 .map-blacksmith {
   top: 712px;
   left: 1370px; 
 }
+.map-blacksmith > .msp {
+  transform: scale(0.5);
+}
+
 .map-restceptionist {
-  top: 416px;
-  left: 1850px;
+  top: 316px;
+  left: 1800px;
 }
+.map-restceptionist > .msp {
+  transform: scale(0.5);
+}
+
 .map-lake {
-  top: 100px;
-  left: 1280px;
+  top: 40px;
+  left: 1250px;
 }
+.map-lake > .msp {
+  transform: scale(0.35);
+}
+
 .map-stone {
   top: 1480px;
   left: 1210px;
 }
+.map-stone > .msp {
+  transform: scale(0.5);
+}
+
 .map-shackle {
   top: 1480px;
   left: 1530px; 
 }
+.map-shackle > .msp {
+  transform: scale(0.5);
+}
+
 .map-boss {
   top: 1480px;
   left: 1850px;
+}
+.map-boss > .msp {
+  transform: scale(0.5);
 }
 
 /* ################################ */

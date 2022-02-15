@@ -82,14 +82,26 @@
   top: 343px;
   left: 883px; 
 }
+.map-midboss > .msp {
+  transform: scale(0.5);
+}
+
 .map-fire {
-  top: 306px;
+  top: 326px;
   left: 200px;
 }
+.map-fire > .msp {
+  transform: scale(0.4);
+}
+
 .map-receptionist {
   top: 322px;
   left: 510px;
 }
+.map-receptionist > .msp {
+  transform: scale(0.5);
+}
+
 .map-nurse {
   top: 712px;
   left: 410px; 

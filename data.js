@@ -470,7 +470,8 @@ const [MAP_DATA, NPC_DATA] = function () {
     name: 'แผนกต้อนรับ',
     actionText: 'ขอตังหน่อย',
     itemText: GIVE,
-    mapStates: {'midbossDefeated': 'rest', 'moneyStolen': 'stolen'},
+    mapStates: {'midbossDefeated': 'map-receptionist-3',
+      'moneyStolen': 'map-receptionist-4'},
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':

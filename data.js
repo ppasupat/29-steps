@@ -350,7 +350,7 @@ const [MAP_DATA, NPC_DATA] = function () {
           if (!flags.midbossCleaned) {
             return R(0, true, true, [
               '...',
-              '(มีสัตว์ประหลาดขวางทางอยู่)']);
+              '(มีสัตว์ประหลาดขวางสะพานอยู่)']);
           } else {
             return R(1, true, false, [
               'สวัสดี!',
@@ -557,18 +557,18 @@ const [MAP_DATA, NPC_DATA] = function () {
               'ช่วงนี้เป็นอะไรไม่รู้ <b>หมอหายไปหมดเลย</b>']);
           } else {
             return R(null, true, false, [
-              'สวัสดีครับหมอ']);
+              'สวัสดีครับอาจารย์']);
           }
         case 'action':
           return R('sad', true, !flags.nurseHelped, [
             'เฮ้อ... ผมก็ไม่มีเงินเหมือนกัน',
-            'จู่ๆ คลินิกเราก็โดน<b>ตัดงบ</b> ไม่รู้ทำไม']);
+            'พอไม่มีหมอ คลินิกเราก็ขาดทุน ...']);
         case 'oil':
           utils.addItem('entkit');
           flags.nurseHelped = 1;
           return R('happy', true, false, [
             'อ้อ! คุณเป็นหมอ ENT ใหม่สินะครับ',
-            'ดีเลย ช่วงนี้คนไข้เยอะ นี่<b>ชุดตรวจหู</b>ครับ']);
+            'พอดีเลย นี่<b>ชุดตรวจหู</b>ครับอาจารย์']);
         default:
           return R('sad', true, true, [
             'เอิ่ม...',
@@ -892,6 +892,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     name: 'จอมมาร',
     actionText: 'หมอที่หายไป ฝึมือแก?',
     itemText: USE,
+    mapStates: {'gameWon': 'gone'},
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
@@ -905,6 +906,7 @@ const [MAP_DATA, NPC_DATA] = function () {
         case 'powersword':
           utils.deselectItems();
           flags.gameWon = 1;
+          utils.refreshNpcOnMap('boss');
           return R(null, false, false, [
             '<b>อ๊าก!! เป็นไปไม่ได้!!</b>',
             'แก... แกไปเอาดาบนั่นมาจากไหน <b>อ้ากกกก!!!</b>']);

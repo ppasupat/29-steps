@@ -229,7 +229,8 @@ $(function () {
   });
 
   UTILS.removeItem = function (iid) {
-    $('.item[data-iid="' + iid + '"]')[0].dataset.iid = '';
+    let target = $('.item[data-iid="' + iid + '"]')[0];
+    if (target) target.dataset.iid = '';
     UTILS.deselectItems();
   };
 
@@ -269,6 +270,8 @@ $(function () {
     let showWinSceneInner = function () {
       $('#scene-cover').off('transitionend', showWinSceneInner);
       $('#btn-leave-wrapper').hide();
+      UTILS.removeItem('rod');
+      UTILS.removeItem('money');
       showEncounter('cake');
       $('#scene-cover').addClass('hidden');
     };

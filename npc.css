@@ -31,10 +31,10 @@
 
 .map-pond {
   top: 858px;
-  left: 212px;
+  left: 131px;
 }
 .map-pond > .msp {
-  transform: scale(0.35);
+  transform: scale(0.4);
 }
 
 .map-cat {
@@ -131,7 +131,7 @@
   left: 1250px;
 }
 .map-lake > .msp {
-  transform: scale(0.35);
+  transform: scale(0.4);
 }
 
 .map-stone {

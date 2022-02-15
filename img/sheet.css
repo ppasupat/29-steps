@@ -3,35 +3,35 @@
   width: 195px; height: 330px;
 }
 .npc-bridgeC-0, .map-bridgeC > .msp {
-  background-position: -847px -606px;
+  background-position: -916px -1065px;
   width: 95px; height: 47px;
 }
 .npc-cat-0, .map-cat > .msp {
-  background-position: -481px -981px;
+  background-position: -193px -1883px;
   width: 215px; height: 146px;
 }
 .npc-cat-1, .map-cat.map-cat-1 > .msp {
-  background-position: -2px -1878px;
+  background-position: -355px -1568px;
   width: 215px; height: 146px;
 }
 .npc-cat-2, .map-cat.map-cat-2 > .msp {
-  background-position: -219px -1865px;
+  background-position: -355px -1716px;
   width: 215px; height: 146px;
 }
 .npc-construction-0, .map-construction > .msp {
-  background-position: -481px -1129px;
+  background-position: -916px -963px;
   width: 70px; height: 100px;
 }
 .npc-door-0, .map-door > .msp {
-  background-position: -193px -1274px;
+  background-position: -430px -981px;
   width: 214px; height: 282px;
 }
 .npc-fairy-0, .map-fairy > .msp {
-  background-position: -2px -981px;
+  background-position: -193px -981px;
   width: 235px; height: 287px;
 }
 .npc-fairy-1, .map-fairy.map-fairy-1 > .msp {
-  background-position: -164px -1576px;
+  background-position: -355px -1279px;
   width: 235px; height: 287px;
 }
 .npc-fire-0, .map-fire > .msp {
@@ -39,24 +39,32 @@
   width: 189px; height: 300px;
 }
 .npc-fire-1, .map-fire.map-fire-1 > .msp {
-  background-position: -713px -972px;
+  background-position: -2px -1279px;
   width: 189px; height: 300px;
 }
 .npc-fire-2, .map-fire.map-fire-2 > .msp {
-  background-position: -2px -1274px;
+  background-position: -2px -1581px;
   width: 189px; height: 300px;
 }
 .npc-fish-0, .map-fish > .msp {
-  background-position: -401px -1558px;
+  background-position: -572px -1829px;
   width: 140px; height: 213px;
 }
 .npc-midboss-0, .map-midboss > .msp {
-  background-position: -239px -981px;
+  background-position: -592px -1279px;
   width: 240px; height: 273px;
 }
 .npc-midboss-1, .map-midboss.map-midboss-1 > .msp {
-  background-position: -409px -1256px;
+  background-position: -592px -1554px;
   width: 240px; height: 273px;
+}
+.npc-nurse-0, .map-nurse > .msp {
+  background-position: -847px -329px;
+  width: 154px; height: 315px;
+}
+.npc-nurse-1, .map-nurse.map-nurse-1 > .msp {
+  background-position: -847px -646px;
+  width: 154px; height: 315px;
 }
 .npc-receptionist-0, .map-receptionist > .msp {
   background-position: -415px -2px;
@@ -83,7 +91,7 @@
   width: 201px; height: 314px;
 }
 .npc-restceptionist-1, .map-restceptionist.map-restceptionist-1 > .msp {
-  background-position: -713px -656px;
+  background-position: -713px -963px;
   width: 201px; height: 314px;
 }
 .npc-shop-0, .map-shop > .msp {
@@ -103,10 +111,10 @@
   width: 160px; height: 300px;
 }
 .npc-stone-1, .map-stone.map-stone-1 > .msp {
-  background-position: -847px -304px;
+  background-position: -193px -1581px;
   width: 160px; height: 300px;
 }
 .npc-stone-2, .map-stone.map-stone-2 > .msp {
-  background-position: -2px -1576px;
+  background-position: -193px -1279px;
   width: 160px; height: 300px;
 }

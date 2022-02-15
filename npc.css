@@ -121,11 +121,14 @@
 }
 
 .map-nurse {
-  top: 712px;
-  left: 410px; 
+  top: 600px;
+  left: 380px;
 }
 .map-nurse > .msp {
   transform: scale(0.5);
+}
+.map-nurse > #exclaim {
+  left: -60px;
 }
 
 .map-blacksmith {
@@ -149,7 +152,7 @@
 }
 
 .map-lake {
-  top: 40px;
+  top: 50px;
   left: 1250px;
 }
 .map-lake > .msp {

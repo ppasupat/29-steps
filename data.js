@@ -552,25 +552,25 @@ const [MAP_DATA, NPC_DATA] = function () {
       switch (op) {
         case 'enter':
           if (!flags.nurseHelped) {
-            return R(null, true, true, [
+            return R(0, true, true, [
               'เชิญนั่งรอก่อนนะครับ',
               'ช่วงนี้เป็นอะไรไม่รู้ <b>หมอหายไปหมดเลย</b>']);
           } else {
-            return R(null, true, false, [
+            return R(1, true, false, [
               'สวัสดีครับอาจารย์']);
           }
         case 'action':
-          return R('sad', true, !flags.nurseHelped, [
+          return R(0, true, !flags.nurseHelped, [
             'เฮ้อ... ผมก็ไม่มีเงินเหมือนกัน',
             'พอไม่มีหมอ คลินิกเราก็ขาดทุน ...']);
         case 'oil':
           utils.addItem('entkit');
           flags.nurseHelped = 1;
-          return R('happy', true, false, [
+          return R(1, true, false, [
             'อ้อ! คุณเป็นหมอ ENT ใหม่สินะครับ',
             'พอดีเลย นี่<b>ชุดตรวจหู</b>ครับอาจารย์']);
         default:
-          return R('sad', true, true, [
+          return R(0, true, true, [
             'เอิ่ม...',
             'อะไรครับเนี่ย']);
       }

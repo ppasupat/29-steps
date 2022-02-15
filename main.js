@@ -35,6 +35,8 @@ $(function () {
       left: -(coords.left) + 'px',
     });
     $('.arrow').hide();
+    if (flags.visited === undefined) flags.visited = {};
+    flags.visited[pid] = 1;
     visitMinimap(pid);
   }
 
@@ -293,8 +295,10 @@ $(function () {
 
   function getSavedGame() {
     let data = localStorage.getItem(APP_NAME);
+    console.log(data);
     if (data !== null) {
       data = JSON.parse(data);
+      if (Object.keys(data.flags).length === 0) data = null;
     }
     return data;
   }
@@ -302,88 +306,99 @@ $(function () {
   function loadGame(data) {
     flags = data.flags;
     Object.keys(NPC_DATA).forEach(UTILS.refreshNpcOnMap);
+    Object.keys(flags.visited || {}).forEach(visitMinimap);
     data.items.forEach(UTILS.addItem);
     moveMap(data.pid);
     if (flags.gameWon) showWinScene();
   }
 
-  $('#debug').click(() => loadGame({
-    flags: {
-      "gotMoneyFromFairy": true,
-      "tutorialDone2": true,
-      "tutorialDone1": true,
-    },
-    items: ['rod', '', '', '', 'oil', ''],
-    pid: 'a5',
-  }));
   $('#skipA').click(() => loadGame({
     flags: {
-      "gotMoneyFromFairy": true,
-      "tutorialDone2": true,
-      "tutorialDone1": true,
-      "pondFished": true,
-      "catFed": true,
+      "gotMoneyFromFairy": 1,
+      "tutorialDone2": 1,
+      "tutorialDone1": 1,
+      "pondFished": 1,
+      "catFed": 1,
+      "visited": {
+        "a1": 1, "a2": 1, "a3": 1, "a4": 1, "a5": 1, "a6": 1, "a7": 1, "s": 1,
+      },
     },
     items: ['rod', 'key', '', '', 'oil', ''],
     pid: 'a4',
   }));
   $('#skipB').click(() => loadGame({
     flags: {
-      "gotMoneyFromFairy": true,
-      "tutorialDone2": true,
-      "tutorialDone1": true,
-      "pondFished": true,
-      "catFed": true,
-      "doorOpen": true,
-      "feePaid": true,
-      "nurseHelped": true,
-      "midbossCleaned": true,
+      "gotMoneyFromFairy": 1,
+      "tutorialDone2": 1,
+      "tutorialDone1": 1,
+      "pondFished": 1,
+      "catFed": 1,
+      "doorOpen": 1,
+      "feePaid": 1,
+      "nurseHelped": 1,
+      "midbossCleaned": 1,
+      "visited": {
+        "a1": 1, "a2": 1, "a3": 1, "a4": 1, "a5": 1, "a6": 1, "a7": 1, "s": 1,
+        "b1": 1, "b2": 1, "b3": 1, "b4": 1, "b5": 1, "b6": 1, "b7": 1, "b8": 1,
+      },
     },
     items: ['money', '', '', '', 'oil', ''],
     pid: "b3",
   }));
   $('#skipI').click(() => loadGame({
     flags: {
-      "gotMoneyFromFairy": true,
-      "tutorialDone2": true,
-      "tutorialDone1": true,
-      "pondFished": true,
-      "catFed": true,
-      "doorOpen": true,
-      "feePaid": true,
-      "nurseHelped": true,
-      "midbossCleaned": true,
-      "midbossDefeated": true,
-      "moneyStolen": true,
-      "stoneOiled": true,
-      "swordPulled": true,
-      "lakeFished": true,
-      "iceEscaped": true
+      "gotMoneyFromFairy": 1,
+      "tutorialDone2": 1,
+      "tutorialDone1": 1,
+      "pondFished": 1,
+      "catFed": 1,
+      "doorOpen": 1,
+      "feePaid": 1,
+      "nurseHelped": 1,
+      "midbossCleaned": 1,
+      "midbossDefeated": 1,
+      "moneyStolen": 1,
+      "stoneOiled": 1,
+      "swordPulled": 1,
+      "lakeFished": 1,
+      "iceEscaped": 1,
+      "visited": {
+        "a1": 1, "a2": 1, "a3": 1, "a4": 1, "a5": 1, "a6": 1, "a7": 1, "s": 1,
+        "b1": 1, "b2": 1, "b3": 1, "b4": 1, "b5": 1, "b6": 1, "b7": 1, "b8": 1,
+        "c1": 1, "c2": 1, "c3": 1, "c4": 1, "c5": 1, "c6": 1, "c7": 1, "c8": 1, "c9": 1,
+        "d1": 1, "d2": 1, "d3": 1, "d4": 1,
+      },
     },
     items: ['rod', 'sword', '', '', 'oil', 'ice'],
     pid: "d2",
   }));
   $('#skipC').click(() => loadGame({
     flags: {
-      "gotMoneyFromFairy": true,
-      "tutorialDone2": true,
-      "tutorialDone1": true,
-      "pondFished": true,
-      "catFed": true,
-      "doorOpen": true,
-      "feePaid": true,
-      "nurseHelped": true,
-      "midbossCleaned": true,
-      "midbossDefeated": true,
-      "moneyStolen": true,
-      "stoneOiled": true,
-      "swordPulled": true,
-      "lakeFished": true,
-      "iceEscaped": true,
-      "swordGiven": true,
-      "fireIced": true,
-      "gemPicked": true,
-      "gemGiven": true
+      "gotMoneyFromFairy": 1,
+      "tutorialDone2": 1,
+      "tutorialDone1": 1,
+      "pondFished": 1,
+      "catFed": 1,
+      "doorOpen": 1,
+      "feePaid": 1,
+      "nurseHelped": 1,
+      "midbossCleaned": 1,
+      "midbossDefeated": 1,
+      "moneyStolen": 1,
+      "stoneOiled": 1,
+      "swordPulled": 1,
+      "lakeFished": 1,
+      "iceEscaped": 1,
+      "swordGiven": 1,
+      "fireIced": 1,
+      "gemPicked": 1,
+      "gemGiven": 1,
+      "visited": {
+        "a1": 1, "a2": 1, "a3": 1, "a4": 1, "a5": 1, "a6": 1, "a7": 1, "s": 1,
+        "b1": 1, "b2": 1, "b3": 1, "b4": 1, "b5": 1, "b6": 1, "b7": 1, "b8": 1,
+        "c1": 1, "c2": 1, "c3": 1, "c4": 1, "c5": 1, "c6": 1, "c7": 1, "c8": 1, "c9": 1,
+        "d1": 1, "d2": 1, "d3": 1, "d4": 1,
+      },
     },
     items: ['rod', 'powersword', '', '', 'oil', 'ice'],
     pid: "d4",

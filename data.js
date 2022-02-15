@@ -63,14 +63,14 @@ const [MAP_DATA, NPC_DATA] = function () {
             return R(0, false, true, [
               'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>แล้วกด "ให้")</i>']);
         case 'action':
-          flags.gotMoneyFromFairy = true;
+          flags.gotMoneyFromFairy = 1;
           utils.addItem('money');
           return R(1, false, true, [
             'งกจริง!<br>เอาไป <b>30 บาท</b>',
             'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>แล้วกด "ให้")</i>']);
         case 'money':
           utils.deselectItems();
-          flags.tutorialDone1 = flags.tutorialDone2 = true;
+          flags.tutorialDone1 = flags.tutorialDone2 = 1;
           utils.refreshNpcOnMap('fairy');
           utils.showArrows();
           return R(0, false, false, [
@@ -124,7 +124,7 @@ const [MAP_DATA, NPC_DATA] = function () {
             'ที่ประตูมี<b>รูกุญแจ</b>อยู่']);
         case 'key':
           utils.removeItem('key');
-          flags.doorOpen = true;
+          flags.doorOpen = 1;
           utils.refreshNpcOnMap('door');
           utils.refreshNpcOnMap('noBridgeB');
           utils.refreshNpcOnMap('bridgeB');
@@ -165,7 +165,7 @@ const [MAP_DATA, NPC_DATA] = function () {
             'มี<b>ปลา</b>ว่ายอยู่ในบ่อน้ำ']);
         case 'rod':
           utils.addItem('fish');
-          flags.pondFished = true;
+          flags.pondFished = 1;
           utils.refreshNpcOnMap('pond');
           return R(999, false, false, [
             'คุณตก<b>ปลา</b>ขึ้นมาจากบ่อน้ำ']);
@@ -215,7 +215,7 @@ const [MAP_DATA, NPC_DATA] = function () {
           } else {
             utils.removeItem('fish');
             utils.addItem('key');
-            flags.catFed = true;
+            flags.catFed = 1;
             return R(2, true, true, [
               'เมี้ยวๆๆ อร่อยจัง!',
               'ฉันจะให้ของเธอเป็นการตอบแทนนะเมี้ยว!']);
@@ -356,7 +356,7 @@ const [MAP_DATA, NPC_DATA] = function () {
               'ฮะ? พูดว่าอะไรนะ?',
               '<b>ข้าไม่ได้ยิน</b>']);
           } else {
-            flags.midbossDefeated = true;
+            flags.midbossDefeated = 1;
             utils.refreshNpcOnMap('midboss');
             utils.refreshNpcOnMap('receptionist');
             utils.refreshNpcOnMap('noBridgeC');
@@ -367,7 +367,7 @@ const [MAP_DATA, NPC_DATA] = function () {
           }
         case 'entkit':
           utils.removeItem('entkit');
-          flags.midbossCleaned = true;
+          flags.midbossCleaned = 1;
           return R(1, true, false, [
             'อ๊ะ!',
             'จู่ๆ ข้าก็ได้ยินชัดขึ้น',
@@ -427,14 +427,14 @@ const [MAP_DATA, NPC_DATA] = function () {
               'คุณดึงมือออกทันควัน']);
           } else {
             utils.addItem('gem');
-            flags.gemPicked = true;
+            flags.gemPicked = 1;
             utils.refreshNpcOnMap('fire');
             return R(2, false, false, [
               'คุณเก็บอัญมณีขึ้นมา']);
           }
         case 'ice':
           utils.deselectItems();
-          flags.fireIced = true;
+          flags.fireIced = 1;
           utils.refreshNpcOnMap('fire');
           return R(1, true, false, [
             'คุณใช้ ICE (น้ำแข็ง) ดับไฟ',
@@ -506,14 +506,14 @@ const [MAP_DATA, NPC_DATA] = function () {
             }
           } else {
             utils.addItem('money');
-            flags.moneyStolen = true;
+            flags.moneyStolen = 1;
             utils.refreshNpcOnMap('receptionist');
             return R(4, false, false, [
               'คุณ <b>"ยืม"</b> เงิน 30 บาท จากโต๊ะ']);
           }
         case 'money':
           utils.removeItem('money');
-          flags.feePaid = true;
+          flags.feePaid = 1;
           utils.showArrows();
           return R(2, true, false, [
             'เชิญพบคุณหมอที่ห้องตรวจได้เลยค่ะ']);
@@ -556,7 +556,7 @@ const [MAP_DATA, NPC_DATA] = function () {
             'จู่ๆ คลินิกเราก็โดน<b>ตัดงบ</b> ไม่รู้ทำไม']);
         case 'oil':
           utils.addItem('entkit');
-          flags.nurseHelped = true;
+          flags.nurseHelped = 1;
           return R('happy', true, false, [
             'อ้อ! คุณเป็นหมอ ENT ใหม่สินะครับ',
             'ดีเลย ช่วงนี้คนไข้เยอะ นี่<b>ชุดตรวจหู</b>ครับ']);
@@ -609,7 +609,7 @@ const [MAP_DATA, NPC_DATA] = function () {
             'ข้าไม่มีเงินให้',
             'แต่เอางี้ ข้าจะ<b>เสริมพลังอาวุธ</b>ให้เจ้าฟรีครั้งนึง']);
         case 'sword':
-          flags.swordGiven = true;
+          flags.swordGiven = 1;
           utils.removeItem('sword');
           if (!flags.gemGiven) {
             return R(bpic(), true, true, [
@@ -622,7 +622,7 @@ const [MAP_DATA, NPC_DATA] = function () {
               'ด้วยพลังอัญมณี<br><b>ดาบปราบมาร</b><br>เล่มนี้จะสยบมารได้ทุกระดับ!']);
           }
         case 'gem':
-          flags.gemGiven = true;
+          flags.gemGiven = 1;
           utils.removeItem('gem');
           if (!flags.swordGiven) {
             return R(bpic(), true, true, [
@@ -715,7 +715,7 @@ const [MAP_DATA, NPC_DATA] = function () {
             'เออ ไอซ์ขี้เกียจวาดใหม่']);
         case 'rod':
           utils.addItem('fish');
-          flags.lakeFished = true;
+          flags.lakeFished = 1;
           utils.refreshNpcOnMap('lake');
           return R(999, false, false, [
             'คุณตก<b>ปลา</b>ขึ้นมาจากทะเลสาบ']);
@@ -776,14 +776,14 @@ const [MAP_DATA, NPC_DATA] = function () {
               'ดาบเสียบแน่นมาก<br>ดึงไม่ออก']);
           } else {
             utils.addItem('sword');
-            flags.swordPulled = true;
+            flags.swordPulled = 1;
             utils.refreshNpcOnMap('stone');
             return R(2, false, false, [
               'คุณดึงดาบออกมา',
               'แต่พอมองดูดีๆ แล้ว มันเป็นแค่<b>ดาบกากๆ</b>']);
           }
         case 'oil':
-          flags.stoneOiled = true;
+          flags.stoneOiled = 1;
           return R(1, true, false, [
             'คุณใช้ OIL (น้ำมัน) หล่อลื่น',
             'ดาบน่าจะดึงออกได้ง่ายแล้ว']);
@@ -834,7 +834,7 @@ const [MAP_DATA, NPC_DATA] = function () {
         case 'key':
           utils.removeItem('key');
           utils.addItem('ice', 5);
-          flags.iceEscaped = true;
+          flags.iceEscaped = 1;
           utils.refreshNpcOnMap('shackle');
           return R('escaped', false, false, [
             '<b>อิสรภาพ!</b>',
@@ -889,7 +889,7 @@ const [MAP_DATA, NPC_DATA] = function () {
             'ข้าเลย "จัดการ" พวกมันซะ <b>555+</b>']);
         case 'powersword':
           utils.deselectItems();
-          flags.gameWon = true;
+          flags.gameWon = 1;
           return R(null, false, false, [
             '<b>อ๊าก!! เป็นไปไม่ได้!!</b>',
             'แก... แกไปเอาดาบนั่นมาจากไหน <b>อ้ากกกก!!!</b>']);

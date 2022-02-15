@@ -107,7 +107,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     name: 'ประตู',
     actionText: 'งั้นเดินอ้อม',
     itemText: USE,
-    mapStates: {'doorOpen': 'open'},
+    mapStates: {'doorOpen': 'map-door-1'},
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
@@ -402,7 +402,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     name: 'กองไฟ',
     actionText: 'แหย่มือ',
     itemText: USE,
-    mapStates: {'fireIced': 'iced'},
+    mapStates: {'fireIced': 'map-fire-2'},
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':

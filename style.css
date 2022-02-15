@@ -202,10 +202,8 @@ div.scene {
 }
 
 .map-npc {
-  background-image: url('img/sheet.png');
   position: absolute;
   cursor: pointer;
-  font-size: 150%; color: cyan; text-shadow: 2px 2px black, -2px -2px black; /* temp */
 }
 .map-npc.cosmetic {
   cursor: auto;
@@ -367,38 +365,4 @@ div.scene {
 .item[data-iid=""] {
   border: none;
   cursor: auto;
-}
-
-.item[data-iid="oil"]::before {
-  content: 'oil';
-}
-.item[data-iid="ice"]::before {
-  content: 'ice';
-}
-.item[data-iid="money"]::before {
-  content: 'money';
-}
-.item[data-iid="rod"]::before {
-  content: 'rod';
-}
-.item[data-iid="fish"]::before {
-  content: 'fish';
-}
-.item[data-iid="grilledfish"]::before {
-  content: 'grilledfish';
-}
-.item[data-iid="key"]::before {
-  content: 'key';
-}
-.item[data-iid="entkit"]::before {
-  content: 'entkit';
-}
-.item[data-iid="sword"]::before {
-  content: 'sword';
-}
-.item[data-iid="gem"]::before {
-  content: 'gem';
-}
-.item[data-iid="powersword"]::before {
-  content: 'powersword';
 }

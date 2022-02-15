@@ -1,41 +1,77 @@
 /* ################################ */
 /* NPC on the map */
 
+.map-npc {
+  font-size: 150%; color: cyan; text-shadow: 2px 2px black, -2px -2px black; /* temp */
+}
 .map-npc.gone, .map-cake {
   display: none;
 }
+.map-npc > .msp {
+  background-image: url('img/sheet.png');
+  position: absolute; top: 0; left: 0;
+  transform-origin: top left;
+}
 
 .map-fairy {
-  top: 1480px; left: 250px;
+  top: 1336px;
+  left: 220px;
 }
+.map-fairy > .msp {
+  transform: scale(0.5);
+}
+
 .map-door {
-  top: 1124px; left: 420px; 
+  top: 1033px;
+  left: 423px;
 }
+.map-door > .msp {
+  transform: scale(0.4);
+}
+
 .map-pond {
-  top: 930px; left: 250px;
+  top: 858px;
+  left: 212px;
 }
+.map-pond > .msp {
+  transform: scale(0.4);
+}
+
 .map-cat {
-  top: 968px; left: 890px;
+  top: 903px;
+  left: 814px;
+}
+.map-cat > .msp {
+  transform: scale(0.7);
 }
 
 .map-shop {
-  top: 968px; left: 1210px; 
+  top: 821px;
+  left: 1147px;
 }
+.map-shop > .msp {
+  transform: scale(0.5);
+}
+
 .map-noBridgeB {
-  top: 806px; left: 1126px; 
+  top: 825px;
+  left: 1090px; 
 }
 .map-bridgeB {
-  top: 568px; left: 977px;
+  top: 568px;
+  left: 977px;
   display: none;
 }
 .map-bridgeB.appear {
   display: block;
 }
 .map-noBridgeC {
-  top: 868px; left: 1249px; 
+  top: 825px;
+  left: 1252px; 
 }
 .map-bridgeC {
-  top: 940px; left: 1296px;
+  top: 940px;
+  left: 1296px;
   display: none;
 }
 .map-bridgeC.appear {
@@ -43,37 +79,84 @@
 }
 
 .map-midboss {
-  top: 436px; left: 920px; 
+  top: 343px;
+  left: 883px; 
 }
 .map-fire {
-  top: 456px; left: 250px;
+  top: 306px;
+  left: 200px;
 }
 .map-receptionist {
-  top: 456px; left: 570px;
+  top: 322px;
+  left: 510px;
 }
 .map-nurse {
-  top: 712px; left: 410px; 
+  top: 712px;
+  left: 410px; 
 }
 
 .map-blacksmith {
-  top: 712px; left: 1370px; 
+  top: 712px;
+  left: 1370px; 
 }
 .map-restceptionist {
-  top: 416px; left: 1850px;
+  top: 416px;
+  left: 1850px;
 }
 .map-lake {
-  top: 100px; left: 1280px;
+  top: 100px;
+  left: 1280px;
 }
 .map-stone {
-  top: 1480px; left: 1210px;
+  top: 1480px;
+  left: 1210px;
 }
 .map-shackle {
-  top: 1480px; left: 1530px; 
+  top: 1480px;
+  left: 1530px; 
 }
 .map-boss {
-  top: 1480px; left: 1850px;
+  top: 1480px;
+  left: 1850px;
 }
 
 /* ################################ */
 /* NPC encounter */
 
+
+/* ################################ */
+/* Items */
+
+.item[data-iid="oil"]::before {
+  content: 'oil';
+}
+.item[data-iid="ice"]::before {
+  content: 'ice';
+}
+.item[data-iid="money"]::before {
+  content: 'money';
+}
+.item[data-iid="rod"]::before {
+  content: 'rod';
+}
+.item[data-iid="fish"]::before {
+  content: 'fish';
+}
+.item[data-iid="grilledfish"]::before {
+  content: 'grilledfish';
+}
+.item[data-iid="key"]::before {
+  content: 'key';
+}
+.item[data-iid="entkit"]::before {
+  content: 'entkit';
+}
+.item[data-iid="sword"]::before {
+  content: 'sword';
+}
+.item[data-iid="gem"]::before {
+  content: 'gem';
+}
+.item[data-iid="powersword"]::before {
+  content: 'powersword';
+}

@@ -32,13 +32,22 @@ def main():
             print('Dumping CSS for {}'.format(k))
             assert '.png' in k, k
             frame = data['frames'][k]['frame']
-            print('.' + k.replace('.png', ''), '{', file=fout)
+            class_names = ['.' + k.replace('.png', '')]
+            if k.startswith('npc-'):
+                # Also create map icon
+                _, name, idx = k.replace('.png', '').split('-')
+                if idx == '0':
+                    class_names.append('.map-{} > .msp'.format(name))
+                else:
+                    class_names.append('.map-{}.map-{}-{} > .msp'.format(
+                        name, name, idx))
+            print(', '.join(class_names), '{', file=fout)
             print('  background-position: -{}px -{}px;'.format(
                 frame['x'], frame['y']), file=fout)
             print('  width: {}px; height: {}px;'.format(
                 frame['w'], frame['h']), file=fout)
             print('}', file=fout)
-    
+
 
 if __name__ == '__main__':
     main()

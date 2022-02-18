@@ -62,13 +62,13 @@ const [MAP_DATA, NPC_DATA] = function () {
               'มีอะไรให้ฉันช่วยไหม?']);
           else
             return R(0, false, true, [
-              'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>แล้วกด "ให้")</i>']);
+              'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>แล้วกด “ให้”)</i>']);
         case 'action':
           flags.gotMoneyFromFairy = 1;
           utils.addItem('money');
           return R(1, false, true, [
             'งกจริง!<br>เอาไป <b>30 บาท</b>',
-            'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>แล้วกด "ให้")</i>']);
+            'ก่อนเธอจะไป ลองฝึกใช้ไอเทมดูหน่อยนะ<br><i>(เลือก<b>เงิน</b>แล้วกด “ให้”)</i>']);
         case 'money':
           utils.deselectItems();
           flags.tutorialDone1 = flags.tutorialDone2 = 1;
@@ -350,7 +350,7 @@ const [MAP_DATA, NPC_DATA] = function () {
           if (!flags.midbossCleaned) {
             return R(0, true, true, [
               '...',
-              '(มีสัตว์ประหลาดขวางสะพานอยู่)']);
+              '<i>(สัตว์ประหลาดขวางสะพานอยู่)</i>']);
           } else {
             return R(1, true, false, [
               'สวัสดี!',
@@ -381,7 +381,7 @@ const [MAP_DATA, NPC_DATA] = function () {
         default:
           return R(0, true, true, [
             '...',
-            '(สัตว์ประหลาดไม่สนใจ)']);
+            '<i>(สัตว์ประหลาดไม่สนใจ)</i>']);
       }
     },
   };
@@ -497,11 +497,11 @@ const [MAP_DATA, NPC_DATA] = function () {
             }
           } else if (!flags.moneyStolen) {
             return R(3, true, false, [
-              'ป้าย:<br>"พักเที่ยงค่ะ"',
+              'ป้าย:<br>“พักเที่ยงค่ะ”',
               'บนโต๊ะมี<b>เงิน</b>อยู่']);
           } else {
             return R(4, false, false, [
-              'ป้าย:<br>"พักเที่ยงค่ะ"']);
+              'ป้าย:<br>“พักเที่ยงค่ะ”']);
           }
         case 'action':
           if (!flags.midbossDefeated) {
@@ -517,7 +517,7 @@ const [MAP_DATA, NPC_DATA] = function () {
             flags.moneyStolen = 1;
             utils.refreshNpcOnMap('receptionist');
             return R(4, false, false, [
-              'คุณ <b>"ยืม"</b> เงิน 30 บาท จากโต๊ะ']);
+              'คุณ <b>“ยืม”</b> เงิน 30 บาท จากโต๊ะ']);
           }
         case 'money':
           utils.removeItem('money');
@@ -898,45 +898,45 @@ const [MAP_DATA, NPC_DATA] = function () {
 
   npc_data.boss = {
     nid: 'boss', loc: 'd4',
-    name: 'จอมมาร',
+    name: 'จอมมารที่ชื่อว่าอนุทิ',
     actionText: 'หมอที่หายไป ฝึมือแก?',
     itemText: USE,
     mapStates: {'gameWon': 'gone'},
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'ข้าคือ<b>จอมมาร</b>ผู้ครองป่านี้',
             'ข้าจะทำให้แพทย์ทุกคนต้องทุกข์ระทม <b>555+</b>']);
         case 'action':
-          return R(null, true, true, [
-            'ไอ้คลินิกไพรสัณฑ์อะไรนั่น มันบังอาจต่อต้านข้า',
-            'ข้าเลย "จัดการ" พวกมันซะ <b>555+</b>']);
+          return R(0, true, true, [
+            'ไอ้คลินิกอะไรนั่น<br>มันบังอาจต่อต้านข้า',
+            'ข้าเลย <b>“จัดการ”</b> พวกมันซะ <b>555+</b>']);
         case 'powersword':
           utils.deselectItems();
           flags.gameWon = 1;
           utils.refreshNpcOnMap('boss');
-          return R(null, false, false, [
+          return R(1, false, false, [
             '<b>อ๊าก!! เป็นไปไม่ได้!!</b>',
             'แก... แกไปเอาดาบนั่นมาจากไหน <b>อ้ากกกก!!!</b>']);
         case 'sword':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'ดาบกากๆ แบบนั้นทำอะไรข้าไม่ได้หรอก <b>555+</b>']);
         case 'gem':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'อัญมณีเวทเฉยๆ ทำอะไรข้าไม่ได้หรอก <b>555+</b>']);
         case 'oil':
         case 'ice':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'มนุษย์ธรรมดาอย่างเจ้า จะทำอะไรข้าได้ <b>555+</b>']);
         case 'money':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'จะติดสินบนข้า แต่มีแค่ 30 บาท ข้าไม่รับหรอก <b>555+</b>']);
         case 'rod':
         case 'fish':
         case 'grilledfish':
         case 'key':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'จะเอา' + itemNames[op] + 'มาตีข้างั้นเหรอ บ้าหรือเปล่า <b>555+</b>']);
       }
     },
@@ -952,7 +952,7 @@ const [MAP_DATA, NPC_DATA] = function () {
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
-          return R(null, false, false, [
+          return R(0, false, false, [
             '<b>สุขสันต์วันเกิด</b>',
             'ขอให้ออยมีความสุข ประสบความสำเร็จ มีสุขภาพดีนะครับ']);
       }

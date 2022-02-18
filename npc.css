@@ -193,16 +193,26 @@
 }
 
 .map-boss {
-  top: 1480px;
-  left: 1850px;
+  top: 1430px;
+  left: 1890px;
 }
 .map-boss > .msp {
-  transform: scale(0.5);
+  transform: scale(0.7);
 }
 
 /* ################################ */
 /* NPC encounter */
 
+@keyframes bossShake {
+  0% { transform: translate(-3px, 0); }
+  50% { transform: translate(3px, 0); }
+  100% { transform: translate(-3px, 0); }
+}
+#npc-pic.npc-boss-1 {
+  animation: bossShake 0.1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
 
 /* ################################ */
 /* Items */

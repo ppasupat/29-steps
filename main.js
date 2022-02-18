@@ -1,9 +1,6 @@
 $(function () {
   'use strict';
 
-  const SCREEN_WIDTH = 700, SCREEN_HEIGHT = 400;
-  const FRAME_RATE = 8;
-
   const MAP_ROW_HEIGHT = 256, MAP_COL_WIDTH = 160,
     MAP_TOP_OFFSET = 0, MAP_LEFT_OFFSET = 0,
     MAP_PANE_HEIGHT = 400, MAP_PANE_WIDTH = 500;
@@ -434,17 +431,40 @@ $(function () {
   // ################################
   // Preloading and screen resizing
 
+  function gup(name) {
+    let regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+    let results = regex.exec(window.location.href);
+    return results === null ? "" : decodeURIComponent(results[1]);
+  }
+  if (gup('cheat')) $('#cheats').show();
+
+  const H_SCREEN_WIDTH = 700, H_SCREEN_HEIGHT = 400,
+    V_SCREEN_WIDTH = 500, V_SCREEN_HEIGHT = 580;
+
   function resizeScreen() {
-    let ratio = Math.min(
-      1.0,
-      window.innerWidth / SCREEN_WIDTH,
-      (window.innerHeight - 25) / SCREEN_HEIGHT,
-    );
-    $('#game-wrapper').css({
-      'width': (SCREEN_WIDTH * ratio) + 'px',
-      'height': (SCREEN_HEIGHT * ratio) + 'px',
-    });
-    $('#game').css('transform', 'scale(' + ratio + ')');
+    if (window.innerWidth > window.innerHeight) {
+      let ratio = Math.min(
+        1.0,
+        window.innerWidth / H_SCREEN_WIDTH,
+        (window.innerHeight - 25) / H_SCREEN_HEIGHT,
+      );
+      $('#game-wrapper').css({
+        'width': (H_SCREEN_WIDTH * ratio) + 'px',
+        'height': (H_SCREEN_HEIGHT * ratio) + 'px',
+      }).removeClass('vertical-screen');
+      $('#game').css('transform', 'scale(' + ratio + ')');
+    } else {
+      let ratio = Math.min(
+        1.0,
+        window.innerWidth / V_SCREEN_WIDTH,
+        (window.innerHeight - 25) / V_SCREEN_HEIGHT,
+      );
+      $('#game-wrapper').css({
+        'width': (V_SCREEN_WIDTH * ratio) + 'px',
+        'height': (V_SCREEN_HEIGHT * ratio) + 'px',
+      }).addClass('vertical-screen');
+      $('#game').css('transform', 'scale(' + ratio + ')');
+    }
   }
 
   resizeScreen();

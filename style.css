@@ -10,8 +10,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
   margin: 0;
@@ -24,7 +24,7 @@ time, mark, audio, video {
   user-select: none;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
@@ -105,6 +105,16 @@ div.scene {
   left: 0; top: 0;
 }
 
+.vertical-screen #game,
+.vertical-screen div.scene {
+  width: 500px;
+  height: 580px;
+}
+
+#cheats {
+  display: none;
+}
+
 /* ################################ */
 /* preload scene */
 
@@ -147,9 +157,6 @@ div.scene {
 /* ################################ */
 /* main scene */
 
-#scene-main {
-}
-
 #map-pane {
   position: absolute;
   left: 0; top: 0; width: 500px; height: 400px;
@@ -159,6 +166,10 @@ div.scene {
 #hud-pane {
   position: absolute;
   left: 500px; top: 0; width: 200px; height: 400px;
+}
+
+.vertical-screen #hud-pane {
+  left: 0; top: 400px; width: 500px; height: 180px;
 }
 
 /* ################################ */
@@ -337,7 +348,7 @@ div.scene {
 
 #btn-leave-wrapper {
   position: absolute;
-  left: 5px; top: 5px; width: 55px; height: 55px;
+  left: 7px; top: 5px; width: 55px; height: 55px;
   cursor: pointer;
   text-shadow: 1px 1px 2px black;
   border: 1px solid #c77;
@@ -356,13 +367,20 @@ div.scene {
   position: absolute;
   left: 10px; top: 5px; width: 180px; height: 125px;
 }
+.vertical-screen #minimap-wrapper {
+  left: 20px; top: 30px;
+}
 
 /* ################################ */
 /* inventory */
 
 #inventory {
   position: absolute;
-  left: 10px; top: 140px; width: 180px; height: 260px;
+  left: 10px; top: 140px;
+}
+
+.vertical-screen #inventory {
+  left: 220px; top: 5px;
 }
 
 .item {
@@ -383,6 +401,13 @@ div.scene {
 .item:nth-child(4) { left: 93px; top: 88px; }
 .item:nth-child(5) { left: 0; top: 176px; }
 .item:nth-child(6) { left: 93px; top: 176px; }
+
+.vertical-screen .item:nth-child(1) { left: 0; top: 0; }
+.vertical-screen .item:nth-child(2) { left: 93px; top: 0; }
+.vertical-screen .item:nth-child(3) { left: 186px; top: 0; }
+.vertical-screen .item:nth-child(4) { left: 0; top: 88px; }
+.vertical-screen .item:nth-child(5) { left: 93px; top: 88px; }
+.vertical-screen .item:nth-child(6) { left: 186px; top: 88px; }
 
 .item.selected {
   background-color: #ffd;

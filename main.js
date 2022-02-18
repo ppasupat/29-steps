@@ -276,6 +276,8 @@ $(function () {
     let showWinSceneInner = function () {
       $('#scene-cover').off('transitionend', showWinSceneInner);
       $('#btn-leave-wrapper').hide();
+      UTILS.removeItem('rod');
+      UTILS.removeItem('money');
       showEncounter('cake');
       $('#scene-cover').addClass('hidden');
     };

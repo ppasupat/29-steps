@@ -943,18 +943,52 @@ const [MAP_DATA, NPC_DATA] = function () {
   };
 
   // win screen
+  // Don't persist the states
+  let cakeState = 0, cakeEaten = {};
 
   npc_data.cake = {
     nid: 'cake', loc: 'd4',
     name: '',
     actionText: '',
-    itemText: USE,
+    itemText: x => ((x === 'ice' || x === 'oil') ? GIVE(x) : USE(x)),
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
-          return R(0, false, false, [
+          cakeState = 0;
+          return R(cakeState, false, true, [
             '<b>สุขสันต์วันเกิด</b>',
             'ขอให้ออยมีความสุข ประสบความสำเร็จ มีสุขภาพดีนะครับ']);
+        case 'powersword':
+          if (cakeState === 0) {
+            cakeState = 1;
+            return R(cakeState, false, true, [
+              'คุณใช้ดาบปราบมารตัดเค้ก',
+              'ขี่ช้างจับตั๊กแตนจริงๆ']);
+          } else {
+            return R(cakeState, false, true, [
+              'ตัดพอแล้วลูก',
+              'เดี๋ยวเค้กก็เละหรอก']);
+          }
+        case 'oil':
+        case 'ice':
+          if (cakeState === 0) {
+            return R(cakeState, false, true, [
+              'เค้กก้อนใหญ่เกิน',
+              'จะกินงัยเนี่ย']);
+          } else if (cakeState === 1) {
+            cakeEaten[op] = true;
+            cakeState = 2;
+            return R(cakeState, false, true, [
+              'งั่มๆ อร่อยจัง']);
+          } else if (cakeEaten[op]) {
+            return R(cakeState, false, true, [
+              itemNames[op] + ' อิ่มแล้วล่ะ',
+              'อีกครึ่งนึงให้ ' + itemNames[op === 'oil' ? 'ice' : 'oil'] + ' เถอะ']);
+          } else {
+            cakeState = 3;
+            return R(cakeState, false, false, [
+              'งั่มๆ อร่อยจัง']);
+          }
       }
     },
   };

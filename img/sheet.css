@@ -1,25 +1,25 @@
 .item-entkit {
-  background-position: -1061px -1535px;
+  background-position: -1265px -661px;
   width: 85px; height: 80px;
 }
 .item-fish {
-  background-position: -1018px -1707px;
+  background-position: -1178px -579px;
   width: 85px; height: 80px;
 }
 .item-gem {
-  background-position: -931px -1789px;
+  background-position: -1091px -743px;
   width: 85px; height: 80px;
 }
 .item-grilledfish {
-  background-position: -931px -1707px;
+  background-position: -1178px -743px;
   width: 85px; height: 80px;
 }
 .item-ice {
-  background-position: -1030px -1453px;
+  background-position: -1148px -1728px;
   width: 85px; height: 80px;
 }
 .item-key {
-  background-position: -1018px -1789px;
+  background-position: -1178px -661px;
   width: 85px; height: 80px;
 }
 .item-money {
@@ -27,11 +27,11 @@
   width: 85px; height: 80px;
 }
 .item-oil {
-  background-position: -1061px -1617px;
+  background-position: -1265px -743px;
   width: 85px; height: 80px;
 }
 .item-powersword {
-  background-position: -844px -1789px;
+  background-position: -1091px -661px;
   width: 85px; height: 80px;
 }
 .item-rod {
@@ -39,7 +39,7 @@
   width: 85px; height: 80px;
 }
 .item-sword {
-  background-position: -844px -1707px;
+  background-position: -1091px -579px;
   width: 85px; height: 80px;
 }
 .npc-blacksmith-0, .map-blacksmith > .msp {
@@ -74,6 +74,18 @@
   background-position: -1050px -2px;
   width: 230px; height: 273px;
 }
+.npc-cake-1, .map-cake.map-cake-1 > .msp {
+  background-position: -844px -1559px;
+  width: 230px; height: 273px;
+}
+.npc-cake-2, .map-cake.map-cake-2 > .msp {
+  background-position: -958px -1238px;
+  width: 230px; height: 273px;
+}
+.npc-cake-3, .map-cake.map-cake-3 > .msp {
+  background-position: -1064px -901px;
+  width: 230px; height: 273px;
+}
 .npc-cat-0, .map-cat > .msp {
   background-position: -607px -1888px;
   width: 215px; height: 146px;
@@ -83,11 +95,11 @@
   width: 215px; height: 146px;
 }
 .npc-cat-2, .map-cat.map-cat-2 > .msp {
-  background-position: -844px -1559px;
+  background-position: -1041px -1834px;
   width: 215px; height: 146px;
 }
 .npc-construction-0, .map-construction > .msp {
-  background-position: -958px -1453px;
+  background-position: -1076px -1728px;
   width: 70px; height: 100px;
 }
 .npc-door-0, .map-door > .msp {
@@ -115,7 +127,7 @@
   width: 189px; height: 300px;
 }
 .npc-fish-0, .map-fish > .msp {
-  background-position: -958px -1238px;
+  background-position: -1076px -1513px;
   width: 140px; height: 213px;
 }
 .npc-midboss-0, .map-midboss > .msp {

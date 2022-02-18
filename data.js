@@ -806,6 +806,7 @@ const [MAP_DATA, NPC_DATA] = function () {
           }
         case 'oil':
           flags.stoneOiled = 1;
+          utils.deselectItems();
           return R(1, true, false, [
             'คุณใช้ OIL (น้ำมัน) หล่อลื่น',
             'ดาบน่าจะดึงออกได้ง่ายแล้ว']);

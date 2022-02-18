@@ -218,11 +218,11 @@ $(function () {
         }
       });
     }
-    let target = $('.item').eq(index).attr('class', 'item');
+    let target = $('.item').eq(index);
     target[0].dataset.iid = iid;
     UTILS.deselectItems();
     if (iid !== "") {
-      target.addClass('item-' + iid);
+      target.find('.isp').attr('class', 'isp item-' + iid);
       target.addClass('flashing');
     }
   };
@@ -234,7 +234,7 @@ $(function () {
   UTILS.removeItem = function (iid) {
     let target = $('.item[data-iid="' + iid + '"]');
     if (target.length) {
-      target.removeClass('item-' + iid);
+      target.find('.isp').attr('class', 'isp');
       target[0].dataset.iid = '';
     }
     UTILS.deselectItems();
@@ -474,8 +474,10 @@ $(function () {
 
   const imageList = [
     'img/map.png',
+    'img/exclaim.png',
     'img/arrow.png',
     'img/sheet.png',
+    'img/items.png',
   ];
   let numResourcesLeft = imageList.length;
 

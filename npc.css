@@ -54,15 +54,15 @@
 }
 
 .map-shop {
-  top: 820px;
-  left: 1140px;
+  top: 810px;
+  left: 1135px;
 }
 .map-shop > .msp {
-  transform: scale(0.55);
+  transform: scale(0.6);
 }
 .map-shop > #exclaim {
   left: -40px;
-  top: 30px;
+  top: 40px;
 }
 
 .map-noBridgeB {
@@ -138,6 +138,9 @@
 .map-blacksmith > .msp {
   transform: scale(0.55);
 }
+.map-blacksmith > #exclaim {
+  left: -30px;
+}
 
 .map-restceptionist {
   top: 316px;
@@ -179,11 +182,14 @@
 }
 
 .map-shackle {
-  top: 1480px;
-  left: 1530px; 
+  top: 1380px;
+  left: 1510px; 
 }
 .map-shackle > .msp {
-  transform: scale(0.5);
+  transform: scale(0.55);
+}
+.map-shackle > #exclaim {
+  left: -50px;
 }
 
 .map-boss {

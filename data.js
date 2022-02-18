@@ -843,46 +843,46 @@ const [MAP_DATA, NPC_DATA] = function () {
     nid: 'shackle', loc: 'd3',
     name: 'ไอซ์',
     actionText: 'ขอตังหน่อย',
-    itemText: USE,
+    itemText: x => (x === 'money' ? GIVE(x) : USE(x)),
     mapStates: {'iceEscaped': 'gone'},
     content: function (op, flags, utils) {
       switch (op) {
         case 'enter':
-          return R(null, true, true, [
+          return R(0, true, true, [
             '<b>ช่วยด้วย!</b>',
             'ไอซ์โดนจอมมารล่ามโซ่ไว้']);
         case 'action':
-          return R('angry', true, true, [
+          return R(0, true, true, [
             'นี่ออยจะขอตังทุกคนเลยเหรอ?']);
         case 'key':
           utils.removeItem('key');
           utils.addItem('ice', 5);
           flags.iceEscaped = 1;
           utils.refreshNpcOnMap('shackle');
-          return R('escaped', false, false, [
+          return R(999, false, false, [
             '<b>อิสรภาพ!</b>',
             'ขอบใจออยมาก ไอซ์ขอตามออยไปด้วยละกันนะ']);
         case 'oil':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'โซ่มันแน่นมาก ดึงเองไม่ออกหรอก',
             'คงต้องหา<b>กุญแจ</b>มาไข']);
         case 'money':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'ไม่เป็นไร',
             'ไอซ์ไม่งกเหมือนออย']);
         case 'fish':
         case 'grilledfish':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'ไม่เป็นไร',
             'ไอซ์ไม่หิว']);
         case 'sword':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'ดาบกากๆ แบบนั้นตัดโซ่ไม่ขาดหรอก']);
         case 'rod':
-          return R(null, true, true, [
+          return R(0, true, true, [
             'จะมาตกปลากะพงเหรอจร๊ะ?']);
         default:
-          return R(null, true, true, [
+          return R(0, true, true, [
             'ใช้ยังงัยอะ?']);
       }
     },

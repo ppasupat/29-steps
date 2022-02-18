@@ -666,7 +666,7 @@ const [MAP_DATA, NPC_DATA] = function () {
         case 'key':
         case 'rod':
           return R(bpic(), true, true, [
-            'อืมม.. ขอโทษด้วย',
+            'อืมม..',
             itemNames[op] + 'ใช้เป็นอาวุธได้ก็จริง แต่ข้าเสริมพลังมันไม่เป็น']);
       }
     },

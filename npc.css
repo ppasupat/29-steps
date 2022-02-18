@@ -220,27 +220,3 @@
 .item {
   background-image: url('img/sheet.png');
 }
-.item[data-iid="oil"]::before {
-  content: 'oil';
-}
-.item[data-iid="fish"]::before {
-  content: 'fish';
-}
-.item[data-iid="grilledfish"]::before {
-  content: 'grilledfish';
-}
-.item[data-iid="key"]::before {
-  content: 'key';
-}
-.item[data-iid="entkit"]::before {
-  content: 'entkit';
-}
-.item[data-iid="sword"]::before {
-  content: 'sword';
-}
-.item[data-iid="gem"]::before {
-  content: 'gem';
-}
-.item[data-iid="powersword"]::before {
-  content: 'powersword';
-}

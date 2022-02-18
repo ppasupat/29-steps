@@ -367,9 +367,10 @@ div.scene {
 
 .item {
   position: absolute;
-  width: 87px; height: 82px;
+  width: 85px; height: 80px;
   background-color: #777;
   color: #ccc;
+  box-sizing: content-box;
   border: 1px solid #aaa;
 }
 #inventory.selectable .item {

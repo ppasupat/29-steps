@@ -1,13 +1,45 @@
+.item-entkit {
+  background-position: -1061px -1535px;
+  width: 85px; height: 80px;
+}
+.item-fish {
+  background-position: -1018px -1707px;
+  width: 85px; height: 80px;
+}
+.item-gem {
+  background-position: -931px -1789px;
+  width: 85px; height: 80px;
+}
+.item-grilledfish {
+  background-position: -931px -1707px;
+  width: 85px; height: 80px;
+}
 .item-ice {
   background-position: -1030px -1453px;
+  width: 85px; height: 80px;
+}
+.item-key {
+  background-position: -1018px -1789px;
   width: 85px; height: 80px;
 }
 .item-money {
   background-position: -426px -1932px;
   width: 85px; height: 80px;
 }
+.item-oil {
+  background-position: -1061px -1617px;
+  width: 85px; height: 80px;
+}
+.item-powersword {
+  background-position: -844px -1789px;
+  width: 85px; height: 80px;
+}
 .item-rod {
   background-position: -513px -1932px;
+  width: 85px; height: 80px;
+}
+.item-sword {
+  background-position: -844px -1707px;
   width: 85px; height: 80px;
 }
 .npc-blacksmith-0, .map-blacksmith > .msp {

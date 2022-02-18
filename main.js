@@ -238,7 +238,7 @@ $(function () {
     let target = $('.item[data-iid="' + iid + '"]');
     if (target.length) {
       target.removeClass('item-' + iid);
-      target.dataset.iid = '';
+      target[0].dataset.iid = '';
     }
     UTILS.deselectItems();
   };

@@ -221,9 +221,13 @@ $(function () {
         }
       });
     }
-    $('.item')[index].dataset.iid = iid;
+    let target = $('.item').eq(index).attr('class', 'item');
+    target[0].dataset.iid = iid;
     UTILS.deselectItems();
-    $('.item').eq(index).addClass('flashing');
+    if (iid !== "") {
+      target.addClass('item-' + iid);
+      target.addClass('flashing');
+    }
   };
 
   $('.item').on('click animationend', function () {
@@ -231,8 +235,11 @@ $(function () {
   });
 
   UTILS.removeItem = function (iid) {
-    let target = $('.item[data-iid="' + iid + '"]')[0];
-    if (target) target.dataset.iid = '';
+    let target = $('.item[data-iid="' + iid + '"]');
+    if (target.length) {
+      target.removeClass('item-' + iid);
+      target.dataset.iid = '';
+    }
     UTILS.deselectItems();
   };
 

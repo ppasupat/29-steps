@@ -217,17 +217,11 @@
 /* ################################ */
 /* Items */
 
+.item {
+  background-image: url('img/sheet.png');
+}
 .item[data-iid="oil"]::before {
   content: 'oil';
-}
-.item[data-iid="ice"]::before {
-  content: 'ice';
-}
-.item[data-iid="money"]::before {
-  content: 'money';
-}
-.item[data-iid="rod"]::before {
-  content: 'rod';
 }
 .item[data-iid="fish"]::before {
   content: 'fish';

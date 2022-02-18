@@ -1,3 +1,15 @@
+.item-ice {
+  background-position: -1030px -1453px;
+  width: 85px; height: 80px;
+}
+.item-money {
+  background-position: -426px -1932px;
+  width: 85px; height: 80px;
+}
+.item-rod {
+  background-position: -513px -1932px;
+  width: 85px; height: 80px;
+}
 .npc-blacksmith-0, .map-blacksmith > .msp {
   background-position: -2px -1642px;
   width: 210px; height: 325px;

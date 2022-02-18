@@ -53,8 +53,10 @@ $(function () {
 
   $('#map').on('transitionend', UTILS.showArrows);
 
-  $('.arrow').click(
-    e => moveMap(MAP_DATA[currentPid].arrows[e.target.dataset.dir]));
+  $('.arrow').click(e => {
+    if (!$('#encounter').hasClass('hidden')) return;
+    moveMap(MAP_DATA[currentPid].arrows[e.target.dataset.dir]);
+  });
 
   // ################################
   // Minimap
@@ -309,6 +311,10 @@ $(function () {
       alert('ERROR: ' + e.message);
     }
   }
+
+  window.addEventListener("beforeunload", e => {
+    if (currentPid !== null) saveGame();
+  });
 
   function getSavedGame() {
     let data = localStorage.getItem(APP_NAME);
